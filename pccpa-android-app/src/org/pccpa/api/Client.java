@@ -15,6 +15,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.pccpa.R;
+import org.pccpa.R.string;
 
 import android.content.Context;
 import android.os.StrictMode;
@@ -33,6 +34,7 @@ public class Client {
 
 	private final static HttpTransport TRANSPORT;
 	private final static HttpRequestFactory FACTORY;
+	private final static Gson GSON=new Gson();
 	final static int BUFFER_SIZE = 4096;  
 	
 	static{
@@ -78,7 +80,10 @@ public class Client {
 	
 	
 	
-    private String eid,path_base,path_remind_pattern;
+    private String eid,path_base,
+    path_remind_pattern
+    ,path_ems_grid
+    ;
     private Context context;
     
     public Client(Context context){
@@ -97,7 +102,7 @@ public class Client {
     private void init(){
     	path_base=context.getString(R.string.cfg_path_base);
     	path_remind_pattern=context.getString(R.string.cfg_path_reminds_pattern);
-    
+        path_ems_grid=context.getString(R.string.cfg_path_grid_pattern);
     }
     
     
@@ -105,12 +110,42 @@ public class Client {
     	
     	String url=MessageFormat.format(path_base+path_remind_pattern,eid);
     	String context=doGet2(url, null,null);
-    	Gson gson=new Gson();
-    	RemindsAdapter remindsAdapter= gson.fromJson(context, RemindsAdapter.class);
+    	
+    	RemindsAdapter remindsAdapter= GSON.fromJson(context, RemindsAdapter.class);
     	List<RemindItem> reminds=new ArrayList<RemindItem>();
     	reminds.addAll(remindsAdapter.applyList);
     	reminds.addAll(remindsAdapter.remindList);
     	return reminds;
+    }
+    
+    public List<EmployeeItem> getEms(int start,int limit) throws Exception{
+    	String url=MessageFormat.format(path_base+path_ems_grid,"FS","V_Employee");
+    	url+=MessageFormat.format("?start={0}&limit={1}",start+"",limit+"");
+    	String context=doGet2(url, null,null);
+    	EMGrid grid=GSON.fromJson(context, EMGrid.class);
+        return grid.getRows();
+    }
+    
+    public class EMGrid extends Grid<EmployeeItem>{}
+    
+    private class Grid<T>{
+    	
+    	private int total;
+    	private List<T> rows;
+		public int getTotal() {
+			return total;
+		}
+		public void setTotal(int total) {
+			this.total = total;
+		}
+		public List<T> getRows() {
+			return rows;
+		}
+		public void setRows(List<T> rows) {
+			this.rows = rows;
+		}
+    	
+    	
     }
     
     

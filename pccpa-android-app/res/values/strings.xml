@@ -6,6 +6,7 @@
 
     <string name="cfg_path_base">http://oanet.pccpa.cn</string>
     <string name="cfg_path_reminds_pattern">/SYS/D_Menu/reminds/{0}</string>
+    <string name="cfg_path_grid_pattern">/{0}/{1}/grid</string>
     <string name="cfg_mode">debug</string>
     <string name="cfg_testeid">100783</string>
 </resources>
