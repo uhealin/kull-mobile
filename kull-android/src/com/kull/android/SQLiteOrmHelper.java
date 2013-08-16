@@ -1,4 +1,4 @@
-package org.pccpa.api;
+package com.kull.android;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.kull.ObjectHelper;
+import com.kull.StringHelper;
+import com.kull.annotation.SimpleOrmTable;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -67,7 +69,7 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		String createSql="";
 		int eff=0;
 		for(Class cls :clss){
-		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
+		SimpleOrmTable ormTable=(SimpleOrmTable)cls.getAnnotation(SimpleOrmTable.class);
 		createSql+=MessageFormat.format("create table {0} ( ", ormTable.name());
 		Field[] fields=cls.getDeclaredFields();
 		for(Field field : fields){
@@ -94,12 +96,12 @@ public int insert(Object...objs) throws Exception{
 		
 		for(Object obj:objs){
 			if(obj==null)continue;
-			OrmTable table=null;
+			SimpleOrmTable table=null;
 			String  sqlPattern="insert into {0} ({1}) values ({2})",sql="",
 					sqlCacheKey=obj.getClass().getName()+":insert",cols="",vals="";
 			Field[] fields=null;
 		    
-	    		table=obj.getClass().getAnnotation(OrmTable.class);
+	    		table=obj.getClass().getAnnotation(SimpleOrmTable.class);
 				fields=obj.getClass().getDeclaredFields();
 		    	if(SQL_CACHE.containsKey(sqlCacheKey)){
 		    		sql=SQL_CACHE.get(sqlCacheKey);

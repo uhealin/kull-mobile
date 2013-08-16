@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.pccpa.api.Client;
 import org.pccpa.api.EmployeeItem;
-import org.pccpa.api.SQLiteOrmHelper;
+
 import org.pccpa.dummy.DummyContent;
 import org.pccpa.dummy.DummyContent.DummyItem;
 

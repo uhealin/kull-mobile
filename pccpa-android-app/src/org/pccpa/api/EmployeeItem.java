@@ -1,8 +1,10 @@
 package org.pccpa.api;
 
+import com.kull.annotation.SimpleOrmTable;
 
 
-@OrmTable(name="fs_employee",pk="EID")
+
+@SimpleOrmTable(name="fs_employee",pk="EID")
 public class EmployeeItem {
       
 	private String EID,EUserName;

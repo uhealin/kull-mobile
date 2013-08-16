@@ -7,7 +7,9 @@ import org.pccpa.R;
 import org.pccpa.api.Client;
 import org.pccpa.api.EmployeeItem;
 import org.pccpa.api.RemindItem;
-import org.pccpa.api.SQLiteOrmHelper;
+
+import com.kull.android.SQLiteOrmHelper;
+
 
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
