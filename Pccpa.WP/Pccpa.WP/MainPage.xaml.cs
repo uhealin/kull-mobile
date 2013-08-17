@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Pccpa.WP.ViewModels;
@@ -17,6 +18,9 @@ namespace Pccpa.WP
 {
     public partial class MainPage : PhoneApplicationPage
     {
+
+        string eid;
+
         // 构造函数
         public MainPage()
         {
@@ -26,6 +30,13 @@ namespace Pccpa.WP
             DataContext = App.ViewModel;
            
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            IDictionary<string, string> param = this.NavigationContext.QueryString;
+            this.eid = param["EID"];
+            this.Title = eid;
         }
 
         // 为 ViewModel 项加载数据
@@ -41,7 +52,7 @@ namespace Pccpa.WP
 
 
         private void loadReminds() {
-            string eid = Config.TEST_EID;
+            
             WebClient wclient = new WebClient();
 
             wclient.DownloadStringCompleted += (s, e) =>

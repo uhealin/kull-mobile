@@ -23,16 +23,16 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="页面名称" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="天健OA" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="158,83,0,0" Name="textBox1" Text="TextBox" VerticalAlignment="Top" Width="257" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="42,105,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="158,220,0,0" Name="textBox2" Text="TextBox" VerticalAlignment="Top" Width="257" />
-            <TextBlock Height="30" HorizontalAlignment="Left" Margin="42,242,0,0" Name="textBlock2" Text="TextBlock" VerticalAlignment="Top" />
-            <Button Content="Button" Height="72" HorizontalAlignment="Left" Margin="158,440,0,0" Name="button1" VerticalAlignment="Top" Width="160" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="158,83,0,0" Name="tbxLoginID" Text="" VerticalAlignment="Top" Width="257" />
+            <TextBlock Height="30" HorizontalAlignment="Left" Margin="42,105,0,0" Name="tblLoginID" Text="账号" VerticalAlignment="Top" />
+            <TextBlock Height="30" HorizontalAlignment="Left" Margin="42,242,0,0" Name="tblPwd" Text="密码" VerticalAlignment="Top" />
+            <Button Content="登陆" Height="72" HorizontalAlignment="Left" Margin="158,440,0,0" Name="btnLogin" VerticalAlignment="Top" Width="160" Click="btnLogin_Click" />
+            <PasswordBox Height="72" HorizontalAlignment="Left" Margin="158,218,0,0" Name="pbxPwd" VerticalAlignment="Top" Width="257" />
         </Grid>
     </Grid>
  

@@ -8,13 +8,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using Pccpa.WP.ViewModels;
 using System.Collections.Generic;
 using WP7_WebLib.HttpGet;
 using System.Text;
 using System.IO;
 using System.Threading;
-using WP7_JsonLib;
+
 using System.Data.Linq;
 
 namespace Pccpa.WP.Util
@@ -44,7 +45,7 @@ namespace Pccpa.WP.Util
             List<RemindViewModel> rs = new List<RemindViewModel>();
 
             string context = args.Result;
-            Reminds reminds = JsonUtil.JsonDeSerialize<Reminds>(context);
+            Reminds reminds = JsonConvert.DeserializeObject<Reminds>(context);
             rs.AddRange(reminds.applyList);
             rs.AddRange(reminds.remindList);
             return rs;
@@ -74,7 +75,7 @@ namespace Pccpa.WP.Util
             Grid<FS_Employee> rs = new Grid<FS_Employee>();
 
             string context = args.Result;
-            rs = JsonUtil.JsonDeSerialize<Grid<FS_Employee>>(context);
+            rs = JsonConvert.DeserializeObject<Grid<FS_Employee>>(context);
 
             if (synDB) {
                 using (DataContext dc = DataContextFactory.defaultDataContext()) {
@@ -106,7 +107,24 @@ namespace Pccpa.WP.Util
 
         }
 
+        public static ResultModel getResult(WebClient client, DownloadStringCompletedEventArgs args)
+        {
+            
+            ResultModel rs=new ResultModel();
+            
+            try
+            {
+                string context = args.Result;
+                rs = JsonConvert.DeserializeObject<ResultModel>(context);
+            }
+            catch (Exception ex)
+            {
+                rs.code = 3;
 
+                rs.msg = string.Format("error:{0},reason:{1}",client.BaseAddress, ex.Message);
+            }
+            return rs;
+        }
 
     }
 }

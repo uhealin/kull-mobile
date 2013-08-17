@@ -51,6 +51,9 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="system.data.linq" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -60,9 +63,6 @@
     <Reference Include="mscorlib.extensions" />
     <Reference Include="WP7_ControlsLib">
       <HintPath>..\..\lib\WP7_ControlsLib.dll</HintPath>
-    </Reference>
-    <Reference Include="WP7_JsonLib">
-      <HintPath>..\..\lib\WP7_JsonLib.dll</HintPath>
     </Reference>
     <Reference Include="WP7_UitlLib">
       <HintPath>..\..\lib\WP7_UitlLib.dll</HintPath>
@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RemindViewModel.cs" />
+    <Compile Include="ViewModels\ResultModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
