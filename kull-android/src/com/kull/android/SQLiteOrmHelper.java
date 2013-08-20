@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.kull.ObjectHelper;
 import com.kull.StringHelper;
-import com.kull.annotation.SimpleOrmTable;
+
 
 import android.content.Context;
 import android.database.SQLException;
@@ -65,12 +65,67 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		this.getWritableDatabase().execSQL(sql, params);
 	}
 	
-	public int createTable(Class... clss) throws SQLException{
+	public int createTable(Class... clss) {
 		String createSql="";
 		int eff=0;
 		for(Class cls :clss){
-		SimpleOrmTable ormTable=(SimpleOrmTable)cls.getAnnotation(SimpleOrmTable.class);
+		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
 		createSql+=MessageFormat.format("create table {0} ( ", ormTable.name());
+		Field[] fields=cls.getDeclaredFields();
+		for(Field field : fields){
+			String fname=field.getName();
+			Class fcls=field.getType();
+			if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
+			String type=CLASS_REF_JDBCTYPE.get(fcls);
+			createSql+=MessageFormat.format("{0} {1} ,", fname,type);
+		}
+		createSql=createSql.substring(0, createSql.length()-1);
+		createSql+=")";
+		try{
+		this.executeUpdate(createSql);
+		}catch(Exception ex){continue;}
+	    eff++;
+		}
+		return eff;
+	}
+	
+	public int dropTable(Class... clss) {
+		String createSql="";
+		int eff=0;
+		for(Class cls :clss){
+		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
+		createSql+=MessageFormat.format("drop table {0} ( ", ormTable.name());
+		Field[] fields=cls.getDeclaredFields();
+		for(Field field : fields){
+			String fname=field.getName();
+			Class fcls=field.getType();
+			if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
+			String type=CLASS_REF_JDBCTYPE.get(fcls);
+			createSql+=MessageFormat.format("{0} {1} ,", fname,type);
+		}
+		createSql=createSql.substring(0, createSql.length()-1);
+		createSql+=")";
+		try{
+		this.executeUpdate(createSql);
+		}catch(Exception ex){continue;}
+	    eff++;
+		}
+		return eff;
+	}
+	
+	public int replaceTable(Class...clss){
+		int eff=0;
+		dropTable(clss);
+		eff= createTable(clss);
+		return eff;
+	}
+	
+	public int truncateTable(Class... clss) throws SQLException{
+		String createSql="";
+		int eff=0;
+		for(Class cls :clss){
+		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
+		createSql+=MessageFormat.format("truncate table {0} ( ", ormTable.name());
 		Field[] fields=cls.getDeclaredFields();
 		for(Field field : fields){
 			String fname=field.getName();
@@ -96,12 +151,12 @@ public int insert(Object...objs) throws Exception{
 		
 		for(Object obj:objs){
 			if(obj==null)continue;
-			SimpleOrmTable table=null;
+			OrmTable table=null;
 			String  sqlPattern="insert into {0} ({1}) values ({2})",sql="",
 					sqlCacheKey=obj.getClass().getName()+":insert",cols="",vals="";
 			Field[] fields=null;
 		    
-	    		table=obj.getClass().getAnnotation(SimpleOrmTable.class);
+	    		table=obj.getClass().getAnnotation(OrmTable.class);
 				fields=obj.getClass().getDeclaredFields();
 		    	if(SQL_CACHE.containsKey(sqlCacheKey)){
 		    		sql=SQL_CACHE.get(sqlCacheKey);
