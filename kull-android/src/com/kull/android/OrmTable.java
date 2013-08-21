@@ -9,7 +9,7 @@ public @interface OrmTable {
 
 	String pk();
 
-	String[] excludeColumns() default {};
+	String[] ingoreColumnNames() default {};
 
 	boolean insertPk() default true;
 

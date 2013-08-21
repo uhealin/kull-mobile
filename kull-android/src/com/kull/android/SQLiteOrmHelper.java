@@ -9,11 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kull.LinqHelper;
 import com.kull.ObjectHelper;
 import com.kull.StringHelper;
+import com.kull.util.IQueryable;
 
 
+import android.R.color;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -62,7 +67,9 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 	}
 	
 	public  void executeUpdate(String sql,Object ...params) throws SQLException{
-		this.getWritableDatabase().execSQL(sql, params);
+		SQLiteDatabase database=this.getWritableDatabase();
+		database.execSQL(sql, params);
+		database.close();
 	}
 	
 	public int createTable(Class... clss) {
@@ -145,6 +152,37 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 	}
 	
 	
+	public <T> T load(Class<T> cls,String pk) throws Exception{
+		 T t=cls.newInstance();
+		 return load(t, pk);
+	}
+	
+	public <T> T load(T t,String pk) throws Exception {
+		if(t==null)throw new NullPointerException();
+		OrmTable table=null;
+		String sql="";
+		Field pkField=null;
+		table=t.getClass().getAnnotation(OrmTable.class);
+		pkField=t.getClass().getDeclaredField(table.pk());
+	    return load(t, table.pk(),pk);
+	}
+	
+	public <T> T load(Class<T> cls,String column,String pk) throws Exception{
+		 T t=cls.newInstance();
+		 return load(t,column, pk);
+	}
+	
+	public <T> T load(T t,String column,String pk) throws Exception {
+		if(t==null)throw new NullPointerException();
+		OrmTable table=null;
+		String sql="";
+		table=t.getClass().getAnnotation(OrmTable.class);
+		sql=MessageFormat.format(" {1}= ?", table.name(),column);
+	    Cursor cursor=this.getReadableDatabase().query(table.name(), new String[]{"*"}, sql, new String[]{pk},"","","");
+	    t=evalObject(t, cursor);
+		return t;
+	}
+	
 public int insert(Object...objs) throws Exception{
 		
 		int success=0;
@@ -164,7 +202,7 @@ public int insert(Object...objs) throws Exception{
 
 					
 					for(Field field:fields){
-						if( ObjectHelper.isIn(field.getName(),table.excludeColumns())||
+						if( ObjectHelper.isIn(field.getName(),table.ingoreColumnNames())||
 								   (!table.insertPk()&& field.getName().equalsIgnoreCase(table.pk()) )
 						)continue;	
 						cols+=MessageFormat.format(" `{0}`,",field.getName() );
@@ -175,17 +213,17 @@ public int insert(Object...objs) throws Exception{
 					vals=StringHelper.trim(vals, ",");
 		    	    sql=MessageFormat.format(sqlPattern, table.name(),cols,vals);
 		    	    SQL_CACHE.put(sqlCacheKey, sql);
-		    	    System.out.println(sql);
+		    	    
 		    	}
 		    	
 		        int j=0;
 		        List<Object> ivals=new ArrayList<Object>();
 				for(Field field:fields){
-					if( ObjectHelper.isIn(field.getName(),table.excludeColumns())||
+					if( ObjectHelper.isIn(field.getName(),table.ingoreColumnNames())||
 					   (!table.insertPk()&& field.getName().equalsIgnoreCase(table.pk()) )
 					)continue;	
-					String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
-					Method m=obj.getClass().getDeclaredMethod(getterName);
+					//String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
+					Method m=ObjectHelper.getGetter(obj.getClass(), field);
 					Object value=m.invoke(obj);
 					ivals.add(value);
 					j++;
@@ -200,4 +238,162 @@ public int insert(Object...objs) throws Exception{
 		return success;
 	}
 
+
+public int update(Object...objs){
+	
+	int success=0;
+	
+	for(Object obj : objs){
+		if(obj==null)continue;
+		OrmTable table=null;
+		String sqlPattern="update {0} set {1} where {2}=? ",key="",sql=""
+				,sqlCacheKey=obj.getClass().getSimpleName()+":update";
+		Field[] fields=null;
+		Field pkField=null;
+		try{
+			table=obj.getClass().getAnnotation(OrmTable.class);
+			fields=obj.getClass().getDeclaredFields();
+			pkField=obj.getClass().getDeclaredField(table.pk());
+			if(SQL_CACHE.containsKey(sqlCacheKey)){
+					sql=SQL_CACHE.get(sqlCacheKey);  
+		}else{
+
+		int i=0;
+		for(Field field:fields){
+			if(LinqHelper.isIn(field.getName(),table.ingoreColumnNames())||field.getName().equalsIgnoreCase(table.pk())){pkField=field;continue;}
+			key+=MessageFormat.format(" `{0}` =? ,",field.getName() );
+			i++;
+		}
+		key=StringHelper.trim(key, ",");
+	    sql=MessageFormat.format(sqlPattern, table.name(),key,table.pk());
+	    SQL_CACHE.put(sqlCacheKey,sql);
+	    }
+	    //.fields.preparedStatement=conn.prepareStatement(sql);
+		List<Object> params=new ArrayList<Object>();
+	    int j=0;
+		for(Field field:fields){
+			if(LinqHelper.isIn(field.getName(),table.ingoreColumnNames())||field.getName().equalsIgnoreCase(table.pk()))continue;	
+			//String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
+			Method m=ObjectHelper.getGetter(obj.getClass(), pkField);
+			Object value=m.invoke(obj);
+			params.add(value);
+			j++;
+		}
+		//String getterName="get"+pkField.getName().substring(0,1).toUpperCase()+pkField.getName().substring(1);
+		Method m=ObjectHelper.getGetter(obj.getClass(), pkField);
+		Object value=m.invoke(obj);
+		//preparedStatement.setObject(j+1, value);
+		params.add(value);
+		
+		executeUpdate(sql,params.toArray());
+		//success+=preparedStatement.executeUpdate();
+		
+		}catch(Exception ex){
+			//ex.printStackTrace();
+		}finally{
+			
+		}
+	
+	}
+	return success;
+}
+
+public int delete(Object...objs){
+	
+	int success=0;
+	
+	for(Object obj:objs){
+		if(obj==null)continue;
+		OrmTable table=null;
+		String  sqlPattern="delete from {0} where {1}=?",sql="",
+				sqlCacheKey=obj.getClass().getSimpleName()+":delete";
+		try{
+		  table=obj.getClass().getAnnotation(OrmTable.class);
+		  if(SQL_CACHE.containsKey(sqlCacheKey)){
+			sql=SQL_CACHE.get(sqlCacheKey);  
+		  }else{
+		    sql=MessageFormat.format(sqlPattern, table.name(),table.pk());
+		    SQL_CACHE.put(sqlCacheKey,sql); 
+		  }
+		  //System.out.println(sql);
+		  String getterName="get"+table.pk().substring(0,1).toUpperCase()+table.pk().substring(1);;
+		  Method method=obj.getClass().getDeclaredMethod(getterName);
+		  Object value=method.invoke(obj);
+		  this.executeUpdate(sql,new Object[]{value});
+		  success++;
+		}catch(Exception ex){
+			
+			continue;
+		}
+	}
+	
+	return success;
+}
+
+public <T> List<T> select(Class<T> cls) throws Exception{
+    return select(cls, new String[]{"*"}, "", new String[]{});
+}
+
+public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs) throws Exception{
+      return select(cls, columns, selection, selectionArgs,"","","");
+}
+
+  public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
+	   SQLiteDatabase database= this.getReadableDatabase();
+	   OrmTable table=cls.getAnnotation(OrmTable.class);
+	   List<T> list=select(cls, table.name(), columns, selection, selectionArgs, groupBy, having, orderBy);
+	   return list;
+  }
+  
+  public <T> List<T> select(Class<T> cls,String table,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
+	   SQLiteDatabase database= this.getReadableDatabase();
+	   
+	   Cursor cursor=database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+	   database.close();
+	   List<T> list=evalList(cls, cursor);
+	   return list;
+ }
+       
+   public  <T> List<T> evalList (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException{
+	   List<T> list=new ArrayList<T>();
+	   while(!cursor.isAfterLast()){
+		  evalObject(cls, cursor);
+		  cursor.moveToNext();
+	   }
+	   return list;
+   }
+   
+   private <T> T evalObject (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException {
+	   T t=cls.newInstance();
+	   return evalObject(t, cursor);
+   }
+   
+   private <T> T evalObject (T t,Cursor cursor) {
+	   for(Field field :ObjectHelper.getAllDeclaredFields(t.getClass())){
+		   int i=cursor.getColumnIndex(field.getName());
+		   if(i<0)continue;
+		   try{
+		   Method setter=ObjectHelper.getSetter(t.getClass(), field); 
+		   if(String.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getString(i));
+		   }else if(Integer.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getInt(i));
+		   }else if(Double.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getDouble(i));
+		   }else if(Float.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getFloat(i));
+		   }else if(Long.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getLong(i));
+		   }else if(Short.class.equals(field.getType())){
+			   setter.invoke(t, cursor.getShort(i));
+		   }else if(Byte[].class.equals(field.getType())){
+			   setter.invoke(t, cursor.getBlob(i));
+		   }
+		   }catch(Exception ex){continue;}
+		   
+	   }
+	   return t;
+   }
+
+  
 }

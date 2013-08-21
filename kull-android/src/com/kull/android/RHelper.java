@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+
 import com.kull.ObjectHelper;
 
 public class RHelper {
@@ -39,7 +41,7 @@ public class RHelper {
 		return rtype.name()+":"+name;
 	}
 	
-	public static int resourceId(RType rtype,String name) throws NullPointerException{
+	public static int getResourceIdByName(RType rtype,String name) throws NullPointerException{
 		String key=getKey(rtype, name);
 		if(CACHE_IDS.containsKey(key)){
 			return CACHE_IDS.get(key);
@@ -48,7 +50,7 @@ public class RHelper {
 		
 	}
 	
-	public static int resourceId(String name)throws NullPointerException{
+	public static int getResourceIdByName(String name)throws NullPointerException{
 		
 		for(RType rtype :RType.values()){
 			String key=getKey(rtype, name);
@@ -58,5 +60,23 @@ public class RHelper {
 		}
 		throw new NullPointerException(name+" is not exist");
 		
+	}
+	
+	
+	public static int getResourceByKey(String key) throws NullPointerException{
+		
+		if(CACHE_IDS.containsKey(key)){
+			return CACHE_IDS.get(key);
+		}else throw new NullPointerException(key+" is not exist");
+		
+		
+	}
+	
+	
+	public static String getString(Context context, String name){
+		String key=getKey(RType.string, name);
+		if(CACHE_IDS.containsKey(key)){
+			return context.getString(CACHE_IDS.get(key));
+		}else throw new NullPointerException(name+" is not exist");
 	}
 }

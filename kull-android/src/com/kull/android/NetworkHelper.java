@@ -3,7 +3,9 @@ package com.kull.android;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -12,10 +14,13 @@ import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
@@ -28,6 +33,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.StrictMode;
+
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class NetworkHelper{
@@ -63,11 +69,18 @@ public class NetworkHelper{
 	}
 	
 	public static String doPost(String url,Map<String, Object> params,HttpPost httpPost,HttpResponse httpResponse)throws Exception{
-	      HttpParams httpparams=new BasicHttpParams();
+	      //HttpParams httpparams=new BasicHttpParams();
+	      List <NameValuePair> nvps=new ArrayList<NameValuePair>();
 	      for(String key :params.keySet()){
-	    	  httpparams.setParameter(key, params.get(key));
+	    	  //httpparams.setParameter(key, params.get(key));
+	         nvps.add(new BasicNameValuePair(key, params.toString()));
 	      }
-	      return doPost(url, httpparams, httpPost, httpResponse);
+	      httpPost=httpPost==null?new HttpPost(url):httpPost;
+		  httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+		  httpResponse=new DefaultHttpClient().execute(httpPost);
+		  InputStream is=httpResponse.getEntity().getContent();
+		  String context=streamToString(is);
+		  return context;
 	}
 	
 	public static String doPost(String url,HttpParams params,HttpPost httpPost,HttpResponse httpResponse)throws Exception{
