@@ -38,9 +38,9 @@ public class IndexFragment extends Fragment {
 		List<EmployeeItem> ems=new ArrayList<EmployeeItem>();
 		try{
 			SQLiteOrmHelper sqLiteOrmHelper=new SQLiteOrmHelper(this.getActivity(), "test");
-			sqLiteOrmHelper.createTable(EmployeeItem.class);
-			Client client=new Client(this.getActivity());
-			 ems=client.getEms(0,100);
+			sqLiteOrmHelper.replaceTable(EmployeeItem.class);
+			
+			 ems=Client.CURR_CLIENT.getEms(0,100);
 			//for(EmployeeItem em:ems){
 			//	sqLiteOrmHelper.insert(em);
 			//	System.out.print(em.getEUserName()+"  ≤Â»Î≥…π¶");
@@ -50,7 +50,7 @@ public class IndexFragment extends Fragment {
 			}
         View view=inflater.inflate(R.layout.fragment_contact_index, container,false);
 		listView=(ListView)view.findViewById(R.id.listViewContact);
-        Client client=new Client(this.getActivity());
+       
 		
 	
 		List<String> testData=new ArrayList<String>();

@@ -22,6 +22,7 @@ import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.DefaultedHttpParams;
 import org.apache.http.params.HttpParams;
 
 import com.kull.StringHelper;
@@ -73,7 +74,7 @@ public class NetworkHelper{
 	      List <NameValuePair> nvps=new ArrayList<NameValuePair>();
 	      for(String key :params.keySet()){
 	    	  //httpparams.setParameter(key, params.get(key));
-	         nvps.add(new BasicNameValuePair(key, params.toString()));
+	         nvps.add(new BasicNameValuePair(key, params.get(key).toString()));
 	      }
 	      httpPost=httpPost==null?new HttpPost(url):httpPost;
 		  httpPost.setEntity(new UrlEncodedFormEntity(nvps));
@@ -86,8 +87,9 @@ public class NetworkHelper{
 	public static String doPost(String url,HttpParams params,HttpPost httpPost,HttpResponse httpResponse)throws Exception{
 		 
 		  httpPost=httpPost==null?new HttpPost(url):httpPost;
-		  httpPost.setParams(params);
-		  httpResponse=new DefaultHttpClient().execute(httpPost);
+		  //httpPost.setParams(params);
+		  DefaultedHttpParams dhp=new DefaultedHttpParams(params, params);
+		  httpResponse=new DefaultHttpClient(dhp).execute(httpPost);
 		  InputStream is=httpResponse.getEntity().getContent();
 		  String context=streamToString(is);
 		  return context;

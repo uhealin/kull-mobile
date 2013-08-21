@@ -12,6 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 /**
  * An activity representing a list of Items. This activity has different
@@ -96,4 +102,47 @@ public class ItemListActivity extends FragmentActivity implements
 			startActivity(detailIntent);
 		}
 	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu);
+		this.getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, item.getItemId(), 300).show();
+		switch (item.getItemId()) {
+		case R.id.menuitem_main_logout:
+			Intent intent=new Intent(this,LoginActivity.class);
+			this.startActivity(intent);
+			break;
+		case R.id.menuitem_main_reloadContact:
+			try {
+				Client.CURR_CLIENT.getReminds();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case R.id.menuitem_main_about:
+			Toast.makeText(this, "¹ØÓÚ", 300).show();
+			break;
+		default:
+			break;
+		}
+		return true;
+	}
+	
+	
 }

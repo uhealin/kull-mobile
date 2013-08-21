@@ -41,9 +41,9 @@ public class IndexFragment extends Fragment {
 		listViewRemind=(ListView)view.findViewById(R.id.listViewRemind);
 	
 		List<String> testData=new ArrayList<String>();
-		Client client=new Client(getActivity());
+		
 		try {
-			List<RemindItem> reminditems=client.getReminds();
+			List<RemindItem> reminditems=Client.CURR_CLIENT.getReminds();
 			for(RemindItem ri: reminditems){
 				testData.add(ri.getTitle()+":"+ri.getText());
 			}
