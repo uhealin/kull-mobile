@@ -2,6 +2,7 @@ package com.kull.android;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.sql.Types;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 	public  void executeUpdate(String sql,Object ...params) throws SQLException{
 		SQLiteDatabase database=this.getWritableDatabase();
 		database.execSQL(sql, params);
-		database.close();
+		//database.close();
 	}
 	
 	public int createTable(Class... clss) {
@@ -230,7 +231,7 @@ public int insert(Object...objs) throws Exception{
 				}
 				
 				executeUpdate(sql, ivals.toArray());
-				
+				success++;
 		   
 		       
 		    
@@ -239,7 +240,7 @@ public int insert(Object...objs) throws Exception{
 	}
 
 
-public int update(Object...objs){
+public int update(Object...objs) throws Exception{
 	
 	int success=0;
 	
@@ -247,10 +248,10 @@ public int update(Object...objs){
 		if(obj==null)continue;
 		OrmTable table=null;
 		String sqlPattern="update {0} set {1} where {2}=? ",key="",sql=""
-				,sqlCacheKey=obj.getClass().getSimpleName()+":update";
+				,sqlCacheKey=obj.getClass().getName()+":update";
 		Field[] fields=null;
 		Field pkField=null;
-		try{
+		
 			table=obj.getClass().getAnnotation(OrmTable.class);
 			fields=obj.getClass().getDeclaredFields();
 			pkField=obj.getClass().getDeclaredField(table.pk());
@@ -287,18 +288,14 @@ public int update(Object...objs){
 		
 		executeUpdate(sql,params.toArray());
 		//success+=preparedStatement.executeUpdate();
+		success++;
 		
-		}catch(Exception ex){
-			//ex.printStackTrace();
-		}finally{
-			
-		}
 	
 	}
 	return success;
 }
 
-public int delete(Object...objs){
+public int delete(Object...objs)throws Exception{
 	
 	int success=0;
 	
@@ -306,8 +303,8 @@ public int delete(Object...objs){
 		if(obj==null)continue;
 		OrmTable table=null;
 		String  sqlPattern="delete from {0} where {1}=?",sql="",
-				sqlCacheKey=obj.getClass().getSimpleName()+":delete";
-		try{
+				sqlCacheKey=obj.getClass().getName()+":delete";
+		
 		  table=obj.getClass().getAnnotation(OrmTable.class);
 		  if(SQL_CACHE.containsKey(sqlCacheKey)){
 			sql=SQL_CACHE.get(sqlCacheKey);  
@@ -321,10 +318,7 @@ public int delete(Object...objs){
 		  Object value=method.invoke(obj);
 		  this.executeUpdate(sql,new Object[]{value});
 		  success++;
-		}catch(Exception ex){
-			
-			continue;
-		}
+		
 	}
 	
 	return success;
@@ -339,7 +333,6 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
 }
 
   public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
-	   SQLiteDatabase database= this.getReadableDatabase();
 	   OrmTable table=cls.getAnnotation(OrmTable.class);
 	   List<T> list=select(cls, table.name(), columns, selection, selectionArgs, groupBy, having, orderBy);
 	   return list;
@@ -347,17 +340,17 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
   
   public <T> List<T> select(Class<T> cls,String table,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
 	   SQLiteDatabase database= this.getReadableDatabase();
-	   
 	   Cursor cursor=database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
-	   database.close();
 	   List<T> list=evalList(cls, cursor);
+	   cursor.close();
 	   return list;
  }
        
    public  <T> List<T> evalList (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException{
 	   List<T> list=new ArrayList<T>();
 	   while(!cursor.isAfterLast()){
-		  evalObject(cls, cursor);
+		  T t=evalObject(cls, cursor);
+		  list.add(t);
 		  cursor.moveToNext();
 	   }
 	   return list;
@@ -369,24 +362,26 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
    }
    
    private <T> T evalObject (T t,Cursor cursor) {
-	   for(Field field :ObjectHelper.getAllDeclaredFields(t.getClass())){
+	   Class cls=t.getClass();
+	   for(Field field :ObjectHelper.getAllDeclaredFields(cls)){
 		   int i=cursor.getColumnIndex(field.getName());
 		   if(i<0)continue;
+		   Type ft=field.getType();
 		   try{
-		   Method setter=ObjectHelper.getSetter(t.getClass(), field); 
-		   if(String.class.equals(field.getType())){
+		   Method setter=ObjectHelper.getSetter(cls, field); 
+		   if(String.class.equals(ft)){
 			   setter.invoke(t, cursor.getString(i));
-		   }else if(Integer.class.equals(field.getType())){
+		   }else if(Integer.class.equals(ft)){
 			   setter.invoke(t, cursor.getInt(i));
-		   }else if(Double.class.equals(field.getType())){
+		   }else if(Double.class.equals(ft)){
 			   setter.invoke(t, cursor.getDouble(i));
-		   }else if(Float.class.equals(field.getType())){
+		   }else if(Float.class.equals(ft)){
 			   setter.invoke(t, cursor.getFloat(i));
-		   }else if(Long.class.equals(field.getType())){
+		   }else if(Long.class.equals(ft)){
 			   setter.invoke(t, cursor.getLong(i));
-		   }else if(Short.class.equals(field.getType())){
+		   }else if(Short.class.equals(ft)){
 			   setter.invoke(t, cursor.getShort(i));
-		   }else if(Byte[].class.equals(field.getType())){
+		   }else if(Byte[].class.equals(ft)){
 			   setter.invoke(t, cursor.getBlob(i));
 		   }
 		   }catch(Exception ex){continue;}
