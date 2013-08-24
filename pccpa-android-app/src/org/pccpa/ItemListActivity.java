@@ -8,6 +8,9 @@ import org.pccpa.api.EmployeeItem;
 import org.pccpa.dummy.DummyContent;
 import org.pccpa.dummy.DummyContent.DummyItem;
 
+import com.kull.android.SQLiteOrmHelper;
+import com.kull.lucene.FsRamDirectory;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +20,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
@@ -43,6 +47,8 @@ public class ItemListActivity extends FragmentActivity implements
 	 */
 	private boolean mTwoPane;
 
+	private ProgressBar progressBar;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,7 +66,7 @@ public class ItemListActivity extends FragmentActivity implements
 			((ItemListFragment) getSupportFragmentManager().findFragmentById(
 					R.id.item_list)).setActivateOnItemClick(true);
 		}
-
+        //progressBar=(ProgressBar)this.findViewById(R.id.pb_wating);
 		
 		
 		// TODO: If exposing deep links into your app, handle intents here.
@@ -72,16 +78,8 @@ public class ItemListActivity extends FragmentActivity implements
 	 */
 	@Override
 	public void onItemSelected(String id) {
-		if (mTwoPane) {
-			// In two-pane mode, show the detail view in this activity by
-			// adding or replacing the detail fragment using a
-			// fragment transaction.
-			Bundle arguments = new Bundle();
-			arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-			//ItemDetailFragment fragment = new ItemDetailFragment();
-			//fragment.setArguments(arguments);
-			DummyItem dummyItem=DummyContent.ITEM_MAP.get(id);
-		    Fragment fragment=null;
+		DummyItem dummyItem=DummyContent.ITEM_MAP.get(id);
+		 Fragment fragment=null;
 			try {
 				fragment = dummyItem.fragmentCls.newInstance();
 			} catch (InstantiationException e) {
@@ -91,13 +89,23 @@ public class ItemListActivity extends FragmentActivity implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		if (mTwoPane) {
+			// In two-pane mode, show the detail view in this activity by
+			// adding or replacing the detail fragment using a
+			// fragment transaction.
+			Bundle arguments = new Bundle();
+			arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
+			//ItemDetailFragment fragment = new ItemDetailFragment();
+			//fragment.setArguments(arguments);
+			
+		   
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.item_detail_container, fragment).commit();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, ItemDetailActivity.class);
+			Intent detailIntent = new Intent(this, fragment.getClass());
 			detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
 		}
@@ -121,15 +129,28 @@ public class ItemListActivity extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		Toast.makeText(this, item.getItemId(), 300).show();
+		
 		switch (item.getItemId()) {
 		case R.id.menuitem_main_logout:
 			Intent intent=new Intent(this,LoginActivity.class);
 			this.startActivity(intent);
 			break;
 		case R.id.menuitem_main_reloadContact:
+			//progressBar.setVisibility(View.VISIBLE);
+			
 			try {
-				Client.CURR_CLIENT.getReminds();
+				List<EmployeeItem> ems= Client.CURR_CLIENT.getEms(0,Integer.MAX_VALUE);
+				SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(this);
+				ormHelper.replaceTable(EmployeeItem.class);
+				int i=0;
+				//progressBar.setProgress(i);
+				//progressBar.setMax(ems.size());
+				for(EmployeeItem em:ems){
+					ormHelper.insert(em);
+					//progressBar.setProgress(i++);
+				}
+				//progressBar.setVisibility(View.GONE);
+				Toast.makeText(this, "成功更新了"+ems.size()+"条记录", 300).show();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

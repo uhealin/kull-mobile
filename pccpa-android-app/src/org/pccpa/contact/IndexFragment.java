@@ -3,12 +3,14 @@ package org.pccpa.contact;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pccpa.DB;
 import org.pccpa.R;
 import org.pccpa.api.Client;
 import org.pccpa.api.EmployeeItem;
 import org.pccpa.api.RemindItem;
 
 import com.kull.android.SQLiteOrmHelper;
+import com.kull.bean.JdbcBean.Database;
 
 
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,14 +39,11 @@ public class IndexFragment extends Fragment {
 		// TODO Auto-generated method stub
 		List<EmployeeItem> ems=new ArrayList<EmployeeItem>();
 		try{
-			SQLiteOrmHelper sqLiteOrmHelper=new SQLiteOrmHelper(this.getActivity(), "test");
-			sqLiteOrmHelper.replaceTable(EmployeeItem.class);
+			SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(getActivity());
+			//sqLiteOrmHelper.replaceTable(EmployeeItem.class);
 			
-			 ems=Client.CURR_CLIENT.getEms(0,100);
-			//for(EmployeeItem em:ems){
-			//	sqLiteOrmHelper.insert(em);
-			//	System.out.print(em.getEUserName()+"  ≤Â»Î≥…π¶");
-			//}
+			 ems=sqLiteOrmHelper.select(EmployeeItem.class);
+			
 			}catch(Exception ex){
 				ex.printStackTrace();
 			}

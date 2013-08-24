@@ -9,29 +9,611 @@ package org.pccpa;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int activeDot=0x7f010054;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int defaultSrc=0x7f010050;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int dividerDrawable=0x7f010048;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dividerWidth=0x7f010049;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dotCount=0x7f010053;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int dotDrawable=0x7f010055;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dotSpacing=0x7f010056;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>single</code></td><td>0</td><td></td></tr>
+<tr><td><code>multiple</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int dotType=0x7f010058;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int drawable=0x7f010043;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int enabled=0x7f010040;
+        /** <p>Must be one or more (separated by '|') of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>top</code></td><td>0x30</td><td></td></tr>
+<tr><td><code>bottom</code></td><td>0x50</td><td></td></tr>
+<tr><td><code>left</code></td><td>0x03</td><td></td></tr>
+<tr><td><code>right</code></td><td>0x05</td><td></td></tr>
+<tr><td><code>center_vertical</code></td><td>0x10</td><td></td></tr>
+<tr><td><code>center_horizontal</code></td><td>0x01</td><td></td></tr>
+<tr><td><code>center</code></td><td>0x11</td><td></td></tr>
+</table>
+         */
+        public static final int gravity=0x7f010057;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int homeDrawable=0x7f01004e;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ldpi</code></td><td>120</td><td></td></tr>
+<tr><td><code>mdpi</code></td><td>160</td><td></td></tr>
+<tr><td><code>hdpi</code></td><td>240</td><td></td></tr>
+<tr><td><code>xhdpi</code></td><td>320</td><td></td></tr>
+</table>
+         */
+        public static final int inDensity=0x7f010052;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int isInProgress=0x7f010042;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarApplicationDrawable=0x7f01002e;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarBackground=0x7f01002a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarDividerDrawable=0x7f01002c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarDividerStyle=0x7f010035;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ActionBarDividerWidth=0x7f01002d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarHomeDrawable=0x7f01002f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarItemBackground=0x7f01002b;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int kull_ActionBarItemColorAlt=0x7f010031;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int kull_ActionBarItemColorNormal=0x7f010030;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarItemStyle=0x7f010036;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ActionBarMaxItems=0x7f010032;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarStyle=0x7f010033;
+        /**  ActionBar related attributes 
+         <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ActionBarTitleColor=0x7f010029;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ActionBarTitleStyle=0x7f010034;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_DescriptionItemViewStyle=0x7f010011;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_DrawableHeight=0x7f010006;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_DrawableItemViewStyle=0x7f010016;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_DrawableItemViewStyleDrawable=0x7f010018;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_DrawableItemViewStyleText=0x7f010017;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_DrawableMargin=0x7f010007;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_DrawableWidth=0x7f010005;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ItemViewPreferredHalfHeight=0x7f01000c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ItemViewPreferredHeight=0x7f01000b;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ItemViewPreferredPaddingLeft=0x7f01000d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_LongTextItemViewStyle=0x7f010010;
+        /**  PageIndicator related attributes 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_PageIndicatorStyle=0x7f01003f;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressBarHeight=0x7f010009;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressBarMargin=0x7f01000a;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressBarWidth=0x7f010008;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressItemViewStyle=0x7f010013;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressItemViewStyleProgressBar=0x7f010015;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_ProgressItemViewStyleText=0x7f010014;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_QuickActionBarItemStyle=0x7f01003c;
+        /**  QuickAction related attributes 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_QuickActionBarStyle=0x7f01003b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_QuickActionGridItemStyle=0x7f01003e;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_QuickActionGridStyle=0x7f01003d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SegmentBackground=0x7f010025;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SegmentCheckmark=0x7f010026;
+        /**  SegmentedBar related attributes 
+         <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_SegmentTextColor=0x7f010023;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_SegmentTextSize=0x7f010024;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SegmentedBarStyle=0x7f010027;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SegmentedHostStyle=0x7f010028;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_SeparatorItemViewPreferredHeight=0x7f01000e;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SeparatorItemViewStyle=0x7f010012;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtextItemViewStyle=0x7f01001c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtextItemViewStyleSubtext=0x7f01001e;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtextItemViewStyleText=0x7f01001d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtitleItemViewStyle=0x7f010019;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtitleItemViewStyleSubtitle=0x7f01001b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_SubtitleItemViewStyleText=0x7f01001a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TabIndicatorBackground=0x7f010039;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int kull_TabIndicatorHeight=0x7f010037;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TabIndicatorStyle=0x7f01003a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TabIndicatorTextAppearance=0x7f010038;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextAppearance=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextAppearanceLarge=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextAppearanceMedium=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextAppearanceSeparator=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextAppearanceSmall=0x7f010003;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_TextItemViewStyle=0x7f01000f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ThumbnailItemViewStyle=0x7f01001f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ThumbnailItemViewStyleSubtitle=0x7f010021;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ThumbnailItemViewStyleText=0x7f010020;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int kull_ThumbnailItemViewStyleThumbnail=0x7f010022;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int maxItems=0x7f01004f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int segmentedBar=0x7f01004a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int segmentedContentView=0x7f01004b;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int subtext=0x7f010045;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int subtitle=0x7f010044;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int text=0x7f010041;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int thumbnail=0x7f010046;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int thumbnailURL=0x7f010047;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int title=0x7f01004c;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>normal</code></td><td>0</td><td></td></tr>
+<tr><td><code>dashboard</code></td><td>1</td><td></td></tr>
+<tr><td><code>empty</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int type=0x7f01004d;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int url=0x7f010051;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int TextView_em_list_item=0x7f07000a;
-        public static final int TextView_remind_list_item=0x7f070009;
-        public static final int action_forgot_password=0x7f07000e;
-        public static final int activity_login_etx_loginid=0x7f070005;
-        public static final int activity_login_etx_pwd=0x7f070006;
-        public static final int item_detail=0x7f07000c;
-        public static final int item_detail_container=0x7f070000;
-        public static final int item_list=0x7f070001;
-        public static final int listViewContact=0x7f07000b;
-        public static final int listViewRemind=0x7f07000d;
-        public static final int login=0x7f070007;
-        public static final int login_form=0x7f070004;
-        public static final int login_status=0x7f070002;
-        public static final int login_status_message=0x7f070003;
-        public static final int menuitem_main_about=0x7f070011;
-        public static final int menuitem_main_logout=0x7f07000f;
-        public static final int menuitem_main_reloadContact=0x7f070010;
-        public static final int sign_in_button=0x7f070008;
+        public static final int TextView_em_list_item=0x7f04001a;
+        public static final int TextView_remind_list_item=0x7f040019;
+        public static final int action_forgot_password=0x7f04001e;
+        public static final int activity_login_etx_loginid=0x7f040015;
+        public static final int activity_login_etx_pwd=0x7f040016;
+        public static final int bottom=0x7f040008;
+        public static final int center=0x7f04000d;
+        public static final int center_horizontal=0x7f04000c;
+        public static final int center_vertical=0x7f04000b;
+        public static final int dashboard=0x7f040001;
+        public static final int empty=0x7f040002;
+        public static final int hdpi=0x7f040005;
+        public static final int item_detail=0x7f04001c;
+        public static final int item_detail_container=0x7f040010;
+        public static final int item_list=0x7f040011;
+        public static final int ldpi=0x7f040003;
+        public static final int left=0x7f040009;
+        public static final int listViewContact=0x7f04001b;
+        public static final int listViewRemind=0x7f04001d;
+        public static final int login=0x7f040017;
+        public static final int login_form=0x7f040014;
+        public static final int login_status=0x7f040012;
+        public static final int login_status_message=0x7f040013;
+        public static final int mdpi=0x7f040004;
+        public static final int menuitem_main_about=0x7f040021;
+        public static final int menuitem_main_logout=0x7f04001f;
+        public static final int menuitem_main_reloadContact=0x7f040020;
+        public static final int multiple=0x7f04000f;
+        public static final int normal=0x7f040000;
+        public static final int right=0x7f04000a;
+        public static final int sign_in_button=0x7f040018;
+        public static final int single=0x7f04000e;
+        public static final int top=0x7f040007;
+        public static final int xhdpi=0x7f040006;
     }
     public static final class layout {
         public static final int activity_item_detail=0x7f030000;
@@ -60,25 +642,25 @@ public final class R {
         public static final int fragment_remind_index=0x7f030008;
     }
     public static final class menu {
-        public static final int login=0x7f060000;
-        public static final int main=0x7f060001;
+        public static final int login=0x7f070000;
+        public static final int main=0x7f070001;
     }
     public static final class string {
-        public static final int action_forgot_password=0x7f040007;
-        public static final int action_sign_in_register=0x7f040005;
-        public static final int action_sign_in_short=0x7f040006;
-        public static final int app_name=0x7f040000;
-        public static final int error_field_required=0x7f04000c;
-        public static final int error_incorrect_password=0x7f04000b;
-        public static final int error_invalid_email=0x7f040009;
-        public static final int error_invalid_password=0x7f04000a;
-        public static final int login_progress_signing_in=0x7f040008;
+        public static final int action_forgot_password=0x7f050007;
+        public static final int action_sign_in_register=0x7f050005;
+        public static final int action_sign_in_short=0x7f050006;
+        public static final int app_name=0x7f050000;
+        public static final int error_field_required=0x7f05000c;
+        public static final int error_incorrect_password=0x7f05000b;
+        public static final int error_invalid_email=0x7f050009;
+        public static final int error_invalid_password=0x7f05000a;
+        public static final int login_progress_signing_in=0x7f050008;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f040003;
-        public static final int prompt_password=0x7f040004;
-        public static final int title_activity_login=0x7f040002;
-        public static final int title_item_detail=0x7f040001;
+        public static final int prompt_email=0x7f050003;
+        public static final int prompt_password=0x7f050004;
+        public static final int title_activity_login=0x7f050002;
+        public static final int title_item_detail=0x7f050001;
     }
     public static final class style {
         /** 
@@ -124,13 +706,589 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f050000;
+        public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f050001;
-        public static final int LoginFormContainer=0x7f050002;
+        public static final int AppTheme=0x7f060001;
+        public static final int LoginFormContainer=0x7f060002;
     }
+    public static final class styleable {
+        /**  ActionBar related attributes 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ActionBar_dividerDrawable org.pccpa:dividerDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_dividerWidth org.pccpa:dividerWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_homeDrawable org.pccpa:homeDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_maxItems org.pccpa:maxItems}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_title org.pccpa:title}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_type org.pccpa:type}</code></td><td></td></tr>
+           </table>
+           @see #ActionBar_dividerDrawable
+           @see #ActionBar_dividerWidth
+           @see #ActionBar_homeDrawable
+           @see #ActionBar_maxItems
+           @see #ActionBar_title
+           @see #ActionBar_type
+         */
+        public static final int[] ActionBar = {
+            0x7f010048, 0x7f010049, 0x7f01004c, 0x7f01004d,
+            0x7f01004e, 0x7f01004f
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dividerDrawable}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:dividerDrawable
+        */
+        public static final int ActionBar_dividerDrawable = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dividerWidth}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:dividerWidth
+        */
+        public static final int ActionBar_dividerWidth = 1;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#homeDrawable}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:homeDrawable
+        */
+        public static final int ActionBar_homeDrawable = 4;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#maxItems}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:maxItems
+        */
+        public static final int ActionBar_maxItems = 5;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#title}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:title
+        */
+        public static final int ActionBar_title = 2;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#type}
+          attribute's value can be found in the {@link #ActionBar} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>normal</code></td><td>0</td><td></td></tr>
+<tr><td><code>dashboard</code></td><td>1</td><td></td></tr>
+<tr><td><code>empty</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name org.pccpa:type
+        */
+        public static final int ActionBar_type = 3;
+        /** Attributes that can be used with a AsyncImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AsyncImageView_defaultSrc org.pccpa:defaultSrc}</code></td><td></td></tr>
+           <tr><td><code>{@link #AsyncImageView_inDensity org.pccpa:inDensity}</code></td><td></td></tr>
+           <tr><td><code>{@link #AsyncImageView_url org.pccpa:url}</code></td><td></td></tr>
+           </table>
+           @see #AsyncImageView_defaultSrc
+           @see #AsyncImageView_inDensity
+           @see #AsyncImageView_url
+         */
+        public static final int[] AsyncImageView = {
+            0x7f010050, 0x7f010051, 0x7f010052
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#defaultSrc}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:defaultSrc
+        */
+        public static final int AsyncImageView_defaultSrc = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#inDensity}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ldpi</code></td><td>120</td><td></td></tr>
+<tr><td><code>mdpi</code></td><td>160</td><td></td></tr>
+<tr><td><code>hdpi</code></td><td>240</td><td></td></tr>
+<tr><td><code>xhdpi</code></td><td>320</td><td></td></tr>
+</table>
+          @attr name org.pccpa:inDensity
+        */
+        public static final int AsyncImageView_inDensity = 2;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#url}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:url
+        */
+        public static final int AsyncImageView_url = 1;
+        /** Attributes that can be used with a DescriptionItem.
+         */
+        public static final int[] DescriptionItem = {
+            
+        };
+        /** Attributes that can be used with a DrawableItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #DrawableItem_drawable org.pccpa:drawable}</code></td><td></td></tr>
+           </table>
+           @see #DrawableItem_drawable
+         */
+        public static final int[] DrawableItem = {
+            0x7f010043
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#drawable}
+          attribute's value can be found in the {@link #DrawableItem} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:drawable
+        */
+        public static final int DrawableItem_drawable = 0;
+        /** 			
+ Styleables 
+			
+ List items related attributes 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Item_enabled org.pccpa:enabled}</code></td><td></td></tr>
+           </table>
+           @see #Item_enabled
+         */
+        public static final int[] Item = {
+            0x7f010040
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#enabled}
+          attribute's value can be found in the {@link #Item} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:enabled
+        */
+        public static final int Item_enabled = 0;
+        /** Attributes that can be used with a LongTextItem.
+         */
+        public static final int[] LongTextItem = {
+            
+        };
+        /** Attributes that can be used with a PageIndicator.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #PageIndicator_activeDot org.pccpa:activeDot}</code></td><td></td></tr>
+           <tr><td><code>{@link #PageIndicator_dotCount org.pccpa:dotCount}</code></td><td></td></tr>
+           <tr><td><code>{@link #PageIndicator_dotDrawable org.pccpa:dotDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #PageIndicator_dotSpacing org.pccpa:dotSpacing}</code></td><td></td></tr>
+           <tr><td><code>{@link #PageIndicator_dotType org.pccpa:dotType}</code></td><td></td></tr>
+           <tr><td><code>{@link #PageIndicator_gravity org.pccpa:gravity}</code></td><td></td></tr>
+           </table>
+           @see #PageIndicator_activeDot
+           @see #PageIndicator_dotCount
+           @see #PageIndicator_dotDrawable
+           @see #PageIndicator_dotSpacing
+           @see #PageIndicator_dotType
+           @see #PageIndicator_gravity
+         */
+        public static final int[] PageIndicator = {
+            0x7f010053, 0x7f010054, 0x7f010055, 0x7f010056,
+            0x7f010057, 0x7f010058
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#activeDot}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:activeDot
+        */
+        public static final int PageIndicator_activeDot = 1;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dotCount}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:dotCount
+        */
+        public static final int PageIndicator_dotCount = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dotDrawable}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:dotDrawable
+        */
+        public static final int PageIndicator_dotDrawable = 2;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dotSpacing}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:dotSpacing
+        */
+        public static final int PageIndicator_dotSpacing = 3;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dotType}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>single</code></td><td>0</td><td></td></tr>
+<tr><td><code>multiple</code></td><td>1</td><td></td></tr>
+</table>
+          @attr name org.pccpa:dotType
+        */
+        public static final int PageIndicator_dotType = 5;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#gravity}
+          attribute's value can be found in the {@link #PageIndicator} array.
+
+
+          <p>Must be one or more (separated by '|') of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>top</code></td><td>0x30</td><td></td></tr>
+<tr><td><code>bottom</code></td><td>0x50</td><td></td></tr>
+<tr><td><code>left</code></td><td>0x03</td><td></td></tr>
+<tr><td><code>right</code></td><td>0x05</td><td></td></tr>
+<tr><td><code>center_vertical</code></td><td>0x10</td><td></td></tr>
+<tr><td><code>center_horizontal</code></td><td>0x01</td><td></td></tr>
+<tr><td><code>center</code></td><td>0x11</td><td></td></tr>
+</table>
+          @attr name org.pccpa:gravity
+        */
+        public static final int PageIndicator_gravity = 4;
+        /** Attributes that can be used with a ProgressItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ProgressItem_isInProgress org.pccpa:isInProgress}</code></td><td></td></tr>
+           </table>
+           @see #ProgressItem_isInProgress
+         */
+        public static final int[] ProgressItem = {
+            0x7f010042
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#isInProgress}
+          attribute's value can be found in the {@link #ProgressItem} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:isInProgress
+        */
+        public static final int ProgressItem_isInProgress = 0;
+        /**  SegmentedBar related attributes 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SegmentedBar_dividerDrawable org.pccpa:dividerDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #SegmentedBar_dividerWidth org.pccpa:dividerWidth}</code></td><td></td></tr>
+           </table>
+           @see #SegmentedBar_dividerDrawable
+           @see #SegmentedBar_dividerWidth
+         */
+        public static final int[] SegmentedBar = {
+            0x7f010048, 0x7f010049
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dividerDrawable}
+          attribute's value can be found in the {@link #SegmentedBar} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:dividerDrawable
+        */
+        public static final int SegmentedBar_dividerDrawable = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#dividerWidth}
+          attribute's value can be found in the {@link #SegmentedBar} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:dividerWidth
+        */
+        public static final int SegmentedBar_dividerWidth = 1;
+        /** Attributes that can be used with a SegmentedHost.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SegmentedHost_segmentedBar org.pccpa:segmentedBar}</code></td><td></td></tr>
+           <tr><td><code>{@link #SegmentedHost_segmentedContentView org.pccpa:segmentedContentView}</code></td><td></td></tr>
+           </table>
+           @see #SegmentedHost_segmentedBar
+           @see #SegmentedHost_segmentedContentView
+         */
+        public static final int[] SegmentedHost = {
+            0x7f01004a, 0x7f01004b
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#segmentedBar}
+          attribute's value can be found in the {@link #SegmentedHost} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:segmentedBar
+        */
+        public static final int SegmentedHost_segmentedBar = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#segmentedContentView}
+          attribute's value can be found in the {@link #SegmentedHost} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:segmentedContentView
+        */
+        public static final int SegmentedHost_segmentedContentView = 1;
+        /** Attributes that can be used with a SeparatorItem.
+         */
+        public static final int[] SeparatorItem = {
+            
+        };
+        /** Attributes that can be used with a SubtextItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SubtextItem_subtext org.pccpa:subtext}</code></td><td></td></tr>
+           </table>
+           @see #SubtextItem_subtext
+         */
+        public static final int[] SubtextItem = {
+            0x7f010045
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#subtext}
+          attribute's value can be found in the {@link #SubtextItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:subtext
+        */
+        public static final int SubtextItem_subtext = 0;
+        /** Attributes that can be used with a SubtitleItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SubtitleItem_subtitle org.pccpa:subtitle}</code></td><td></td></tr>
+           </table>
+           @see #SubtitleItem_subtitle
+         */
+        public static final int[] SubtitleItem = {
+            0x7f010044
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#subtitle}
+          attribute's value can be found in the {@link #SubtitleItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:subtitle
+        */
+        public static final int SubtitleItem_subtitle = 0;
+        /** Attributes that can be used with a TextItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TextItem_text org.pccpa:text}</code></td><td></td></tr>
+           </table>
+           @see #TextItem_text
+         */
+        public static final int[] TextItem = {
+            0x7f010041
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#text}
+          attribute's value can be found in the {@link #TextItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:text
+        */
+        public static final int TextItem_text = 0;
+        /** Attributes that can be used with a ThumbnailItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ThumbnailItem_thumbnail org.pccpa:thumbnail}</code></td><td></td></tr>
+           <tr><td><code>{@link #ThumbnailItem_thumbnailURL org.pccpa:thumbnailURL}</code></td><td></td></tr>
+           </table>
+           @see #ThumbnailItem_thumbnail
+           @see #ThumbnailItem_thumbnailURL
+         */
+        public static final int[] ThumbnailItem = {
+            0x7f010046, 0x7f010047
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#thumbnail}
+          attribute's value can be found in the {@link #ThumbnailItem} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name org.pccpa:thumbnail
+        */
+        public static final int ThumbnailItem_thumbnail = 0;
+        /**
+          <p>This symbol is the offset where the {@link org.pccpa.R.attr#thumbnailURL}
+          attribute's value can be found in the {@link #ThumbnailItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name org.pccpa:thumbnailURL
+        */
+        public static final int ThumbnailItem_thumbnailURL = 1;
+    };
 }
