@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728" 
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -17,8 +17,7 @@
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
- 
-        <!--Panorama 控件-->
+         <!--Panorama 控件-->
         <controls:Panorama >
             
             <controls:Panorama.Title>
@@ -42,18 +41,20 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                
             </controls:PanoramaItem>
  
             <!--Panorama 项目二-->
             <!--使用“Orientation="Horizontal"”可使面板水平放置-->
             <controls:PanoramaItem Header="通讯录" Name="panitem_contact">
                 <!--具有图像占位符和文字环绕的双线列表-->
-                <ListBox Margin="0,0,-12,0"  Name="listbox_em">
+                <ListBox Margin="0,0,-12,0"  Name="listbox_em" SelectionChanged="listbox_em_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
                                 <!--用图像替换矩形-->
-                                <Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
+                                
+                               
                                 <StackPanel Width="311">                                    
                                     <TextBlock Text="{Binding EUserName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                     <TextBlock Text="{Binding EIdentityCard}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
@@ -66,5 +67,18 @@
             
             
         </controls:Panorama>
+        
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Mode="Default"  BackgroundColor="Black" ForegroundColor="White">
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="刷新待办" x:Name="MenuItemReloadRemind" Click="MenuItemReloadRemind_Click"></shell:ApplicationBarMenuItem>
+                <shell:ApplicationBarMenuItem Text="同步通信录" x:Name="MenuItemReloadContact" Click="MenuItemReloadContact_Click"></shell:ApplicationBarMenuItem>
+                <shell:ApplicationBarMenuItem Text="注销用户" x:Name="MenuItemLogout" Click="MenuItemLogout_Click"></shell:ApplicationBarMenuItem>
+                <shell:ApplicationBarMenuItem Text="关于" x:Name="MenuItemAbout" Click="MenuItemAbout_Click"></shell:ApplicationBarMenuItem>
+
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+        
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

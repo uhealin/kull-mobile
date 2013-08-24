@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Data.Linq.Mapping;
+using Pccpa.WP.Util;
 
 namespace Pccpa.WP.ViewModels
 {
@@ -31,7 +32,9 @@ namespace Pccpa.WP.ViewModels
         private string _EIdentityCard;
 
 
-       
+        private string _ETelWork;
+        private string _ETelWorkShort;
+        private string _EMobile;
 
         public FS_Employee()
         {
@@ -103,6 +106,37 @@ namespace Pccpa.WP.ViewModels
             }
         }
 
+        [Column]
+        public String ETelWork
+        {
+            get { return this._ETelWork; }
+
+            set { this._ETelWork = value; }
+        }
+
+        [Column]
+        public String ETelWorkShort
+        {
+            get { return this._ETelWorkShort; }
+
+            set { this._ETelWorkShort = value; }
+        }
+
+        [Column]
+        public String EMobile
+        {
+            get { return this._EMobile; }
+
+            set { this._EMobile = value; }
+        } 
+
+       public string pathPhoto
+       {
+           get
+           {
+               return string.Format(Config.URL_PATTERN_EM_PHOTO, this.EID);
+           }
+       }
 
        #region INotifyPropertyChanged Members
 

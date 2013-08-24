@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -10,7 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Kull.WP;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 using Pccpa.WP.ViewModels;
 using Pccpa.WP.Util;
 
@@ -59,8 +62,11 @@ namespace Pccpa.WP
             {
                 List<RemindViewModel> reminds = Api.getReminds(e);
                 listbox_remind.Items.Clear();
-
-                listbox_remind.ItemsSource = reminds;
+                
+                foreach (RemindViewModel remind in reminds)
+                {
+                    listbox_remind.Items.Add(remind);
+                }
             };
             Uri uri = new Uri(Config.URL_REMIND(eid));
             wclient.DownloadStringAsync(uri);
@@ -68,25 +74,56 @@ namespace Pccpa.WP
         }
 
         private void loadEms() {
-            Grid<FS_Employee> local_ems = Api.loadEms();
-            if (local_ems.rows.Count <= 1)
+           listbox_em.Items.Clear();
+            using (DataContext dc=DataContextFactory.defaultDataContext())
             {
-                WebClient wclient = new WebClient();
-                wclient.DownloadStringCompleted += (s, e) =>
+                Table<FS_Employee> table_em = dc.GetTable<FS_Employee>();
+                IEnumerator<FS_Employee> ems= table_em.GetEnumerator();
+                while (ems.MoveNext())
                 {
-                    Grid<FS_Employee> grid = Api.getEms(e, true);
-                    listbox_em.Items.Clear();
-                    listbox_em.ItemsSource = grid.rows;
-                    panitem_contact.Header += " " + grid.total;
-                };
-                Uri uri = new Uri(Config.URL_EM_GRID(0, int.MaxValue));
-                wclient.DownloadStringAsync(uri);
+                    listbox_em.Items.Add(ems.Current);
+                }
             }
-            else {
-                listbox_em.Items.Clear();
-                listbox_em.ItemsSource = local_ems.rows;
-                panitem_contact.Header += " " + local_ems.total;
-            }
+          
+        }
+
+        private void MenuItemReloadRemind_Click(object sender, EventArgs e)
+        {
+            loadReminds();
+        }
+
+        private void MenuItemReloadContact_Click(object sender, EventArgs e)
+        {
+            WebClient client = new WebClient();
+            Uri uri = new Uri(Config.URL_PATTERN_EM_GRID);
+            client.DownloadStringCompleted += (s, ee) =>
+            {
+                Grid<FS_Employee> ems = Api.getEms(ee,true);
+                loadEms();
+            };
+            client.DownloadStringAsync(uri);
+        }
+
+        private void MenuItemLogout_Click(object sender, EventArgs e)
+        {
+            string url = string.Format("/Login.xaml");
+            Uri mainUri = new Uri(url, UriKind.Relative);
+            NavigationService.Navigate(mainUri);
+        }
+
+        private void MenuItemAbout_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void listbox_em_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox listbox = (ListBox)sender;
+            FS_Employee em = listbox.SelectedItem as FS_Employee;
+            PhoneCallTask t = new PhoneCallTask();
+            t.PhoneNumber = StringHelper.firstNotEmpty(em.EMobile, em.ETelWork);
+            t.DisplayName =em.EUserName ;
+            t.Show();
         }
     }
 }
