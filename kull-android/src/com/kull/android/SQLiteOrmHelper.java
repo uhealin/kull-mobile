@@ -10,18 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.Console;
-import com.google.gson.Gson;
+
 import com.kull.LinqHelper;
 import com.kull.ObjectHelper;
 import com.kull.StringHelper;
-import com.kull.util.IQueryable;
 
-
-import android.R.color;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
+
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
