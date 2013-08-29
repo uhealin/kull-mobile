@@ -34,11 +34,11 @@ public class EmployeeListActivity extends GDListActivity implements OnScrollList
 		MenuActionGrid.renderTo(this);
 		List<EmployeeItem> ems=new ArrayList<EmployeeItem>();
 		try{
-			//SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
+			SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
 			//sqLiteOrmHelper.replaceTable(EmployeeItem.class);
 			
-			 //ems=sqLiteOrmHelper.select(EmployeeItem.class);
-			ems=Client.CURR_CLIENT.getEms(0, 50);
+			 ems=sqLiteOrmHelper.select(EmployeeItem.class);
+			//ems=Client.CURR_CLIENT.getEms(0, 50);
 			 this.setListAdapter(new EmployeeItemAdapter(this, ems));
 			 getListView().setOnScrollListener(this);
 			}catch(Exception ex){

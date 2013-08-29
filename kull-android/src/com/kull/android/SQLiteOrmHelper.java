@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.Console;
+import com.google.gson.Gson;
 import com.kull.LinqHelper;
 import com.kull.ObjectHelper;
 import com.kull.StringHelper;
@@ -102,20 +104,10 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		int eff=0;
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
-		createSql+=MessageFormat.format("drop table {0} ( ", ormTable.name());
-		Field[] fields=cls.getDeclaredFields();
-		for(Field field : fields){
-			String fname=field.getName();
-			Class fcls=field.getType();
-			if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
-			String type=CLASS_REF_JDBCTYPE.get(fcls);
-			createSql+=MessageFormat.format("{0} {1} ,", fname,type);
-		}
-		createSql=createSql.substring(0, createSql.length()-1);
-		createSql+=")";
+		createSql =MessageFormat.format("drop table {0}  ", ormTable.name());
 		try{
 		this.executeUpdate(createSql);
-		}catch(Exception ex){continue;}
+		}catch(Exception ex){}
 	    eff++;
 		}
 		return eff;
@@ -133,20 +125,10 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		int eff=0;
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
-		createSql+=MessageFormat.format("truncate table {0} ( ", ormTable.name());
-		Field[] fields=cls.getDeclaredFields();
-		for(Field field : fields){
-			String fname=field.getName();
-			Class fcls=field.getType();
-			if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
-			String type=CLASS_REF_JDBCTYPE.get(fcls);
-			createSql+=MessageFormat.format("{0} {1} ,", fname,type);
-		}
-		createSql=createSql.substring(0, createSql.length()-1);
-		createSql+=")";
+		createSql+=MessageFormat.format("truncate table {0}  ", ormTable.name());
 		try{
 		this.executeUpdate(createSql);
-		}catch(Exception ex){continue;}
+		}catch(Exception ex){}
 	    eff++;
 		}
 		return eff;
@@ -348,10 +330,11 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
        
    public  <T> List<T> evalList (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException{
 	   List<T> list=new ArrayList<T>();
-	   while(!cursor.isAfterLast()){
+	   
+	   while(cursor.moveToNext()){
 		  T t=evalObject(cls, cursor);
 		  list.add(t);
-		  cursor.moveToNext();
+		  
 	   }
 	   return list;
    }
