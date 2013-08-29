@@ -2,7 +2,25 @@
 <resources>
 
     <string name="app_name">天健综合管理系统</string>
+    <string name="more">更多操作</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="app_url">http://github.com/cyrilmottier/GreenDroid</string>
+    <string-array name="segment_titles" >
+        <item>待办提醒</item>
+        <item>通讯录</item> 
+    </string-array>
+    <string name="menu_remind">代办提醒</string>
+    <string name="menu_contact">通讯录</string>
+    <string name="menu_config">设置</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_logout">注销登录</string>
+    <string name="menu_syh">数据同步</string>
+    <string name="action_dotel">拨打电话</string>
+    <string name="action_sms">发送短信</string>
+    <string name="action_eminfo">个人信息</string>
+    <string name="action_addtocontact">添加到通讯录</string>
+    
+    <string name="about_content">天健版权所有</string>
  <!-- 
  
   -->

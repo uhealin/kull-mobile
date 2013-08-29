@@ -20,6 +20,7 @@ import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBar.OnActionBarListener;
 import greendroid.widget.ActionBarHost;
 import greendroid.widget.ActionBarItem;
+import greendroid.widget.QuickActionWidget;
 import android.annotation.SuppressLint;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -228,5 +229,11 @@ public class GDTabActivity extends TabActivity implements ActionBarActivity {
     protected View createTabIndicator(String tag, CharSequence label, ViewGroup parent) {
         return null;
     }
+
+	@Override
+	public void setMainQuickActionWidget(QuickActionWidget widget) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

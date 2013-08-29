@@ -17,6 +17,7 @@ package greendroid.app;
 
 import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
+import greendroid.widget.QuickActionWidget;
 import android.app.Activity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -142,4 +143,6 @@ public interface ActionBarActivity {
      * may be use to initialize the content of the layout (titles, etc.)
      */
     void onPostContentChanged();
+    
+    void setMainQuickActionWidget(QuickActionWidget widget);
 }

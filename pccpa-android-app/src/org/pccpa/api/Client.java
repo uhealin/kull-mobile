@@ -39,19 +39,16 @@ public class Client {
 	static{
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build()); 
 		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects().detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
-		try {
-			RHelper.init(R.class);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
 
 	
     private static String path_base="http://oanet.pccpa.cn",
-    path_remind_pattern="/SYS/D_Menu/reminds/{0}"
-    ,path_grid_pattern="/{0}/{1}/grid",url_home_dologin="/SYS/Home/doLogin"
+    path_remind_pattern=path_base+"/SYS/D_Menu/reminds/{0}"
+    ,path_grid_pattern=path_base+"/{0}/{1}/grid",
+    url_home_dologin=path_base+"/SYS/Home/doLogin"
+    ,url_em_photo_pattern=path_base+"/FS/D_Employee/photo/{0}"
     ;
 
     private String eid;
@@ -66,12 +63,14 @@ public class Client {
   
     }
     
-  
+    public static String urlEmployeePhoto(String eid){
+    	return MessageFormat.format(url_em_photo_pattern, eid);
+    }
     
     
     public List<RemindItem> getReminds() throws Exception{
     	
-    	String url=MessageFormat.format(path_base+path_remind_pattern,eid);
+    	String url=MessageFormat.format(path_remind_pattern,eid);
     	String context=NetworkHelper.doGet(url, null,null);
     	
     	RemindsAdapter remindsAdapter= GSON.fromJson(context, RemindsAdapter.class);
@@ -82,7 +81,7 @@ public class Client {
     }
     
     public List<EmployeeItem> getEms(int start,int limit) throws Exception{
-    	String url=MessageFormat.format(path_base+path_grid_pattern,"FS","V_Employee");
+    	String url=MessageFormat.format(path_grid_pattern,"FS","V_Employee");
     	url+=MessageFormat.format("?start={0}&limit={1}",start+"",limit+"");
     	String context=NetworkHelper.doGet(url, null,null);
     	EMGrid grid=GSON.fromJson(context, EMGrid.class);
@@ -97,7 +96,7 @@ public class Client {
     	//HttpParams param=new BasicHttpParams();
     	//param.setParameter("ELoginID", ELoginID);
     	//param.setParameter("EPassword", EPassword);
-    	String url=MessageFormat.format(path_base+url_home_dologin, ELoginID,EPassword);
+    	String url=MessageFormat.format(url_home_dologin, ELoginID,EPassword);
     	
     	String context=NetworkHelper.doPost(url, param, null, null);
     	Result result=GSON.fromJson(context, Result.class);

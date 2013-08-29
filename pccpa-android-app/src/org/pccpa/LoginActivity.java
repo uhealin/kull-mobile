@@ -2,6 +2,7 @@ package org.pccpa;
 
 import org.pccpa.api.Client;
 import org.pccpa.api.Client.Result;
+import org.pccpa.remind.RemindListActivity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -116,7 +117,7 @@ public class LoginActivity extends Activity {
 			Result re=Client.doLogin(mEmail, mPassword);
 			Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
 			if(re.getCode()==0){
-			Intent intent=new Intent(this,ItemListActivity.class);
+			Intent intent=new Intent(this,RemindListActivity.class);
 		    startActivity(intent);
 			}
 		    

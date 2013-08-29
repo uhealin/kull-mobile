@@ -23,6 +23,8 @@ import greendroid.widget.ActionBarHost;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.ActionBar.OnActionBarListener;
 import greendroid.widget.ActionBar.Type;
+import greendroid.widget.QuickActionGrid;
+import greendroid.widget.QuickActionWidget;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -97,7 +99,7 @@ public class GDActivity extends Activity implements ActionBarActivity {
 
     private Type mActionBarType;
     private ActionBarHost mActionBarHost;
-
+    private QuickActionWidget _actionWidget;
     /**
      * <p>
      * Default constructor.
@@ -148,6 +150,7 @@ public class GDActivity extends Activity implements ActionBarActivity {
                 mActionBarType = Type.Dashboard;
             }
         }
+        this.addActionBarItem(greendroid.widget.ActionBarItem.Type.List);
     }
 
     @Override
@@ -352,7 +355,17 @@ public class GDActivity extends Activity implements ActionBarActivity {
     }
 
     public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
-        return false;
+        switch (position) {
+		case 0:
+			if(_actionWidget!=null){
+				_actionWidget.show(item.getItemView());
+			}
+			break;
+
+		default:
+			break;
+		}
+    	return false;
     }
 
     private OnActionBarListener mActionBarListener = new OnActionBarListener() {
@@ -392,5 +405,10 @@ public class GDActivity extends Activity implements ActionBarActivity {
             }
         }
     };
+	@Override
+	public void setMainQuickActionWidget(QuickActionWidget widget) {
+		// TODO Auto-generated method stub
+	   this._actionWidget=widget;
+	}
 
 }
