@@ -77,14 +77,15 @@ public class EmployeeItemAdapter extends ContextAdapter {
 	 private OnQuickActionClickListener mActionListener = new OnQuickActionClickListener() {
 	        public void onQuickActionClicked(QuickActionWidget widget, int position) {
 	        	 EmployeeItem selectedEm=(EmployeeItem)getItem(position);
-	        	 
+	        	 String number=StringHelper.firstNotBlank(selectedEm.getEMobile()
+	        			 ,selectedEm.getEMobileShort(),selectedEm.getETelWork(),selectedEm.getETelWorkShort());
 	        	 switch (position) {
 				case 0:
-					_contextHelper.toTel(selectedEm.getETelWork());
+					_contextHelper.toTel(number);
 					break;
                 case 1:
                 	try{
-                		_contextHelper.toSms(selectedEm.getETelWork(),"");
+                		_contextHelper.toSms(number,"");
                 	}catch(Exception ex){
                 		Toast.makeText(_context, "貌似平板不能发短信", 5000).show();
                 	}
