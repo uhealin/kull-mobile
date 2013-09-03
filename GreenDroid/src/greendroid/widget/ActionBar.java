@@ -138,7 +138,7 @@ public class ActionBar extends LinearLayout {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ActionBar, defStyle, 0);
 
-        mTitle = a.getString(R.styleable.ActionBar_title);
+        mTitle =""; //a.getString(R.styleable.ActionBar_title);
 
         mDividerDrawable = a.getDrawable(R.styleable.ActionBar_dividerDrawable);
         mDividerWidth = a.getDimensionPixelSize(R.styleable.ActionBar_dividerWidth, -1);

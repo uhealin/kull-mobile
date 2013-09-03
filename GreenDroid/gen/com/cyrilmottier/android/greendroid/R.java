@@ -31,15 +31,15 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int activeDot=0x7f010054;
+        public static int activeDot=0x7f010052;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int defaultSrc=0x7f010050;
+        public static int defaultSrc=0x7f01004e;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int dividerDrawable=0x7f010048;
+        public static int dividerDrawable=0x7f010047;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -49,7 +49,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int dividerWidth=0x7f010049;
+        public static int dividerWidth=0x7f010048;
         /** <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -57,11 +57,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int dotCount=0x7f010053;
+        public static int dotCount=0x7f010051;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int dotDrawable=0x7f010055;
+        public static int dotDrawable=0x7f010053;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -71,7 +71,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int dotSpacing=0x7f010056;
+        public static int dotSpacing=0x7f010054;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -82,7 +82,7 @@ containing a value of this type.
 <tr><td><code>multiple</code></td><td>1</td><td></td></tr>
 </table>
          */
-        public static int dotType=0x7f010058;
+        public static int dotType=0x7f010056;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -485,11 +485,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>center</code></td><td>0x11</td><td></td></tr>
 </table>
          */
-        public static int gravity=0x7f010057;
+        public static int gravity=0x7f010055;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int homeDrawable=0x7f01004e;
+        public static int homeDrawable=0x7f01004c;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -502,7 +502,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>xhdpi</code></td><td>320</td><td></td></tr>
 </table>
          */
-        public static int inDensity=0x7f010052;
+        public static int inDensity=0x7f010050;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -518,15 +518,15 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int maxItems=0x7f01004f;
+        public static int maxItems=0x7f01004d;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int segmentedBar=0x7f01004a;
+        public static int segmentedBar=0x7f010049;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int segmentedContentView=0x7f01004b;
+        public static int segmentedContentView=0x7f01004a;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -534,15 +534,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int subtext=0x7f010045;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static int subtitle=0x7f010044;
+        public static int subtext=0x7f010044;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -554,7 +546,7 @@ containing a value of this type.
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int thumbnail=0x7f010046;
+        public static int thumbnail=0x7f010045;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -562,16 +554,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int thumbnailURL=0x7f010047;
-        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static int title=0x7f01004c;
-        /** <p>Must be one of the following constant values.</p>
+        public static int thumbnailURL=0x7f010046;
+        /**  
+	    		<attr name="title" format="string" />
+	    		
+         <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
 <colgroup align="left" />
@@ -582,7 +569,7 @@ containing a value of this type.
 <tr><td><code>empty</code></td><td>2</td><td></td></tr>
 </table>
          */
-        public static int type=0x7f01004d;
+        public static int type=0x7f01004b;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -590,7 +577,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static int url=0x7f010051;
+        public static int url=0x7f01004f;
     }
     public static final class color {
         public static int gd_action_bar_divider_tint=0x7f060001;
@@ -892,19 +879,19 @@ containing a value of this type.
            <tr><td><code>{@link #ActionBar_dividerWidth com.cyrilmottier.android.greendroid:dividerWidth}</code></td><td></td></tr>
            <tr><td><code>{@link #ActionBar_homeDrawable com.cyrilmottier.android.greendroid:homeDrawable}</code></td><td></td></tr>
            <tr><td><code>{@link #ActionBar_maxItems com.cyrilmottier.android.greendroid:maxItems}</code></td><td></td></tr>
-           <tr><td><code>{@link #ActionBar_title com.cyrilmottier.android.greendroid:title}</code></td><td></td></tr>
-           <tr><td><code>{@link #ActionBar_type com.cyrilmottier.android.greendroid:type}</code></td><td></td></tr>
+           <tr><td><code>{@link #ActionBar_type com.cyrilmottier.android.greendroid:type}</code></td><td> 
+	    		<attr name="title" format="string" />
+	    		</td></tr>
            </table>
            @see #ActionBar_dividerDrawable
            @see #ActionBar_dividerWidth
            @see #ActionBar_homeDrawable
            @see #ActionBar_maxItems
-           @see #ActionBar_title
            @see #ActionBar_type
          */
         public static final int[] ActionBar = {
-            0x7f010048, 0x7f010049, 0x7f01004c, 0x7f01004d,
-            0x7f01004e, 0x7f01004f
+            0x7f010047, 0x7f010048, 0x7f01004b, 0x7f01004c,
+            0x7f01004d
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#dividerDrawable}
@@ -941,7 +928,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name com.cyrilmottier.android.greendroid:homeDrawable
         */
-        public static final int ActionBar_homeDrawable = 4;
+        public static final int ActionBar_homeDrawable = 3;
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#maxItems}
           attribute's value can be found in the {@link #ActionBar} array.
@@ -955,24 +942,13 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.cyrilmottier.android.greendroid:maxItems
         */
-        public static final int ActionBar_maxItems = 5;
+        public static final int ActionBar_maxItems = 4;
         /**
-          <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#title}
-          attribute's value can be found in the {@link #ActionBar} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.cyrilmottier.android.greendroid:title
-        */
-        public static final int ActionBar_title = 2;
-        /**
-          <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#type}
-          attribute's value can be found in the {@link #ActionBar} array.
+          <p>
+          @attr description
+           
+	    		<attr name="title" format="string" />
+	    		
 
 
           <p>Must be one of the following constant values.</p>
@@ -985,9 +961,10 @@ containing a value of this type.
 <tr><td><code>dashboard</code></td><td>1</td><td></td></tr>
 <tr><td><code>empty</code></td><td>2</td><td></td></tr>
 </table>
+          <p>This is a private symbol.
           @attr name com.cyrilmottier.android.greendroid:type
         */
-        public static final int ActionBar_type = 3;
+        public static final int ActionBar_type = 2;
         /** Attributes that can be used with a AsyncImageView.
            <p>Includes the following attributes:</p>
            <table>
@@ -1003,7 +980,7 @@ containing a value of this type.
            @see #AsyncImageView_url
          */
         public static final int[] AsyncImageView = {
-            0x7f010050, 0x7f010051, 0x7f010052
+            0x7f01004e, 0x7f01004f, 0x7f010050
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#defaultSrc}
@@ -1132,8 +1109,8 @@ containing a value of this type.
            @see #PageIndicator_gravity
          */
         public static final int[] PageIndicator = {
-            0x7f010053, 0x7f010054, 0x7f010055, 0x7f010056,
-            0x7f010057, 0x7f010058
+            0x7f010051, 0x7f010052, 0x7f010053, 0x7f010054,
+            0x7f010055, 0x7f010056
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#activeDot}
@@ -1268,7 +1245,7 @@ containing a value of this type.
            @see #SegmentedBar_dividerWidth
          */
         public static final int[] SegmentedBar = {
-            0x7f010048, 0x7f010049
+            0x7f010047, 0x7f010048
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#dividerDrawable}
@@ -1309,7 +1286,7 @@ containing a value of this type.
            @see #SegmentedHost_segmentedContentView
          */
         public static final int[] SegmentedHost = {
-            0x7f01004a, 0x7f01004b
+            0x7f010049, 0x7f01004a
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#segmentedBar}
@@ -1347,7 +1324,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #SubtextItem_subtext
          */
         public static final int[] SubtextItem = {
-            0x7f010045
+            0x7f010044
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#subtext}
@@ -1363,33 +1340,13 @@ containing a value of this type.
           @attr name com.cyrilmottier.android.greendroid:subtext
         */
         public static final int SubtextItem_subtext = 0;
-        /** Attributes that can be used with a SubtitleItem.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SubtitleItem_subtitle com.cyrilmottier.android.greendroid:subtitle}</code></td><td></td></tr>
-           </table>
-           @see #SubtitleItem_subtitle
+        /**  
+		<attr name="subtitle" format="string" />
+		
          */
         public static final int[] SubtitleItem = {
-            0x7f010044
+            
         };
-        /**
-          <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#subtitle}
-          attribute's value can be found in the {@link #SubtitleItem} array.
-
-
-          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.cyrilmottier.android.greendroid:subtitle
-        */
-        public static final int SubtitleItem_subtitle = 0;
         /** Attributes that can be used with a TextItem.
            <p>Includes the following attributes:</p>
            <table>
@@ -1430,7 +1387,7 @@ containing a value of this type.
            @see #ThumbnailItem_thumbnailURL
          */
         public static final int[] ThumbnailItem = {
-            0x7f010046, 0x7f010047
+            0x7f010045, 0x7f010046
         };
         /**
           <p>This symbol is the offset where the {@link com.cyrilmottier.android.greendroid.R.attr#thumbnail}

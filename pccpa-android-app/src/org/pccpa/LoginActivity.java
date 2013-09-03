@@ -117,7 +117,7 @@ public class LoginActivity extends Activity {
 			Result re=Client.doLogin(mEmail, mPassword);
 			Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
 			if(re.getCode()==0){
-			Intent intent=new Intent(this,RemindListActivity.class);
+			Intent intent=new Intent(this,RemindActivity.class);
 		    startActivity(intent);
 			}
 		    

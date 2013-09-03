@@ -43,6 +43,10 @@
         </activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".MainFrameActivity"></activity>
+        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".RemindActivity"></activity>
+        
         <activity android:name=".remind.RemindListActivity"></activity>
         <activity android:name=".contact.EmployeeListActivity"></activity>
     </application>
