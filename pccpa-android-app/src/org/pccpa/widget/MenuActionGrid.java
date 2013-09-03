@@ -94,7 +94,7 @@ public class MenuActionGrid extends QuickActionGrid{
 	    
 	    private int synDB(){
 	    	try {
-				List<EmployeeItem> ems= Client.CURR_CLIENT.getEms(0,200);
+				List<EmployeeItem> ems= Client.CURR_CLIENT.getEms(0,200).getRows();
 				SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(_context);
 				ormHelper.replaceTable(EmployeeItem.class);
 				int i=0;

@@ -2,17 +2,16 @@ package org.pccpa;
 
 import org.pccpa.api.Client;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockExpandableListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.kull.android.ContextHelper;
 
-public class BaseFragmentActivity extends SherlockFragmentActivity implements OnNavigationListener {
+public abstract class BaseListFragmentActivity extends SherlockListActivity implements OnNavigationListener{
 
+	
 	protected ContextHelper contextHelper;
 	protected static int NAV_POSITION=0;
 	protected static boolean IS_POSTBACK=false;
@@ -22,21 +21,10 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		IS_POSTBACK=false;
 		super.onCreate(arg0);
 		setTheme(R.style.Theme_Sherlock_Light);
-		initActionBar(this, getSupportActionBar());
+		BaseFragmentActivity.initActionBar(this, getSupportActionBar());
 		contextHelper=new ContextHelper(this);
 	}
-
-	public static void initActionBar(OnNavigationListener c,ActionBar actionBar){
-		
-		Context context = actionBar.getThemedContext();
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.menus, R.layout.sherlock_spinner_item);
-		//ActionBar actionBar=getSupportActionBar();
-		list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		actionBar.setListNavigationCallbacks(list, c);
-		actionBar.setDisplayShowHomeEnabled(true);
-		actionBar.setSelectedNavigationItem(NAV_POSITION);
-	}
+	
 	
 	/*
 	 * (non-Javadoc)

@@ -38,7 +38,7 @@
 		android:layout_weight="1"
 		android:paddingLeft="10dp"
 		android:gravity="center_vertical|left" />
-
+    
 	<Button 
 	    android:id="@+id/button_more"
 	    android:layout_width="wrap_content"

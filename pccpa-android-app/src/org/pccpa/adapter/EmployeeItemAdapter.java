@@ -158,7 +158,7 @@ public class EmployeeItemAdapter extends ContextAdapter {
          //textBuilder.setLength(0);
          //textBuilder.append(mImageForPosition);
          //textBuilder.append(position);
-         holder.textView.setText(emItem.getEUserName());
+         holder.textView.setText(emItem.getEUserName()+" "+StringHelper.firstNotBlank(emItem.getEMobile(),emItem.getETelWork()));
 
          return convertView;
 	}

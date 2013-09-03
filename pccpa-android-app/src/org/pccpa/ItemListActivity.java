@@ -139,7 +139,7 @@ public class ItemListActivity extends FragmentActivity implements
 			//progressBar.setVisibility(View.VISIBLE);
 			
 			try {
-				List<EmployeeItem> ems= Client.CURR_CLIENT.getEms(0,Integer.MAX_VALUE);
+				List<EmployeeItem> ems= Client.CURR_CLIENT.getEms(0,Integer.MAX_VALUE).getRows();
 				SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(this);
 				ormHelper.replaceTable(EmployeeItem.class);
 				int i=0;

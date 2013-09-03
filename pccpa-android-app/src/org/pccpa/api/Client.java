@@ -80,12 +80,12 @@ public class Client {
     	return reminds;
     }
     
-    public List<EmployeeItem> getEms(int start,int limit) throws Exception{
+    public EMGrid getEms(int start,int limit) throws Exception{
     	String url=MessageFormat.format(path_grid_pattern,"FS","V_Employee");
     	url+=MessageFormat.format("?start={0}&limit={1}",start+"",limit+"");
     	String context=NetworkHelper.doGet(url, null,null);
     	EMGrid grid=GSON.fromJson(context, EMGrid.class);
-        return grid.getRows();
+        return grid;
     }
     
     
