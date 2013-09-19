@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 import com.kull.LinqHelper;
@@ -306,32 +307,61 @@ public <T> List<T> select(Class<T> cls) throws Exception{
     return select(cls, new String[]{"*"}, "", new String[]{});
 }
 
-public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs) throws Exception{
-      return select(cls, columns, selection, selectionArgs,"","","");
+public <T> List<T> select(Class<T> cls,int start,int limit) throws Exception{
+    return select(cls, new String[]{"*"}, "", new String[]{},start,limit);
 }
 
-  public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
+
+public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs) throws Exception{
+    return select(cls, columns, selection, selectionArgs,"","","");
+}
+
+public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,int start,int limit) throws Exception{
+      return select(cls, columns, selection, selectionArgs,"","","",start,limit);
+}
+
+
+
+public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
+	   return select(cls, columns, selection, selectionArgs, groupBy, having, orderBy, 0,Integer.MAX_VALUE);
+}
+
+  public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy,int start,int limit) throws Exception{
 	   OrmTable table=cls.getAnnotation(OrmTable.class);
-	   List<T> list=select(cls, table.name(), columns, selection, selectionArgs, groupBy, having, orderBy);
+	   List<T> list=select(cls, table.name(), columns, selection, selectionArgs, groupBy, having, orderBy,limit,start);
 	   return list;
   }
   
   public <T> List<T> select(Class<T> cls,String table,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy) throws Exception{
+	   return select(cls, table, columns, selection, selectionArgs, groupBy, having, orderBy,0,Integer.MAX_VALUE);
+}
+  
+  public <T> List<T> select(Class<T> cls,String table,String[] columns,String selection,String[] selectionArgs,String  groupBy,String  having,String orderBy,int start,int limit) throws Exception{
 	   SQLiteDatabase database= this.getReadableDatabase();
 	   Cursor cursor=database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
-	   List<T> list=evalList(cls, cursor);
+	   List<T> list=evalList(cls, cursor,limit,start);
 	   cursor.close();
 	   return list;
  }
        
    public  <T> List<T> evalList (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException{
+	  
+	   return evalList(cls, cursor, 0, Integer.MAX_VALUE);
+   }
+   
+
+   
+   public  <T> List<T> evalList (Class<T> cls,Cursor cursor,int start,int limit) throws InstantiationException, IllegalAccessException{
 	   List<T> list=new ArrayList<T>();
-	   
-	   while(cursor.moveToNext()){
-		  T t=evalObject(cls, cursor);
-		  list.add(t);
-		  
+	   int i=1;
+	   if(!cursor.moveToPosition(start)){
+		   return list;
 	   }
+	   do{
+		   T t=evalObject(cls, cursor);
+			  list.add(t);  
+	   }
+	   while((i++<limit)&&cursor.moveToNext());
 	   return list;
    }
    

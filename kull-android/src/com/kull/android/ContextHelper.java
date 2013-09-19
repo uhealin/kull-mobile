@@ -9,9 +9,10 @@ public class ContextHelper {
 
 	
 	protected Context _context;
-	
+
 	public ContextHelper(Context context){
 		this._context=context;
+		
 	}
 	
 	public void to(Class<? extends Context> cls){
