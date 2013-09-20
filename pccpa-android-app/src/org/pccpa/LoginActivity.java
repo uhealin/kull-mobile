@@ -122,8 +122,9 @@ public class LoginActivity extends Activity {
 			if(re.getCode()==0){
 				Toast.makeText(this,"登录成功，系统初始化中，请稍候...", 2000).show();
 				 SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
+				 sqLiteOrmHelper.createTable(Contact.class);
 				   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class);
-			Intent intent=new Intent(this,ContactActivity.class);
+			Intent intent=new Intent(this,RemindActivity.class);
 		    startActivity(intent);
 			}
 		    
