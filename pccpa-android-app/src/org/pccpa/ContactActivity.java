@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.pccpa.adapter.EmployeeItemAdapter;
 import org.pccpa.api.Client;
+import org.pccpa.api.Contact;
 import org.pccpa.api.EmployeeItem;
+import org.pccpa.api.Client.ContactGrid;
 import org.pccpa.api.Client.EMGrid;
 import org.pccpa.frage.ContactListFragment;
 import org.pccpa.frage.HelpFragment;
@@ -20,14 +22,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -41,9 +48,12 @@ public class ContactActivity extends BaseFragmentActivity {
 	TabHost mTabHost;
     ViewPager  mViewPager;
     TabsAdapter mTabsAdapter;
+    EditText etSearchKeyword;
+    
+    ContactListFragment contactListFragment;
     public static List<EmployeeItem> EMP_ALL=new ArrayList<EmployeeItem>();
     
-    
+    public static List<Contact> CONTACT_ALL=new ArrayList<Contact>();
     Handler mHandler = new Handler();
     
 
@@ -56,7 +66,16 @@ public class ContactActivity extends BaseFragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		
-		setContentView(R.layout.fragment_tabs_pager);
+		//setContentView(R.layout.fragment_tabs_pager);
+	    contactListFragment=new ContactListFragment();
+		this.getSupportFragmentManager().beginTransaction()
+		.add(android.R.id.content,contactListFragment)
+		.commit();
+		
+		
+		
+		
+		/*
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
@@ -64,25 +83,25 @@ public class ContactActivity extends BaseFragmentActivity {
 
         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager); 
         
-        SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
-		//sqLiteOrmHelper.replaceTable(EmployeeItem.class);
+       
+		sqLiteOrmHelper.replaceTable(EmployeeItem.class);
 		
 		 try {
-			EMP_ALL=sqLiteOrmHelper.select(EmployeeItem.class);
+			 
 			mTabsAdapter.addTab(mTabHost.newTabSpec("最近").setIndicator("最近"),
 	                ContactListFragment.class, null);
-			 mTabsAdapter.addTab(mTabHost.newTabSpec("按部门").setIndicator("按部门"),
-		                ContactListFragment.class, null);
-		        mTabsAdapter.addTab(mTabHost.newTabSpec("按姓氏").setIndicator("按姓氏"),
-		        		ContactListFragment.class, null);
-		        mTabsAdapter.addTab(mTabHost.newTabSpec("按拼音").setIndicator("按拼音"),
-		        		ContactListFragment.class, null);
+			 //mTabsAdapter.addTab(mTabHost.newTabSpec("按部门").setIndicator("按部门"),
+		      //          ContactListFragment.class, null);
+		    //    mTabsAdapter.addTab(mTabHost.newTabSpec("按姓氏").setIndicator("按姓氏"),
+		    //    		ContactListFragment.class, null);
+		    // //   mTabsAdapter.addTab(mTabHost.newTabSpec("按拼音").setIndicator("按拼音"),
+		    //    		ContactListFragment.class, null);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			contextHelper.alert(e, Toast.LENGTH_LONG);
 		}
 
-       
+       */
        
 
         if (savedInstanceState != null) {
@@ -94,13 +113,21 @@ public class ContactActivity extends BaseFragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		menu.add("帮助")
-		.setIcon(R.drawable.ic_search)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-    menu.add("刷新")
+	 MenuItem miSearch=	menu.add("查找")
+		.setIcon(R.drawable.ic_search)
+		.setActionView(R.layout.collapsible_edittext);
+    miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+    etSearchKeyword=(EditText)miSearch.getActionView().findViewById(R.id.etxSearchKeyword);
+	etSearchKeyword.addTextChangedListener(contactListFragment);
+		
+		
+    menu.add("同步通讯录")
         .setIcon( R.drawable.ic_refresh_inverse)
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+   
+    
+    
 		return true;
 	}
 
@@ -108,8 +135,8 @@ public class ContactActivity extends BaseFragmentActivity {
 	 public boolean onOptionsItemSelected(MenuItem item) {
 	        //This uses the imported MenuItem from ActionBarSherlock
 	    if("同步通讯录".equals(item.getTitle())){
-	    	int eff=synDB();
-			
+	    	int eff=synContact();
+			Toast.makeText(this, "成功同步 "+eff+" 条记录", 3000);
 	    }else if("帮助".equals(item.getTitle())){
 	    	HelpFragment list=new HelpFragment();
 	    	list.context="通讯录帮助";
@@ -119,7 +146,7 @@ public class ContactActivity extends BaseFragmentActivity {
 	}
 	
 	 private int synDB(){
-		 requestWindowFeature(Window.FEATURE_PROGRESS);
+		
 		 
 	    	try {
 			    EMGrid grid= Client.CURR_CLIENT.getEms(0,1);
@@ -146,7 +173,33 @@ public class ContactActivity extends BaseFragmentActivity {
 	    	return 0;
 	    }
 
-	
+	 private int synContact(){
+			
+		 
+	    	try {
+			    ContactGrid grid= Client.CURR_CLIENT.getContacts(0,Integer.MAX_VALUE);
+			    mProgress = grid.getTotal();
+				SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(this);
+				ormHelper.replaceTable(Contact.class);
+				int limit=200,eff=0;
+				//for(int start=0;start*limit<grid.getTotal();start++){
+				//List<EmployeeItem> ems=Client.CURR_CLIENT.getEms(start*limit, limit).getRows();
+				for(Contact em:grid.getRows()){
+					ormHelper.insert(em);
+					//progressBar.setProgress(i++);
+					eff++;
+					int progress = (Window.PROGRESS_END - Window.PROGRESS_START) / 100 * eff;;
+		            setSupportProgress(progress);
+				}
+				//}
+				//progressBar.setVisibility(View.GONE);
+				return eff;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	return 0;
+	    }
 	public static class TabsAdapter extends FragmentPagerAdapter
     implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 private final Context mContext;

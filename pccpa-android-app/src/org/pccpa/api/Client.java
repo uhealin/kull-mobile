@@ -88,6 +88,17 @@ public class Client {
         return grid;
     }
     
+    private <G extends Grid> G getGrid(Class<G> cls, String namespace,String controler,int start,int limit) throws Exception{
+    	String url=MessageFormat.format(path_grid_pattern,namespace,controler);
+    	url+=MessageFormat.format("?start={0}&limit={1}",start+"",limit+"");
+    	String context=NetworkHelper.doGet(url, null,null);
+    	G grid=GSON.fromJson(context, cls);
+        return grid;
+    }
+    
+    public ContactGrid getContacts(int start,int limit) throws Exception{
+    	return getGrid(ContactGrid.class, "FS", "V_Contacts", start, limit);
+    }
     
     public static Result doLogin(String ELoginID,String EPassword) throws Exception{
     	Map<String, Object> param=new HashMap<String, Object>();
@@ -136,6 +147,7 @@ public class Client {
     	
     }
     
+    public class ContactGrid extends Grid<Contact>{}
     public class EMGrid extends Grid<EmployeeItem>{}
     
     private class Grid<T>{

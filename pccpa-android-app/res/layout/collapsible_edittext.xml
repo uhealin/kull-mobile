@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/etxSearchKeyword"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    
+    android:hint="姓名，机构部门，职级，手机，工作电话"/>

@@ -47,7 +47,7 @@ import android.widget.ImageView.ScaleType;
 
 public class EmployeeItemAdapter extends ContextAdapter {
 	private QuickActionWidget mBar;
-	private ContextHelper _contextHelper;
+	
 	static class ViewHolder{
 		public AsyncImageView imageView;
 		public TextView textView;
@@ -61,7 +61,7 @@ public class EmployeeItemAdapter extends ContextAdapter {
 	private List<EmployeeItem> _ems;
 	public EmployeeItemAdapter(Context context,List<EmployeeItem> ems) {
 		super(context);
-		_contextHelper=new ContextHelper(_context);
+		
 		_inflater=LayoutInflater.from(_context);
 		this._ems=ems;
 		 mBar = new QuickActionBar(_context);
@@ -81,11 +81,11 @@ public class EmployeeItemAdapter extends ContextAdapter {
 	        			 ,selectedEm.getEMobileShort(),selectedEm.getETelWork(),selectedEm.getETelWorkShort());
 	        	 switch (position) {
 				case 0:
-					_contextHelper.toTel(number);
+					_contextHelper.toCallTel(number);
 					break;
                 case 1:
                 	try{
-                		_contextHelper.toSms(number,"");
+                		_contextHelper.toSendSms(number,"");
                 	}catch(Exception ex){
                 		Toast.makeText(_context, "貌似平板不能发短信", 5000).show();
                 	}
@@ -169,7 +169,7 @@ public class EmployeeItemAdapter extends ContextAdapter {
          final int thumbnailSize = context.getResources().getDimensionPixelSize(R.dimen.thumbnail_size);
          final int thumbnailRadius = context.getResources().getDimensionPixelSize(R.dimen.thumbnail_radius);
 
-         if (Math.random() >= 0.5f) {
+         if (Math.random() >= 0.5f||1==1) {
              //@formatter:off
              _imageProcessor = new ChainImageProcessor(
                      new ScaleImageProcessor(thumbnailSize, thumbnailSize, ScaleType.FIT_XY),

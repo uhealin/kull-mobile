@@ -4,11 +4,13 @@ import org.pccpa.api.Client;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Window;
 import com.kull.android.ContextHelper;
 
 public class BaseFragmentActivity extends SherlockFragmentActivity implements OnNavigationListener {
@@ -21,9 +23,11 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		// TODO Auto-generated method stub
 		IS_POSTBACK=false;
 		super.onCreate(arg0);
+		requestWindowFeature(Window.FEATURE_PROGRESS|Window.FEATURE_CONTEXT_MENU);
 		setTheme(R.style.Theme_Sherlock_Light);
 		initActionBar(this, getSupportActionBar());
 		contextHelper=new ContextHelper(this);
+		
 	}
 
 	public static void initActionBar(OnNavigationListener c,ActionBar actionBar){

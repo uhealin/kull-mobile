@@ -1,8 +1,11 @@
 package org.pccpa;
 
 import org.pccpa.api.Client;
+import org.pccpa.api.Contact;
 import org.pccpa.api.Client.Result;
 import org.pccpa.remind.RemindListActivity;
+
+import com.kull.android.SQLiteOrmHelper;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -65,10 +68,10 @@ public class LoginActivity extends Activity {
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.activity_login_etx_loginid);
-		mEmailView.setText("chenrula");
+		mEmailView.setText("lhh");
 
 		mPasswordView = (EditText) findViewById(R.id.activity_login_etx_pwd);
-		mPasswordView.setText("112233");
+		mPasswordView.setText("0000");
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -115,9 +118,12 @@ public class LoginActivity extends Activity {
 		mPassword = mPasswordView.getText().toString();
 		try {
 			Result re=Client.doLogin(mEmail, mPassword);
-			Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
+			//Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
 			if(re.getCode()==0){
-			Intent intent=new Intent(this,RemindActivity.class);
+				Toast.makeText(this,"登录成功，系统初始化中，请稍候...", 2000).show();
+				 SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
+				   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class);
+			Intent intent=new Intent(this,ContactActivity.class);
 		    startActivity(intent);
 			}
 		    

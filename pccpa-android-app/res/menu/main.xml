@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
-  <item android:title="注销用户" android:id="@+id/menuitem_main_logout"></item>
+  <item android:title="注销用户" android:id="@+id/menuitem_main_logout"
+      
+      ></item>
   <item android:title="刷新通信录" android:id="@+id/menuitem_main_reloadContact"></item>
   <item android:title="关于" android:id="@+id/menuitem_main_about"></item>
 </menu>
