@@ -45,17 +45,23 @@ public class NetworkHelper{
 	
 	
 	
-	public static int BUFFER_SIZE = 4096;  
+	public static int BUFFER_SIZE = 2048;  
 	
 	public static String streamToString(InputStream is) throws IOException{
     	ByteArrayOutputStream outStream = new ByteArrayOutputStream();  
         byte[] data = new byte[BUFFER_SIZE];  
         int count = -1;  
-        while((count = is.read(data,0,BUFFER_SIZE)) != -1)  
-            outStream.write(data, 0, count);  
-          
+        while((count = is.read(data,0,data.length)) != -1)  {
+            outStream.write(data, 0, count); 
+            outStream.flush();
+        }
         data = null; 
-	    return new String(outStream.toByteArray()); 
+        String str=outStream.toString();
+	    outStream.close();
+	    outStream=null;
+	   
+	    //System.runFinalization();
+	    return str;
 	}
 	
 	
@@ -66,6 +72,10 @@ public class NetworkHelper{
 		   httpResponse=new DefaultHttpClient().execute(httpGet);
 		   InputStream is= httpResponse.getEntity().getContent();
 	       String context= streamToString(is);
+	     
+	       is.close();
+	       is=null;
+	       System.gc();
 	       return context; 
 	}
 	
@@ -81,6 +91,9 @@ public class NetworkHelper{
 		  httpResponse=new DefaultHttpClient().execute(httpPost);
 		  InputStream is=httpResponse.getEntity().getContent();
 		  String context=streamToString(is);
+		  is.close();
+		  is=null;
+	       System.gc();
 		  return context;
 	}
 	
@@ -92,6 +105,9 @@ public class NetworkHelper{
 		  httpResponse=new DefaultHttpClient(dhp).execute(httpPost);
 		  InputStream is=httpResponse.getEntity().getContent();
 		  String context=streamToString(is);
+		  is.close();
+		  is=null;
+	       System.gc();
 		  return context;
 	}
 	

@@ -104,16 +104,17 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		createSql =MessageFormat.format("drop table {0}  ", ormTable.name());
 		try{
 		this.executeUpdate(createSql);
+		eff++;
 		}catch(Exception ex){}
-	    eff++;
+	    
 		}
 		return eff;
 	}
 	
 	public int replaceTable(Class...clss){
 		int eff=0;
-		dropTable(clss);
-		eff= createTable(clss);
+		eff+=dropTable(clss);
+		eff+= createTable(clss);
 		return eff;
 	}
 	

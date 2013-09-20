@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:greendroid="http://schemas.android.com/apk/res/com.cyrilmottier.android.gdcatalog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:padding="10dp"
+    >
+
+    <greendroid.widget.AsyncImageView
+		android:id="@+id/async_image"
+		android:layout_width="@dimen/thumbnail_size"
+		android:layout_height="@dimen/thumbnail_size"
+		android:layout_gravity="left"
+		/>
+   
+    <LinearLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical" 
+       android:paddingLeft="10dp"
+       android:gravity="center_vertical|left"
+    >
+       
+        <TextView
+            android:id="@+id/txvEmName"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/txvMobile"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp" />
+
+    </LinearLayout>
+    <Button 
+	    android:id="@+id/btnTel"
+	    android:layout_width="wrap_content"
+		android:layout_height="fill_parent"
+		android:gravity="right"
+	    ></Button>
+</LinearLayout>

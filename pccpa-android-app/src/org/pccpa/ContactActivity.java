@@ -9,6 +9,7 @@ import org.pccpa.adapter.EmployeeItemAdapter;
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 import org.pccpa.api.EmployeeItem;
+import org.pccpa.api.SiteSynRunnable;
 import org.pccpa.api.Client.ContactGrid;
 import org.pccpa.api.Client.EMGrid;
 import org.pccpa.frage.ContactListFragment;
@@ -122,21 +123,27 @@ public class ContactActivity extends BaseFragmentActivity {
 	etSearchKeyword.addTextChangedListener(contactListFragment);
 		
 		
-    menu.add("同步通讯录")
-        .setIcon( R.drawable.ic_refresh_inverse)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+   // menu.add("同步通讯录")
+    //    .setIcon( R.drawable.ic_refresh_inverse)
+    //    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
    
     
     
 		return true;
 	}
 
+	 Thread synThread;
 	 @Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
 	        //This uses the imported MenuItem from ActionBarSherlock
 	    if("同步通讯录".equals(item.getTitle())){
-	    	int eff=synContact();
-			Toast.makeText(this, "成功同步 "+eff+" 条记录", 3000);
+	    	if(synThread==null){
+	    		SiteSynRunnable siteSynRunnable=new SiteSynRunnable(this);
+	    		synThread= new Thread(siteSynRunnable);
+	    		synThread.run();
+	    	}else if(!synThread.isAlive()){
+	    		synThread.run();
+	    	}
 	    }else if("帮助".equals(item.getTitle())){
 	    	HelpFragment list=new HelpFragment();
 	    	list.context="通讯录帮助";
@@ -173,33 +180,7 @@ public class ContactActivity extends BaseFragmentActivity {
 	    	return 0;
 	    }
 
-	 private int synContact(){
-			
-		 
-	    	try {
-			    ContactGrid grid= Client.CURR_CLIENT.getContacts(0,Integer.MAX_VALUE);
-			    mProgress = grid.getTotal();
-				SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(this);
-				ormHelper.replaceTable(Contact.class);
-				int limit=200,eff=0;
-				//for(int start=0;start*limit<grid.getTotal();start++){
-				//List<EmployeeItem> ems=Client.CURR_CLIENT.getEms(start*limit, limit).getRows();
-				for(Contact em:grid.getRows()){
-					ormHelper.insert(em);
-					//progressBar.setProgress(i++);
-					eff++;
-					int progress = (Window.PROGRESS_END - Window.PROGRESS_START) / 100 * eff;;
-		            setSupportProgress(progress);
-				}
-				//}
-				//progressBar.setVisibility(View.GONE);
-				return eff;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	return 0;
-	    }
+	
 	public static class TabsAdapter extends FragmentPagerAdapter
     implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 private final Context mContext;
