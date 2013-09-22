@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.sql.Types;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,10 @@ import java.util.Set;
 import com.kull.LinqHelper;
 import com.kull.ObjectHelper;
 import com.kull.StringHelper;
+import com.kull.bean.JdbcBean.Database;
+import com.kull.jdbc.MssqlDialect;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -66,14 +70,11 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 
 	}
 	
-	public  void executeUpdate(String sql,Object ...params) throws SQLException{
-		SQLiteDatabase database=this.getWritableDatabase();
-		database.execSQL(sql, params);
-		//database.close();
-	}
+	
 	
 	public int createTable(Class... clss) {
 		String createSql="";
+		SQLiteDatabase database=getWritableDatabase();
 		int eff=0;
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
@@ -88,26 +89,30 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		}
 		createSql=createSql.substring(0, createSql.length()-1);
 		createSql+=")";
+		
 		try{
-		this.executeUpdate(createSql);
+		   database.execSQL(createSql);
 		}catch(Exception ex){continue;}
 	    eff++;
 		}
+		database.releaseMemory();
 		return eff;
 	}
 	
 	public int dropTable(Class... clss) {
 		String createSql="";
+		SQLiteDatabase database=getWritableDatabase();
 		int eff=0;
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
 		createSql =MessageFormat.format("drop table {0}  ", ormTable.name());
 		try{
-		this.executeUpdate(createSql);
+		database.execSQL(createSql);
 		eff++;
 		}catch(Exception ex){}
 	    
 		}
+		database.releaseMemory();
 		return eff;
 	}
 	
@@ -121,14 +126,16 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 	public int truncateTable(Class... clss) throws SQLException{
 		String createSql="";
 		int eff=0;
+		SQLiteDatabase database=getWritableDatabase();
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
 		createSql+=MessageFormat.format("truncate table {0}  ", ormTable.name());
 		try{
-		this.executeUpdate(createSql);
+		database.execSQL(createSql);
 		}catch(Exception ex){}
 	    eff++;
 		}
+		database.releaseMemory();
 		return eff;
 	}
 	
@@ -159,15 +166,24 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		String sql="";
 		table=t.getClass().getAnnotation(OrmTable.class);
 		sql=MessageFormat.format(" {1}= ?", table.name(),column);
-	    Cursor cursor=this.getReadableDatabase().query(table.name(), new String[]{"*"}, sql, new String[]{pk},"","","");
+		SQLiteDatabase rdatabase=this.getReadableDatabase();
+	    Cursor cursor=rdatabase.query(table.name(), new String[]{"*"}, sql, new String[]{pk},"","","");
+	    if(cursor.moveToNext()){
 	    t=evalObject(t, cursor);
+	    }else{
+	    	throw new Exception(MessageFormat.format("{0} not contains {1} = {2}", table.name(),column,pk));
+	    }
+	    cursor.close();
+	    rdatabase.releaseReference();
+	    rdatabase.releaseMemory();
 		return t;
 	}
 	
 public int insert(Object...objs) throws Exception{
 		
 		int success=0;
-		
+		SQLiteDatabase wdatabase=this.getWritableDatabase();
+		wdatabase.beginTransaction();
 		for(Object obj:objs){
 			if(obj==null)continue;
 			OrmTable table=null;
@@ -209,21 +225,84 @@ public int insert(Object...objs) throws Exception{
 					ivals.add(value);
 					j++;
 				}
-				
-				executeUpdate(sql, ivals.toArray());
+				 wdatabase.execSQL(sql, ivals.toArray());
 				success++;
 		   
 		       
 		    
 		}
+		wdatabase.setTransactionSuccessful();
+		wdatabase.endTransaction();
+		wdatabase.releaseMemory();
 		return success;
 	}
+
+
+public <M> int  insertBatch(List<M> list) throws Exception{
+	int eff=0;
+	if(list==null||list.isEmpty())return eff;
+	M m0=list.get(0);
+	OrmTable table=m0.getClass().getAnnotation(OrmTable.class);
+	Field[] fields=m0.getClass().getDeclaredFields();;
+	SQLiteDatabase wdatabase=this.getWritableDatabase();
+	wdatabase.beginTransaction();
+	String  sqlPattern="insert into {0} ({1}) values ({2})",sql="",
+			sqlCacheKey=m0.getClass().getName()+":insert",cols="",vals="";
+    	if(SQL_CACHE.containsKey(sqlCacheKey)){
+    		sql=SQL_CACHE.get(sqlCacheKey);
+    	}else{
+
+			
+			for(Field field:fields){
+				if( ObjectHelper.isIn(field.getName(),table.ingoreColumnNames())||
+						   (!table.insertPk()&& field.getName().equalsIgnoreCase(table.pk()) )
+				)continue;	
+				cols+=MessageFormat.format(" `{0}`,",field.getName() );
+				vals+=" ?,";
+				
+			}
+			cols=StringHelper.trim(cols, ",");
+			vals=StringHelper.trim(vals, ",");
+    	    sql=MessageFormat.format(sqlPattern, table.name(),cols,vals);
+    	    SQL_CACHE.put(sqlCacheKey, sql);
+    	    
+    	}
+	for(M obj:list){
+		if(obj==null)continue;
+		
+		
+	    	
+	        int j=0;
+	        List<Object> ivals=new ArrayList<Object>();
+			for(Field field:fields){
+				if( ObjectHelper.isIn(field.getName(),table.ingoreColumnNames())||
+				   (!table.insertPk()&& field.getName().equalsIgnoreCase(table.pk()) )
+				)continue;	
+				//String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
+				Method m=ObjectHelper.getGetter(obj.getClass(), field);
+				Object value=m.invoke(obj);
+				ivals.add(value);
+				j++;
+			}
+			 wdatabase.execSQL(sql, ivals.toArray());
+			eff++;
+	   
+	       
+	    
+	}
+	wdatabase.setTransactionSuccessful();
+	wdatabase.endTransaction();
+	wdatabase.releaseMemory();
+	return eff;
+}
+
+
 
 
 public int update(Object...objs) throws Exception{
 	
 	int success=0;
-	
+	SQLiteDatabase wdatabase=this.getWritableDatabase();
 	for(Object obj : objs){
 		if(obj==null)continue;
 		OrmTable table=null;
@@ -266,19 +345,23 @@ public int update(Object...objs) throws Exception{
 		//preparedStatement.setObject(j+1, value);
 		params.add(value);
 		
-		executeUpdate(sql,params.toArray());
+		wdatabase.execSQL(sql,params.toArray());
 		//success+=preparedStatement.executeUpdate();
 		success++;
 		
 	
 	}
+	wdatabase.setTransactionSuccessful();
+	wdatabase.endTransaction();
+	wdatabase.releaseMemory();
 	return success;
 }
 
 public int delete(Object...objs)throws Exception{
 	
 	int success=0;
-	
+    SQLiteDatabase wdatabase=this.getWritableDatabase();
+    wdatabase.beginTransaction();
 	for(Object obj:objs){
 		if(obj==null)continue;
 		OrmTable table=null;
@@ -296,11 +379,13 @@ public int delete(Object...objs)throws Exception{
 		  String getterName="get"+table.pk().substring(0,1).toUpperCase()+table.pk().substring(1);;
 		  Method method=obj.getClass().getDeclaredMethod(getterName);
 		  Object value=method.invoke(obj);
-		  this.executeUpdate(sql,new Object[]{value});
+		  wdatabase.execSQL(sql,new Object[]{value});
 		  success++;
 		
 	}
-	
+	wdatabase.setTransactionSuccessful();
+	wdatabase.endTransaction();
+	wdatabase.releaseMemory();
 	return success;
 }
 
@@ -342,6 +427,8 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
 	   Cursor cursor=database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
 	   List<T> list=evalList(cls, cursor,limit,start);
 	   cursor.close();
+	   database.releaseReference();
+	   database.releaseMemory();
 	   return list;
  }
        

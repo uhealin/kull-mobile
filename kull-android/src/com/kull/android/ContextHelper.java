@@ -53,10 +53,10 @@ public class ContextHelper {
 	
 	public static Intent toSendSms(String telNumber,String context){
 		Uri uri=Uri.parse("smsto:"+telNumber);
-		Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+		Intent intent=new Intent(Intent.ACTION_SENDTO,uri);
 		//intent.putExtra("smsto", telNumber);
 		intent.putExtra("sms_body", context);
-		intent.setType("vnd.android-dir/mms-sms");
+		//intent.setType("vnd.android-dir/mms-sms");
 		 return intent;
 		//_context.startActivity(intent);
 	}
@@ -70,13 +70,22 @@ public class ContextHelper {
 	}
 	
 	public static Intent toSendMail(String email){
+		
+		 return toSendMail(email, new String[]{}, "", "");
+		//_context.startActivity(intent);
+	}
+	
+	public static Intent toSendMail(String email,String[] copyAddrs,String text,String subject){
 		Uri uri=Uri.parse("mailto:"+email);
 		Intent intent=new Intent(Intent.ACTION_SENDTO,uri);
+		intent.putExtra(Intent.EXTRA_CC, copyAddrs);
+		intent.putExtra(Intent.EXTRA_TEXT, text);
+		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 		 return intent;
 		//_context.startActivity(intent);
 	}
 	
-	public static Intent doSendMail(String[] toAddrs,String copyAddrs,String text,String subject){
+	public static Intent doSendMail(String[] toAddrs,String[] copyAddrs,String text,String subject){
 		Intent intent=new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_EMAIL, toAddrs);
 		intent.putExtra(Intent.EXTRA_CC, copyAddrs);
@@ -88,9 +97,31 @@ public class ContextHelper {
 	    return intent;
 	}
 	
+	public Intent toSaveContact(String name,String mobile,String email) throws RemoteException, OperationApplicationException{
+//		Intent intent = new Intent();
+//        intent.setAction(Intent.ACTION_INSERT);
+//        intent.setData(ContactsContract.Contacts.CONTENT_URI);
+//        intent.putExtra(Intent.EXTRA_EMAIL, email);
+//        
+//        intent.putExtra(Intent.EXTRA_PHONE_NUMBER, mobile);
+//        intent.setType("vnd.android.cursor.dir/contact");
+//        //intent.putExtra(Intent, value)
+		Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+		//intent.setData(ContactsContract.Contacts.CONTENT_URI);
+        intent.setType("vnd.android.cursor.item/person");
+        intent.setType("vnd.android.cursor.item/contact");
+        intent.setType("vnd.android.cursor.item/raw_contact");
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.NAME, name);
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.EMAIL,email);
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE, mobile);
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE_TYPE, 3); 
+        return intent;
+	}
+	
 	public ContentProviderResult[] doSaveContact(String displayName,String mobile,String email) throws RemoteException, OperationApplicationException{
 		
         ContentResolver cr=_context.getContentResolver();
+       
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
         Uri uri = ContactsContract.RawContacts.CONTENT_URI;
         ContentProviderOperation op1 = ContentProviderOperation.newInsert(uri)
