@@ -183,5 +183,17 @@
             android:layout_height="wrap_content"
             android:text="保存到手机" 
            />
+       <Button 
+          android:id="@+id/btnShareBySMS"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="短信分享" 
+           />
+       <Button 
+          android:id="@+id/btnShareByMail"
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邮件分享" 
+           />
  </TableRow>
 </TableLayout>

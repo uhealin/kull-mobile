@@ -117,13 +117,17 @@ public class LoginActivity extends Activity {
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 		try {
-			Result re=Client.doLogin(mEmail, mPassword);
+			Result re=Client.doLogin(mEmail, mPassword,this);
 			//Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
 			if(re.getCode()==0){
 				Toast.makeText(this,"登录成功，系统初始化中，请稍候...", 2000).show();
 				 SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
 				 sqLiteOrmHelper.createTable(Contact.class);
-				   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class);
+				   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
+						   new String[]{"*"}
+				           ,"areaid = ?"
+				           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
+						   );
 			Intent intent=new Intent(this,RemindActivity.class);
 		    startActivity(intent);
 			}

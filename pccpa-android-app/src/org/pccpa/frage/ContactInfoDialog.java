@@ -3,8 +3,10 @@ package org.pccpa.frage;
 import java.text.MessageFormat;
 
 import org.pccpa.R;
+import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
@@ -66,7 +68,10 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			    ,imbSendEmail=(ImageButton)view.findViewById(R.id.imbSendMail)
 			   ,imbSendSMSMobile=(ImageButton)view.findViewById(R.id.imbSendSMSMobile)
 		;
-		Button btnSaveToPhone=(Button)view.findViewById(R.id.btnSaveToPhone);
+		Button btnSaveToPhone=(Button)view.findViewById(R.id.btnSaveToPhone)
+			,btnShareBySMS=(Button)view.findViewById(R.id.btnShareBySMS)
+			,btnShareByMail=(Button)view.findViewById(R.id.btnShareByMail);
+				;
         txvEmName.setText(_contact.getEUserName());
         txvDepName.setText(StringHelper.concat(_contact.getAreaName()," ",_contact.getDepartName()));
         txvMobile.setText(_contact.getEMobile());
@@ -75,9 +80,17 @@ public class ContactInfoDialog extends SherlockDialogFragment {
         txvTelShort.setText(_contact.getETelWorkShort());
         txvEmail.setText(_contact.getEMail());
         txvRankName.setText(_contact.getRankName());
+        Contact curContact=Client.CURR_CLIENT.getContact();
+        final String shareContent=MessageFormat.format("你的好友或同事  {0} {1} {2} 向你推荐  天健综合管理系统 android 客户端, 下载地址：{3}",
+        		curContact.getAreaName(),
+        		curContact.getDepartName(),
+        		curContact.getEUserName(),
+       		 Client.URL_APK
+       		);
         if(StringHelper.isBlank(_contact.getEMobile() ) ){
            imbCallMobile.setVisibility(View.INVISIBLE);
            imbSendSMSMobile.setVisibility(View.INVISIBLE);
+           btnShareBySMS.setVisibility(View.INVISIBLE);
         }else{
         imbCallMobile.setOnClickListener(new OnClickListener() {
 			
@@ -102,6 +115,17 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			}
 		});
         
+
+         btnShareBySMS.setOnClickListener(new OnClickListener() {
+ 			
+ 			@Override
+ 			public void onClick(View v) {
+ 				// TODO Auto-generated method stub
+ 				Intent intent= contextHelper.toSendSms(_contact.getEMobile(), shareContent);
+ 			    startActivity(intent);
+ 			}
+ 		});
+         
         }
         if(StringHelper.isBlank(_contact.getEMobileShort() ) ){
             imbCallMobileShort.setVisibility(View.INVISIBLE);
@@ -139,9 +163,10 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 			    try {
-					contextHelper.doSaveContact(_contact.getEUserName(),
+			    	Intent intent =contextHelper.toSaveContact(_contact.getEUserName(),
 							StringHelper.firstNotBlank(_contact.getEMobile(),_contact.getEMobileShort())
 							, _contact.getEMail());
+			    	 startActivity(intent);
 					 Toast.makeText(getActivity(), 
 						      MessageFormat.format("{0} 的信息已成功保存到手机", _contact.getEUserName())
 						    		, 3000).show();
@@ -153,6 +178,19 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 					e.printStackTrace();
 				} 
 			   
+			}
+		});
+        
+        
+        
+        
+        btnShareByMail.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent= contextHelper.toSendMail(_contact.getEMail(),new String[]{},shareContent,"android 综合信息管理系统");
+			    startActivity(intent);
 			}
 		});
         

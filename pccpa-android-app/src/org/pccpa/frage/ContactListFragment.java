@@ -18,6 +18,7 @@ import org.pccpa.api.EmployeeItem;
 import greendroid.image.ImageProcessor;
 import greendroid.widget.AsyncImageView;
 import android.R.string;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -55,23 +56,14 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this.getActivity());
-		 try {
-			 
-			 if(ContactActivity.CONTACT_ALL.isEmpty()){
-			 
-			   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class);
-			 }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	   adapter=new ContactListAdapter(getActivity());
 	   adapter.items=ContactActivity.CONTACT_ALL;
 	   this.setListAdapter(adapter);
+	   sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(getActivity());
 	   getListView().setOnScrollListener(this);
-       getListView().setOnItemSelectedListener(this);
-       getListView().setOnItemClickListener(this);
+       //getListView().setOnItemSelectedListener(this);
+       //getListView().setOnItemClickListener(this);
        
 	}
 
@@ -173,7 +165,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			final Contact m=getItem(position);
 			ViewHolder holder;
 			
-			if(convertView==null){
+			//if(convertView==null){
 				convertView=_inflater.inflate(R.layout.listitem_contact, parent,false);
 				holder=new ViewHolder();
 				holder.imageView=(AsyncImageView)convertView.findViewById(R.id.async_image);
@@ -203,14 +195,16 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 				
 						ContactInfoDialog dialog=new ContactInfoDialog();
 						dialog.set_contact(m);
+						//dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.sty);
+						
 						dialog.show(getFragmentManager(), "œÍœ∏–≈œ¢");
 						//Toast.makeText(_context, m.getEUserName(), 2000).show();
 					}
 				});
 				convertView.setTag(holder);
-			}else{
-				holder=(ViewHolder)convertView.getTag();
-			}
+			//}else{
+			//	holder=(ViewHolder)convertView.getTag();
+			//}
 			
 			return convertView;
 		}
@@ -244,7 +238,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 		 if(!isSearching){
 		     isSearching=true;
 			 doSearch(s.toString());
-			 isSearching=false;
+			
 		 }
 		 
 	}
@@ -259,8 +253,8 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			 try {
 		     List<Contact> cs=sqLiteOrmHelper.select(Contact.class,
 		    		 new String[]{"*"},
-		    		 "eusername like ? or rankname like ? or areaname like ? or departname like ? or email like ? or emobile like ? or emobileshort like ? or etelwork like ? or etelworkshort like ? "
-		    		 ,new String[]{like,like,like,like,like,like,like,like,like});
+		    		 "eusername||','||rankname||','||areaname||','||departname||','||email||','||emobile||','||emobileshort||','||etelwork||','||etelworkshort like ? "
+		    		 ,new String[]{like});
 		     
 			   adapter.items=cs;
 			   this.setListAdapter(adapter);
@@ -269,6 +263,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 				e.printStackTrace();
 			}
 		}
+		 isSearching=false;
 		;
 	}
 	

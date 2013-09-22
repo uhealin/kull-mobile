@@ -18,6 +18,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.pccpa.DB;
 import org.pccpa.R;
 import org.pccpa.R.string;
 
@@ -34,7 +35,7 @@ public class Client {
 	private final static Gson GSON=new Gson();
 	final static int BUFFER_SIZE = 4096;  
 	
-	
+	public static String URL_APK="http://ext.pccpa.cn:90/android.html";
 	
 	static{
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build()); 
@@ -54,13 +55,19 @@ public class Client {
     private String eid;
     public static Client CURR_CLIENT;
     
+    private Contact contact;
     
     
     
-    private Client(String eid){
+    
+    public Contact getContact() {
+		return contact;
+	}
+
+	private Client(String eid){
     
     	this.eid=eid;
-  
+        
     }
     
     public static String urlEmployeePhoto(String eid){
@@ -88,19 +95,21 @@ public class Client {
         return grid;
     }
     
-    private <G extends Grid> G getGrid(Class<G> cls, String namespace,String controler,int start,int limit) throws Exception{
+    private static <G extends Grid> G getGrid(Class<G> cls, String namespace,String controler,String query,int start,int limit) throws Exception{
     	String url=MessageFormat.format(path_grid_pattern,namespace,controler);
-    	url+=MessageFormat.format("?start={0}&limit={1}",start+"",limit+"");
+    	url+=MessageFormat.format("?"+query+"&start={0}&limit={1}",start+"",limit+"");
     	String context=NetworkHelper.doGet(url, null,null);
     	G grid=GSON.fromJson(context, cls);
         return grid;
     }
     
-    public ContactGrid getContacts(int start,int limit) throws Exception{
-    	return getGrid(ContactGrid.class, "FS", "V_Contacts", start, limit);
+    public static ContactGrid  getContacts(String query,int start,int limit) throws Exception{
+    	return getGrid(ContactGrid.class, "FS", "V_Contacts",query,start, limit);
     }
     
-    public static Result doLogin(String ELoginID,String EPassword) throws Exception{
+    
+    
+    public static Result doLogin(String ELoginID,String EPassword,Context context) throws Exception{
     	Map<String, Object> param=new HashMap<String, Object>();
     	param.put("ELoginID", ELoginID);
     	param.put("EPassword", EPassword);
@@ -109,10 +118,16 @@ public class Client {
     	//param.setParameter("EPassword", EPassword);
     	String url=MessageFormat.format(url_home_dologin, ELoginID,EPassword);
     	
-    	String context=NetworkHelper.doPost(url, param, null, null);
-    	Result result=GSON.fromJson(context, Result.class);
+    	String content=NetworkHelper.doPost(url, param, null, null);
+    	Result result=GSON.fromJson(content, Result.class);
     	if(result.code==0){
     		CURR_CLIENT=new Client(result.action);
+    		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+    		try{
+    		  CURR_CLIENT.contact=sqLiteOrmHelper.load(Contact.class, result.action);
+    		}catch(Exception ex){
+    		  CURR_CLIENT.contact=getContacts("q_eq_EID="+result.action, 0, 1).getRows().get(0);
+    		}
     	}
     	return result;
     }

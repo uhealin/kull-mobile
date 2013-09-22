@@ -1,7 +1,9 @@
 package org.pccpa;
 
 import org.pccpa.api.Client;
+import org.pccpa.api.Contact;
 
+import android.R.string;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -25,7 +27,15 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_PROGRESS|Window.FEATURE_CONTEXT_MENU);
 		setTheme(R.style.Theme_Sherlock_Light);
-		initActionBar(this, getSupportActionBar());
+		ActionBar actionBar=getSupportActionBar();
+		//actionBar.setDisplayShowTitleEnabled(false);
+		Contact curContact=Client.CURR_CLIENT.getContact();
+	    String title=curContact.getEUserName()
+	    		,subtitle=curContact.getAreaName()+" "+curContact.getDepartName();
+		actionBar.setTitle(title);
+		actionBar.setSubtitle(subtitle);
+		actionBar.setDisplayUseLogoEnabled(false);
+		initActionBar(this, actionBar);
 		contextHelper=new ContextHelper(this);
 		
 	}

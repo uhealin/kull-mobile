@@ -11,6 +11,7 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="android:textSize">8dp</item>
     </style>
 
     <!-- Application theme. -->
@@ -30,6 +31,6 @@
     </style>
     
     <style name="TextAppearanceLarge" parent="@style/TextAppearance.Large">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>
