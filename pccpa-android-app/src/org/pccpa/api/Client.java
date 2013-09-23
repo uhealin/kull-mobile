@@ -1,11 +1,17 @@
 package org.pccpa.api;
 
+import greendroid.util.GDUtils;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +27,15 @@ import org.apache.http.params.HttpParams;
 import org.pccpa.DB;
 import org.pccpa.R;
 import org.pccpa.R.string;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.os.StrictMode;
 
 
@@ -107,7 +120,23 @@ public class Client {
     	return getGrid(ContactGrid.class, "FS", "V_Contacts",query,start, limit);
     }
     
-    
+    public static Drawable getContactPhoto(Context context,String eid,boolean overwrite) throws Exception{
+    	
+    	String path=Environment.getExternalStorageDirectory().toString();//+"/pccpa";
+    	path+="/contact_"+eid+".photo";
+    	File filePhoto=new File(path);
+    	if(!filePhoto.exists()||overwrite){
+    		URL url=ResourceUtils.getURL(urlEmployeePhoto(eid));
+    		InputStream is=NetworkHelper.doGetStream(url.toString(), null, null);
+    		filePhoto.createNewFile();
+    		FileCopyUtils.copy(is, new FileOutputStream(filePhoto));
+    		is.close();
+    	}
+    	//InputStream is=new FileInputStream(filePhoto);
+    	Drawable drawable= BitmapDrawable.createFromPath(path);
+    	//is.close();
+    	return drawable;
+    }
     
     public static Result doLogin(String ELoginID,String EPassword,Context context) throws Exception{
     	Map<String, Object> param=new HashMap<String, Object>();

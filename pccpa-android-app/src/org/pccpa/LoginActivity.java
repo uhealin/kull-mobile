@@ -128,7 +128,7 @@ public class LoginActivity extends Activity {
 				           ,"areaid = ?"
 				           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
 						   );
-			Intent intent=new Intent(this,RemindActivity.class);
+			Intent intent=new Intent(this,ContactActivity.class);
 		    startActivity(intent);
 			}
 		    

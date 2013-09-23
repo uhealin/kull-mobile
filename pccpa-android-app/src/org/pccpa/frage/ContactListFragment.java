@@ -193,7 +193,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 				
-						ContactInfoDialog dialog=new ContactInfoDialog();
+						ContactInfoCardDialog dialog=new ContactInfoCardDialog();
 						dialog.set_contact(m);
 						//dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.sty);
 						

@@ -1,5 +1,7 @@
 package org.pccpa.frage;
 
+import greendroid.widget.AsyncImageView;
+
 import java.text.MessageFormat;
 
 import org.pccpa.R;
@@ -10,6 +12,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.OperationApplicationException;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +30,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.kull.StringHelper;
 import com.kull.android.ContextHelper;
 
-public class ContactInfoDialog extends SherlockDialogFragment {
+public class ContactInfoCardDialog extends SherlockDialogFragment {
 
 	private Contact _contact;
 	
@@ -66,20 +71,17 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		final ContextHelper contextHelper=new ContextHelper(getActivity());
-		View view=inflater.inflate(R.layout.dialog_contact_info, container,false);
+		View view=inflater.inflate(R.layout.dialog_contact_info_card, container,false);
 		TextView txvEmName=(TextView)view.findViewById(R.id.txvEmName)
 		 ,txvDepName=(TextView)view.findViewById(R.id.txvDepName)
-		 ,txvMobile=(TextView)view.findViewById(R.id.txvMobile)
-		 ,txvTel=(TextView)view.findViewById(R.id.txvTel)
-		 ,txvEmail=(TextView)view.findViewById(R.id.txvEmail)
-         ,txvTelShort=(TextView)view.findViewById(R.id.txvTelShort)
-	     ,txvMobileShort=(TextView)view.findViewById(R.id.txvMobileShort)
+		 ,txvTel=(TextView)view.findViewById(R.id.txvTelInfor)
+		 
 	     ,txvRankName=(TextView)view.findViewById(R.id.txvRankName)
 		 ;
-		ImageButton imbCallMobile=(ImageButton)view.findViewById(R.id.imbCallMobile)
-				,imbCallMobileShort=(ImageButton)view.findViewById(R.id.imbCallMobileShort)
-			    ,imbSendEmail=(ImageButton)view.findViewById(R.id.imbSendMail)
-			   ,imbSendSMSMobile=(ImageButton)view.findViewById(R.id.imbSendSMSMobile)
+		Button imbCallMobile=(Button)view.findViewById(R.id.btnCallMobile)
+				,imbCallMobileShort=(Button)view.findViewById(R.id.btnCallMobileShort)
+			    ,imbSendEmail=(Button)view.findViewById(R.id.btnSendMail)
+			   
 		;
 		Button btnSaveToPhone=(Button)view.findViewById(R.id.btnSaveToPhone)
 			,btnShareBySMS=(Button)view.findViewById(R.id.btnShareBySMS)
@@ -87,12 +89,22 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 				;
         txvEmName.setText(_contact.getEUserName());
         txvDepName.setText(StringHelper.concat(_contact.getAreaName()," ",_contact.getDepartName()));
-        txvMobile.setText(_contact.getEMobile());
+        //txvMobile.setText(_contact.getEMobile());
         txvTel.setText(_contact.getETelWork());
-        txvMobileShort.setText(_contact.getEMobileShort());
-        txvTelShort.setText(_contact.getETelWorkShort());
-        txvEmail.setText(_contact.getEMail());
+        //txvMobileShort.setText(_contact.getEMobileShort());
+        //txvTelShort.setText(_contact.getETelWorkShort());
+        //txvEmail.setText(_contact.getEMail());
         txvRankName.setText(_contact.getRankName());
+        AsyncImageView imvPhoto=(AsyncImageView)view.findViewById(R.id.imvPhoto);
+        try{
+          //Bitmap bitmap=Client.getContactPhoto(this.getActivity(),_contact.getEID(),false);
+          //Drawable drPhoto=Client.getContactPhoto(this.getActivity(),_contact.getEID(),false);
+          imvPhoto.setUrl(Client.urlEmployeePhoto(_contact.getEID()));
+          //imvPhoto.setImageDrawable(drPhoto);
+        }catch(Exception ex){
+        	//imvPhoto.setBackgroundColor(R.color.abs__primary_text_holo_light);
+        	ex.printStackTrace();
+        }
         Contact curContact=Client.CURR_CLIENT.getContact();
         final String shareContent=MessageFormat.format("你的好友或同事  {0} {1} {2} 向你推荐  天健综合管理系统 android 客户端, 下载地址：{3}",
         		curContact.getAreaName(),
@@ -102,9 +114,9 @@ public class ContactInfoDialog extends SherlockDialogFragment {
        		);
         if(StringHelper.isBlank(_contact.getEMobile() ) ){
            imbCallMobile.setVisibility(View.INVISIBLE);
-           imbSendSMSMobile.setVisibility(View.INVISIBLE);
            btnShareBySMS.setVisibility(View.INVISIBLE);
         }else{
+        	imbCallMobile.setText(_contact.getEMobile());
         imbCallMobile.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -117,16 +129,6 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			
 		});
         
-        
-         imbSendSMSMobile.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-			    	Intent intent= contextHelper.toSendSms(_contact.getEMobile(),"OA短信：");
-			    	getActivity().startActivity(intent);
-			}
-		});
         
 
          btnShareBySMS.setOnClickListener(new OnClickListener() {
@@ -143,6 +145,7 @@ public class ContactInfoDialog extends SherlockDialogFragment {
         if(StringHelper.isBlank(_contact.getEMobileShort() ) ){
             imbCallMobileShort.setVisibility(View.INVISIBLE);
          }else{
+            imbCallMobileShort.setText(_contact.getEMobileShort());
            imbCallMobileShort.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -158,6 +161,7 @@ public class ContactInfoDialog extends SherlockDialogFragment {
         if(StringHelper.isBlank(_contact.getEMail() ) ){
         	imbSendEmail.setVisibility(View.INVISIBLE);
          }else{
+        	 imbSendEmail.setText(_contact.getEMail());
         	 imbSendEmail.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -178,7 +182,11 @@ public class ContactInfoDialog extends SherlockDialogFragment {
 			    try {
 			    	Intent intent =contextHelper.toSaveContact(_contact.getEUserName(),
 							StringHelper.firstNotBlank(_contact.getEMobile(),_contact.getEMobileShort())
-							, _contact.getEMail());
+							, _contact.getEMail()
+							, _contact.getAreaName()+" "+_contact.getDepartName()
+							,  _contact.getRankName()
+							,""
+			    			);
 			    	 startActivity(intent);
 					 Toast.makeText(getActivity(), 
 						      MessageFormat.format("{0} 的信息已成功保存到手机", _contact.getEUserName())
