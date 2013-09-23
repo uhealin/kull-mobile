@@ -13,9 +13,11 @@ import org.pccpa.api.SiteSynRunnable;
 import org.pccpa.api.Client.ContactGrid;
 import org.pccpa.api.Client.EMGrid;
 import org.pccpa.frage.ContactListFragment;
+import org.pccpa.frage.DepartmentSelectDialog;
 import org.pccpa.frage.HelpFragment;
 import org.pccpa.frage.RemindListFragment;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -116,12 +118,19 @@ public class ContactActivity extends BaseFragmentActivity {
 		// TODO Auto-generated method stub
 
 	 MenuItem miSearch=	menu.add("查找")
-		.setIcon(R.drawable.ic_search)
+		.setIcon(R.drawable.ic_action_search)
 		.setActionView(R.layout.collapsible_edittext);
     miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM|MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
     etSearchKeyword=(EditText)miSearch.getActionView().findViewById(R.id.etxSearchKeyword);
 	etSearchKeyword.addTextChangedListener(contactListFragment);
 		
+
+	MenuItem depSearch=	menu.add("查找部门")
+			.setIcon(R.drawable.ic_content_select_all);
+	depSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+			;
+			//.setActionView(R.layout.collapsible_edittext);
+	    
 		
    // menu.add("同步通讯录")
     //    .setIcon( R.drawable.ic_refresh_inverse)
@@ -148,6 +157,11 @@ public class ContactActivity extends BaseFragmentActivity {
 	    	HelpFragment list=new HelpFragment();
 	    	list.context="通讯录帮助";
 			list.show(getSupportFragmentManager(), list.context);
+	    }else if("查找部门".equals(item.getTitle())){
+	    	DepartmentSelectDialog dialog=new DepartmentSelectDialog();
+	    	dialog.setParent(contactListFragment);
+	    	dialog.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light);
+	    	dialog.show(this.getSupportFragmentManager(), "");
 	    }
 	    return true;
 	}

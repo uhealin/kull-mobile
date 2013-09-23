@@ -50,6 +50,8 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 	
 	private ContactListAdapter adapter;
 	
+	
+
 	SQLiteOrmHelper sqLiteOrmHelper;
 
 	@Override
@@ -67,7 +69,13 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
        
 	}
 
-
+   public void loadItems(List<Contact> items){
+	   
+	   adapter.items=items;
+	   this.setListAdapter(adapter);
+   }
+	
+	
 	@Override
 	public void onScrollStateChanged(AbsListView viewGroup, int scrollState) {
 		// TODO Auto-generated method stub
