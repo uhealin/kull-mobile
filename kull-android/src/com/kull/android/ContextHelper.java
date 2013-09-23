@@ -98,6 +98,10 @@ public class ContextHelper {
 	}
 	
 	public Intent toSaveContact(String name,String mobile,String email) throws RemoteException, OperationApplicationException{
+	  return toSaveContact(name, mobile, email, "", "", "");
+	}
+	
+	public Intent toSaveContact(String name,String mobile,String email,String company,String jobtitle,String address) throws RemoteException, OperationApplicationException{
 //		Intent intent = new Intent();
 //        intent.setAction(Intent.ACTION_INSERT);
 //        intent.setData(ContactsContract.Contacts.CONTENT_URI);
@@ -115,6 +119,9 @@ public class ContextHelper {
         intent.putExtra(android.provider.ContactsContract.Intents.Insert.EMAIL,email);
         intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE, mobile);
         intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE_TYPE, 3); 
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.JOB_TITLE, jobtitle);
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.COMPANY,company);
+        intent.putExtra(android.provider.ContactsContract.Intents.Insert.POSTAL, address);
         return intent;
 	}
 	

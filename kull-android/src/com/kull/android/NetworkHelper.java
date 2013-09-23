@@ -68,15 +68,23 @@ public class NetworkHelper{
 	
 	public static String doGet(String url,HttpGet httpGet,HttpResponse httpResponse) throws Exception{
 		
-		   httpGet=httpGet==null?new HttpGet(url):httpGet;
-		   httpResponse=new DefaultHttpClient().execute(httpGet);
-		   InputStream is= httpResponse.getEntity().getContent();
+		   //httpGet=httpGet==null?new HttpGet(url):httpGet;
+		   //httpResponse=new DefaultHttpClient().execute(httpGet);
+		   InputStream is= doGetStream(url, httpGet, httpResponse);
 	       String context= streamToString(is);
 	     
 	       is.close();
 	       is=null;
 	       System.gc();
 	       return context; 
+	}
+	
+	public static InputStream doGetStream(String url,HttpGet httpGet,HttpResponse httpResponse) throws Exception{
+		
+		   httpGet=httpGet==null?new HttpGet(url):httpGet;
+		   httpResponse=new DefaultHttpClient().execute(httpGet);
+		   InputStream is= httpResponse.getEntity().getContent();
+	      return is; 
 	}
 	
 	public static String doPost(String url,Map<String, Object> params,HttpPost httpPost,HttpResponse httpResponse)throws Exception{
