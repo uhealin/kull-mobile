@@ -20,8 +20,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -53,16 +55,20 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		try {
-		   CACHE_AREAS=DB.local.selectArea(this.getActivity());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(CACHE_AREAS.isEmpty()){
+			try {
+			   CACHE_AREAS=DB.local.selectArea(this.getActivity());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		View view=inflater.inflate(R.layout.dialog_department_select, container,false);
-		LinearLayout layout=(LinearLayout)view;//.findViewById(R.id.layArea);
 		
-        ArrayList<View> children=new ArrayList<View>();
+		ScrollView scrollView=(ScrollView)view;
+		LinearLayout layout=(LinearLayout)scrollView.findViewById(R.id.layArea);//.findViewById(R.id.layArea);
+		
+      //  ArrayList<View> children=new ArrayList<View>();
         for(Area area: CACHE_AREAS.values()){
         	Button areaButton=new Button(getActivity());
         	//areaButton.setWidth(200);
@@ -94,13 +100,21 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
         	GridView gridDepts=new GridView(getActivity());
         	gridDepts.setNumColumns(3);
         	gridDepts.setColumnWidth(80);
+        	int dsize=area.getDepts().size();
+        	if(dsize>3){
+        	  int h=((dsize/3)+ (dsize%3==0?0:1) )*48;
+        	  LayoutParams layoutParams=new LayoutParams();
+        	  layoutParams.height=h;
+        	   gridDepts.setLayoutParams(layoutParams);
+        	}
+        	//gridDepts.setLayoutParams(layparam);
         	DeptItemAdapter deptItemAdapter=new DeptItemAdapter(getActivity());
         	deptItemAdapter.items=new ArrayList<DB.Dept>(area.getDepts().values());
         	gridDepts.setAdapter(deptItemAdapter);
         	layout.addView(gridDepts);
         }
         //view.addTouchables(children);
-		return layout;
+		return scrollView;
 	}
 	
 	public class DeptItemAdapter extends ListItemAdapter<Dept> {

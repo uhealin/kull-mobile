@@ -4,6 +4,27 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/txvLoginInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <Button 
+            android:id="@+id/btnDoLogin"
+             android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="退出登录"
+            />
+
+    <TextView
+        android:id="@+id/txvSynInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
         <Button 
             android:id="@+id/btnSiteSyn"

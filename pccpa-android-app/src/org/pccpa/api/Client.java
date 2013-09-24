@@ -14,6 +14,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,16 +74,22 @@ public class Client {
     
     
     
-    public Contact getContact() {
+    public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public Contact getContact() {
 		return contact;
 	}
 
-	private Client(String eid){
+	public Client(String eid){
     
     	this.eid=eid;
         
     }
     
+	
+	
     public static String urlEmployeePhoto(String eid){
     	return MessageFormat.format(url_em_photo_pattern, eid);
     }
@@ -150,8 +157,22 @@ public class Client {
     	String content=NetworkHelper.doPost(url, param, null, null);
     	Result result=GSON.fromJson(content, Result.class);
     	if(result.code==0){
+    		String eid=result.action;
     		CURR_CLIENT=new Client(result.action);
     		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+    		List<LoginLog> loginlogs=sqLiteOrmHelper.select(LoginLog.class, new String[]{"*"},"eid=?",new String[]{eid});
+    		if(loginlogs.size()==0){
+    			LoginLog loginlog=new LoginLog();
+    			loginlog.setEid(eid);
+    			loginlog.setPwd(EPassword);
+    			loginlog.setLast_login_mis(new Date().getTime());
+    			sqLiteOrmHelper.insert(loginlog);
+    		}else{
+    			LoginLog loginlog=loginlogs.get(0);
+    			loginlog.setPwd(EPassword);
+    			loginlog.setLast_login_mis(new Date().getTime());
+    			//sqLiteOrmHelper.update(loginlog);
+    		}
     		try{
     		  CURR_CLIENT.contact=sqLiteOrmHelper.load(Contact.class, result.action);
     		}catch(Exception ex){
@@ -161,7 +182,12 @@ public class Client {
     	return result;
     }
     
-    public class Result {
+    public static class Result {
+    	
+    	public static Result create(){
+    		return new Result();
+    	}
+    	
     	private String msg,action,icon;
     	private int code;
 		public String getMsg() {

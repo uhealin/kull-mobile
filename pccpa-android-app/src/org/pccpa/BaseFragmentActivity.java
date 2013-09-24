@@ -35,6 +35,8 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		actionBar.setTitle(title);
 		actionBar.setSubtitle(subtitle);
 		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setIcon(R.drawable.ic_pccpa);
 		initActionBar(this, actionBar);
 		contextHelper=new ContextHelper(this);
 		
@@ -73,15 +75,16 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		switch (itemPosition) {
 		case 0:
 			//contextHelper.to(RemindActivity.class);
+			contextHelper.to(ContactActivity.class);
 			break;
 		case 1:
 			contextHelper.to(RemindActivity.class);
 			break; 
 		case 2:
-			contextHelper.to(ContactActivity.class);
+			contextHelper.to(SettingActivity.class);
 			break;
 		case 3:
-			contextHelper.to(SettingActivity.class);
+			contextHelper.to(AboutActivity.class);
 			break;
 		case 4:
 			Client.CURR_CLIENT=null;

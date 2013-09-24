@@ -12,7 +12,7 @@
         android:text="Button" />
 
     <GridView 
-        android:id="@+id/btnSelectDeps"
+        android:id="@+id/gridSelectDeps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="auto_fit"

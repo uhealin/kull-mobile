@@ -1,10 +1,15 @@
 package org.pccpa;
 
+import java.util.Date;
+import java.util.List;
+
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 import org.pccpa.api.Client.Result;
+import org.pccpa.api.LoginLog;
 import org.pccpa.remind.RemindListActivity;
 
+import com.kull.android.NetworkHelper;
 import com.kull.android.SQLiteOrmHelper;
 
 import android.animation.Animator;
@@ -20,6 +25,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.JsResult;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,8 +69,37 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         
+		
+		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
+		NetworkHelper.enableNetwrokOnMainThread();
+		try {
+			List<LoginLog> loginlogs=sqLiteOrmHelper.select(LoginLog.class, new String[]{"*"}, "", new String[]{},"","","last_login_mis desc",0,1);
+		    if(loginlogs.size()>0){
+		    	LoginLog loginlog=loginlogs.get(0);
+		        Long diff=new Date().getTime()-loginlog.getLast_login_mis();
+		        if(diff<1000*60*60*24*7){
+		        	Client.CURR_CLIENT=new Client(loginlog.getEid());
+		      	   Client.CURR_CLIENT.setContact(sqLiteOrmHelper.load(Contact.class, loginlog.getEid()));
+		      	 ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
+						   new String[]{"*"}
+				           ,"areaid = ?"
+				           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
+						   );
+			Intent intent=new Intent(this,ContactActivity.class);
+		    startActivity(intent);
+			
+		        }
+		    }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		setContentView(R.layout.activity_login);
 
+		
+		
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.activity_login_etx_loginid);
@@ -79,7 +114,7 @@ public class LoginActivity extends Activity {
 							KeyEvent keyEvent) {
 						if (id == R.id.login || id == EditorInfo.IME_NULL) {
 							//attemptLogin();
-							doLogin();
+							//doLogin();
 							return true;
 						}
 						return false;
@@ -94,10 +129,12 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//attemptLogin();
-						doLogin();
+						attemptLogin();
+						//doLogin();
 					}
 				});
+		
+		
 	}
 
 	@Override
@@ -113,14 +150,14 @@ public class LoginActivity extends Activity {
 	 * errors are presented and no actual login attempt is made.
 	 */
 	
-	private void doLogin(){
+	private boolean doLogin() throws Exception{
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
-		try {
+		
 			Result re=Client.doLogin(mEmail, mPassword,this);
 			//Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
 			if(re.getCode()==0){
-				Toast.makeText(this,"登录成功，系统初始化中，请稍候...", 2000).show();
+				//Toast.makeText(this,"登录成功，系统初始化中，请稍候...", 2000).show();
 				 SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
 				 //sqLiteOrmHelper.createTable(Contact.class);
 				   ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
@@ -128,14 +165,11 @@ public class LoginActivity extends Activity {
 				           ,"areaid = ?"
 				           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
 						   );
-			Intent intent=new Intent(this,ContactActivity.class);
-		    startActivity(intent);
+			
 			}
 		    
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			Toast.makeText(this, e.getLocalizedMessage(), 3000).show();
-		}
+		
+		return true;
 		
 	}
 	
@@ -161,9 +195,9 @@ public class LoginActivity extends Activity {
 			focusView = mPasswordView;
 			cancel = true;
 		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
-			focusView = mPasswordView;
-			cancel = true;
+			//mPasswordView.setError(getString(R.string.error_invalid_password));
+			//focusView = mPasswordView;
+			//cancel = true;
 		}
 
 		// Check for a valid email address.
@@ -172,9 +206,9 @@ public class LoginActivity extends Activity {
 			focusView = mEmailView;
 			cancel = true;
 		} else if (!mEmail.contains("@")) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
-			cancel = true;
+			//mEmailView.setError(getString(R.string.error_invalid_email));
+			//focusView = mEmailView;
+			//cancel = true;
 		}
 
 		if (cancel) {
@@ -236,41 +270,65 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends AsyncTask<Void, Void, Result> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Result doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
-
+			
+			Result re=Result.create();
 			try {
 				// Simulate network access.
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				return false;
+				return re;
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-
+			
+            
 			// TODO: register the new account here.
-			return true;
+			try {
+				mEmail = mEmailView.getText().toString();
+				mPassword = mPasswordView.getText().toString();
+				
+				 re=Client.doLogin(mEmail, mPassword,getApplicationContext());
+					//Toast.makeText(this, re.getCode()+":"+re.getMsg(), 3000).show();
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				re.setCode(1);
+				re.setMsg(e.getLocalizedMessage());
+			}
+			return re;
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(final Result success) {
 			mAuthTask = null;
 			showProgress(false);
 
-			if (success) {
+			if (success.getCode()==0) {
 				finish();
+				Toast.makeText(getApplicationContext(), "登录验证成功，缓存通信录数据中...", 3000).show();
+				SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(getApplicationContext());
+				 //sqLiteOrmHelper.createTable(Contact.class);
+				   try {
+					ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
+							   new String[]{"*"}
+					           ,"areaid = ?"
+					           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
+							   );
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Intent intent=new Intent(getApplicationContext(),ContactActivity.class);
+			    startActivity(intent);
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
+				Toast.makeText(getApplicationContext(), "登录失败:"+success.getMsg(), 6000).show();
 			}
 		}
 

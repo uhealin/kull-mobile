@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.pccpa.api.Contact;
+import org.pccpa.api.LoginLog;
 import org.pccpa.api.SiteSynRunnable;
 
 import android.content.Context;
@@ -22,30 +25,32 @@ public enum DB {
 	}
 	
 	
-	public void initDB(Context context) throws Exception{
+	public boolean initDB(Context context) {
 		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
 		try{
 			sqLiteOrmHelper.select(Contact.class,0,1);
+			sqLiteOrmHelper.select(LoginLog.class,0,1);
 		}catch(Exception ex){
-			//sqLiteOrmHelper.createTable(Contact.class);
-			SiteSynRunnable siteSynRunnable=new SiteSynRunnable(context);
-			new Thread(siteSynRunnable).start();
+			sqLiteOrmHelper.replaceTable(Contact.class,LoginLog.class);
+			//SiteSynRunnable siteSynRunnable=new SiteSynRunnable(context);
+			//new Thread(siteSynRunnable).start();
+			return true;
 		}
-		
+		return false;
 		
 		
 	}
 	
-	public Map<String,Area> selectArea(Context context) throws Exception{
+	public SortedMap<String,Area> selectArea(Context context) throws Exception{
 		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
-		Map<String,Area> areas=new HashMap<String,DB.Area>();
+		SortedMap<String,Area> areas=new TreeMap<String,DB.Area>();
 		List<Contact> depts=sqLiteOrmHelper.select(Contact.class, 
 				new String[]{"AreaId","AreaName","DepartId","DepartName"}
 		        ,""
 		        ,new String[]{}
 		        ,"departid"
 		        ,""
-		        ,""
+		        ,"areaid asc,departid asc"
 				);
 		for(Contact dept :depts){
 			if(!areas.containsKey(dept.getAreaID())){
@@ -66,14 +71,14 @@ public enum DB {
 	public class Area{
 		private Area(){}
 		private String areaId,areaName;
-		private Map<String,Dept> depts=new HashMap<String, DB.Dept>();
+		private SortedMap<String,Dept> depts=new TreeMap<String, DB.Dept>();
 		public String getAreaId() {
 			return areaId;
 		}
 		public String getAreaName() {
 			return areaName;
 		}
-		public Map<String, Dept> getDepts() {
+		public SortedMap<String, Dept> getDepts() {
 			return depts;
 		}
 		
