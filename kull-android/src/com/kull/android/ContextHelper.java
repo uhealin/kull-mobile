@@ -163,4 +163,7 @@ public class ContextHelper {
         ContentProviderResult[] res= cr.applyBatch("com.android.contacts", operations);
         return res;
 	}
+	
+	
+	
 }

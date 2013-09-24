@@ -42,6 +42,10 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		
 		CLASS_REF_JDBCTYPE.put(String.class, "text");
 		CLASS_REF_JDBCTYPE.put(Integer.class, "int");
+		CLASS_REF_JDBCTYPE.put(Long.class, "long");
+		CLASS_REF_JDBCTYPE.put(Double.class, "double");
+		CLASS_REF_JDBCTYPE.put(Short.class, "short");
+		CLASS_REF_JDBCTYPE.put(Float.class, "float");
 	}
 	
 	
@@ -77,23 +81,23 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		SQLiteDatabase database=getWritableDatabase();
 		int eff=0;
 		for(Class cls :clss){
-		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
-		createSql+=MessageFormat.format("create table {0} ( ", ormTable.name());
-		Field[] fields=cls.getDeclaredFields();
-		for(Field field : fields){
-			String fname=field.getName();
-			Class fcls=field.getType();
-			if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
-			String type=CLASS_REF_JDBCTYPE.get(fcls);
-			createSql+=MessageFormat.format("{0} {1} ,", fname,type);
-		}
-		createSql=createSql.substring(0, createSql.length()-1);
-		createSql+=")";
-		
-		try{
-		   database.execSQL(createSql);
-		}catch(Exception ex){continue;}
-	    eff++;
+			OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
+			createSql=MessageFormat.format("create table {0} ( ", ormTable.name());
+			Field[] fields=cls.getDeclaredFields();
+			for(Field field : fields){
+				String fname=field.getName();
+				Class fcls=field.getType();
+				if(!CLASS_REF_JDBCTYPE.containsKey(fcls))continue;
+				String type=CLASS_REF_JDBCTYPE.get(fcls);
+				createSql+=MessageFormat.format("{0} {1} ,", fname,type);
+			}
+			createSql=createSql.substring(0, createSql.length()-1);
+			createSql+=")";
+			
+			try{
+			   database.execSQL(createSql);
+			}catch(Exception ex){continue;}
+		    eff++;
 		}
 		database.releaseMemory();
 		return eff;
@@ -129,7 +133,7 @@ public class SQLiteOrmHelper extends SQLiteOpenHelper {
 		SQLiteDatabase database=getWritableDatabase();
 		for(Class cls :clss){
 		OrmTable ormTable=(OrmTable)cls.getAnnotation(OrmTable.class);
-		createSql+=MessageFormat.format("truncate table {0}  ", ormTable.name());
+		createSql =MessageFormat.format("delete from {0}; vacuum;  ", ormTable.name());
 		try{
 		database.execSQL(createSql);
 		}catch(Exception ex){}
@@ -303,6 +307,7 @@ public int update(Object...objs) throws Exception{
 	
 	int success=0;
 	SQLiteDatabase wdatabase=this.getWritableDatabase();
+	wdatabase.beginTransaction();
 	for(Object obj : objs){
 		if(obj==null)continue;
 		OrmTable table=null;
@@ -334,7 +339,7 @@ public int update(Object...objs) throws Exception{
 		for(Field field:fields){
 			if(LinqHelper.isIn(field.getName(),table.ingoreColumnNames())||field.getName().equalsIgnoreCase(table.pk()))continue;	
 			//String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
-			Method m=ObjectHelper.getGetter(obj.getClass(), pkField);
+			Method m=ObjectHelper.getGetter(obj.getClass(), field);
 			Object value=m.invoke(obj);
 			params.add(value);
 			j++;
@@ -389,6 +394,8 @@ public int delete(Object...objs)throws Exception{
 	return success;
 }
 
+
+
 public <T> List<T> select(Class<T> cls) throws Exception{
     return select(cls, new String[]{"*"}, "", new String[]{});
 }
@@ -431,6 +438,32 @@ public <T> List<T> select(Class<T> cls,String[] columns,String selection,String[
 	   database.releaseMemory();
 	   return list;
  }
+  
+  public <T> int count(Class<T> cls) throws Exception{
+	  return count(cls,"",new String[]{});
+  }
+  
+  public <T> int count(Class<T> cls,String selection,String[] selectionArgs) throws Exception{
+    return count(cls, selection, selectionArgs,"","");
+  }
+  
+  public <T> int count(Class<T> cls,String selection,String[] selectionArgs,String  groupBy,String  having) throws Exception{
+	  OrmTable table= cls.getAnnotation(OrmTable.class);
+	  return count(table.name(), selection, selectionArgs, groupBy, having);
+  }
+  
+  public int count(String table,String selection,String[] selectionArgs,String  groupBy,String  having) throws Exception{
+	   SQLiteDatabase database= this.getReadableDatabase();
+	   int c=0;
+	   Cursor cursor=database.query(table, new String[]{"count(*)"}, selection, selectionArgs, groupBy, having,"");
+	   if(cursor.moveToNext()){
+		   c=cursor.getInt(0);
+	   }
+	   cursor.close();
+	   database.releaseReference();
+	   database.releaseMemory();
+	   return c;
+}
        
    public  <T> List<T> evalList (Class<T> cls,Cursor cursor) throws InstantiationException, IllegalAccessException{
 	  

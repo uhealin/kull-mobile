@@ -75,6 +75,7 @@ public class NetworkHelper{
 	     
 	       is.close();
 	       is=null;
+	      
 	       System.gc();
 	       return context; 
 	}
@@ -84,6 +85,7 @@ public class NetworkHelper{
 		   httpGet=httpGet==null?new HttpGet(url):httpGet;
 		   httpResponse=new DefaultHttpClient().execute(httpGet);
 		   InputStream is= httpResponse.getEntity().getContent();
+		  
 	      return is; 
 	}
 	
@@ -143,5 +145,20 @@ public class NetworkHelper{
 			netType = NetworkType.wifi;
 		}
 		return netType;
+	}
+	
+	public static void enableNetwrokOnMainThread(){
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()  
+        .detectDiskReads()  
+        .detectDiskWrites()  
+        .detectNetwork()   // or .detectAll() for all detectable problems  
+        .penaltyLog()  
+        .build());  
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()  
+        .detectLeakedSqlLiteObjects()  
+        
+        .penaltyLog()  
+        .penaltyDeath()  
+        .build());  
 	}
 }
