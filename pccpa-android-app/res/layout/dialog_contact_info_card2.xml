@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:greendroid="http://schemas.android.com/apk/res/com.cyrilmottier.android.gdcatalog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/txvRankName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txvDepName"
+        android:layout_below="@+id/txvEmName"
+        android:layout_marginTop="10dp"
+        android:text="Small Text"
+        android:textColor="@color/blue"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/btnSaveToPhone"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnSendMail"
+        android:layout_marginTop="10dp"
+        android:text="添加到手机" />
+
+    <Button
+        android:id="@+id/btnShareBySMS"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnSaveToPhone"
+        android:text="短信推荐应用" />
+
+    <Button
+        android:id="@+id/btnShareByMail"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnShareBySMS"
+        android:text="邮件推荐应用" />
+
+    <TextView
+        android:id="@id/txvDepName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="15dp"
+        android:text="Area"
+        android:textColor="@color/blue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txvEmName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txvDepName"
+        android:layout_below="@id/txvDepName"
+        android:layout_marginTop="10dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/txvShouji"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txvRankName"
+        android:layout_below="@+id/txvRankName"
+        android:layout_marginTop="15dp"
+        android:text="手机"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/txvDianhua"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txvShouji"
+        android:layout_below="@+id/txvShouji"
+        android:layout_marginTop="10dp"
+        android:text="电话"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/txvYouxiang"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txvDianhua"
+        android:layout_below="@+id/txvDianhua"
+        android:layout_marginTop="10dp"
+        android:text="邮箱"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <greendroid.widget.AsyncImageView
+        android:id="@+id/imvPhoto"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txvRankName"
+        android:layout_toRightOf="@+id/btnDep"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/abs__ab_bottom_solid_dark_holo" />
+
+    <TextView
+        android:id="@+id/btnDep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txvEmName"
+        android:layout_toRightOf="@id/txvDepName"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/blue"
+        android:text="dept"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/btnCallMobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txvDianhua"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/blue"
+        android:layout_toRightOf="@+id/txvShouji"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/txvTelInfor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txvYouxiang"
+        android:layout_toRightOf="@+id/txvDianhua"
+        android:layout_marginLeft="20dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/btnSendMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txvYouxiang"
+        android:layout_alignBottom="@+id/txvYouxiang"
+        android:layout_toRightOf="@+id/txvYouxiang"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/blue"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/btnCallMobileShort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txvDianhua"
+        android:layout_toRightOf="@+id/btnCallMobile"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/blue"
+        android:text="Button" />
+
+</RelativeLayout>

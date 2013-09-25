@@ -29,8 +29,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="2"
             android:gravity="center_vertical|left"
-            android:paddingLeft="10dp"
-            android:textSize="18dp" />
+            android:paddingLeft="5dp"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/txvMobile"
@@ -38,7 +38,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="5dp" />
 
     </LinearLayout>
    

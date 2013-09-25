@@ -7,8 +7,9 @@ import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 import org.pccpa.api.Client.Result;
 import org.pccpa.api.LoginLog;
-import org.pccpa.remind.RemindListActivity;
 
+
+import com.actionbarsherlock.app.SherlockActivity;
 import com.kull.android.NetworkHelper;
 import com.kull.android.SQLiteOrmHelper;
 
@@ -34,7 +35,7 @@ import android.widget.Toast;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends SherlockActivity {
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -80,11 +81,7 @@ public class LoginActivity extends Activity {
 		        if(diff<1000*60*60*24*7){
 		        	Client.CURR_CLIENT=new Client(loginlog.getEid());
 		      	   Client.CURR_CLIENT.setContact(sqLiteOrmHelper.load(Contact.class, loginlog.getEid()));
-		      	 ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
-						   new String[]{"*"}
-				           ,"areaid = ?"
-				           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
-						   );
+		      	 ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(this, Client.CURR_CLIENT.getContact().getDepartID());
 			Intent intent=new Intent(this,ContactActivity.class);
 		    startActivity(intent);
 			
@@ -103,10 +100,10 @@ public class LoginActivity extends Activity {
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.activity_login_etx_loginid);
-		mEmailView.setText("lhh");
+		//mEmailView.setText("lhh");
 
 		mPasswordView = (EditText) findViewById(R.id.activity_login_etx_pwd);
-		mPasswordView.setText("0000");
+		//mPasswordView.setText("0000");
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -137,12 +134,12 @@ public class LoginActivity extends Activity {
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
+//	//@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		super.onCreateOptionsMenu(menu);
+//		getMenuInflater().inflate(R.menu.login, menu);
+//		return true;
+//	}
 
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
@@ -309,15 +306,10 @@ public class LoginActivity extends Activity {
 
 			if (success.getCode()==0) {
 				finish();
-				Toast.makeText(getApplicationContext(), "登录验证成功，缓存通信录数据中...", 3000).show();
-				SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(getApplicationContext());
-				 //sqLiteOrmHelper.createTable(Contact.class);
+				Contact contact=Client.CURR_CLIENT.getContact();
+				Toast.makeText(getApplicationContext(), "登录验证成功，开始缓存部门"+contact.getDepartName()+" 的通信录数据...", 3000).show();
 				   try {
-					ContactActivity.CONTACT_ALL=sqLiteOrmHelper.select(Contact.class,
-							   new String[]{"*"}
-					           ,"areaid = ?"
-					           ,new String[]{Client.CURR_CLIENT.getContact().getAreaID()}
-							   );
+					ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(getApplicationContext(), contact.getDepartID());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -330,7 +322,7 @@ public class LoginActivity extends Activity {
 				mPasswordView.requestFocus();
 				Toast.makeText(getApplicationContext(), "登录失败:"+success.getMsg(), 6000).show();
 			}
-		}
+        }
 
 		@Override
 		protected void onCancelled() {

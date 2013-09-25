@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.pccpa.api.SiteSynTask;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.kull.android.ContextHelper;
 import com.kull.android.IOHelper;
 import com.kull.android.NetworkHelper;
@@ -12,12 +13,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class InitActivity extends Activity {
+public class InitActivity extends SherlockActivity {
 
 	InitSiteSynTask initSiteSynTask;
-	
+	TextView txvInitInfo;
 	@Override
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class InitActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		this.setContentView(R.layout.activity_init);
+		txvInitInfo=(TextView)this.findViewById(R.id.txvInitInfo);
 		NetworkHelper.enableNetwrokOnMainThread();
 		initSiteSynTask=new InitSiteSynTask(this);
 		initSiteSynTask.execute((Void)null);
@@ -71,6 +74,12 @@ public class InitActivity extends Activity {
 			// TODO Auto-generated method stub
 			ContextHelper contextHelper=new ContextHelper(_context);
 			contextHelper.to(LoginActivity.class);
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
 		}
 		
 		

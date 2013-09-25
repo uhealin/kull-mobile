@@ -30,10 +30,10 @@
 		android:orientation="vertical">
 
 		<ImageView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:scaleType="centerInside"
-			android:src="@drawable/ic_launcher" />
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:scaleType="centerInside"
+		    android:src="@drawable/ic_pccpa" />
 
 		<TextView
 			android:id="@+id/about"

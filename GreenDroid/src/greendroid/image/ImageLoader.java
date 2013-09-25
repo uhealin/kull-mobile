@@ -146,6 +146,7 @@ public class ImageLoader {
                     if (processedBitmap != null) {
                         bitmap = processedBitmap;
                     }
+                   
                 }
 
             } catch (Exception e) {

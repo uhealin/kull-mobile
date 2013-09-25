@@ -29,7 +29,7 @@ public class DummyContent {
 
 	static {
 		// Add 3 sample items.
-		addItem(new DummyItem("remind", "待办提醒",org.pccpa.remind.IndexFragment.class));
+		//addItem(new DummyItem("remind", "待办提醒",org.pccpa.remind.IndexFragment.class));
 		addItem(new DummyItem("contact","通讯录",org.pccpa.contact.IndexFragment.class));
 		//addItem(new DummyItem("news", "新闻"));
 	}

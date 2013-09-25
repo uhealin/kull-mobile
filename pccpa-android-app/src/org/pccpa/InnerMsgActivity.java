@@ -5,9 +5,12 @@ import org.pccpa.api.Client;
 import org.pccpa.api.Client.RemindsAdapter;
 import org.pccpa.api.RemindItem;
 import org.pccpa.frage.HelpFragment;
+import org.pccpa.frage.InnerMsgListFragment;
+import org.pccpa.frage.ReadedInnerMsgListFragment;
 import org.pccpa.frage.RemindListFragment;
 import org.pccpa.frage.ApplyRemindListFragment;
 import org.pccpa.frage.CheckRemindListFragment;
+import org.pccpa.frage.UnReadInnerMsgListFragment;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -19,7 +22,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class RemindActivity extends BaseFragmentActivity {
+public class InnerMsgActivity extends BaseFragmentActivity {
 
 	TabsAdapter mTabsAdapter;
 	TabHost mTabHost;
@@ -36,23 +39,22 @@ public class RemindActivity extends BaseFragmentActivity {
 
 	        mViewPager = (ViewPager)findViewById(R.id.pager);
 
-	        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager); 
+	        
 			 try {
 				
 				
 				Bundle b0=new Bundle(),b1=new Bundle();
 				b0.putCharSequence("rtype", "check");
 				b1.putCharSequence("rtype", "apply");
-				mTabsAdapter.addTab(mTabHost.newTabSpec("待审批").setIndicator("待审批"),
-		                CheckRemindListFragment.class, null);
-				mTabsAdapter.addTab(mTabHost.newTabSpec("申请中").setIndicator("申请中"),
-		                ApplyRemindListFragment.class, null);
-				 //mTabsAdapter.addTab(mTabHost.newTabSpec("按部门").setIndicator("按部门"),
-			      //          ContactListFragment.class, null);
-			    //    mTabsAdapter.addTab(mTabHost.newTabSpec("按姓氏").setIndicator("按姓氏"),
-			    //    		ContactListFragment.class, null);
-			    // //   mTabsAdapter.addTab(mTabHost.newTabSpec("按拼音").setIndicator("按拼音"),
-			    //    		ContactListFragment.class, null);
+				
+				mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager); 
+				
+				mTabsAdapter.addTab(mTabHost.newTabSpec("未读").setIndicator("未读"),
+		                UnReadInnerMsgListFragment.class, null);
+				mTabsAdapter.addTab(mTabHost.newTabSpec("已读").setIndicator("已读"),
+		                ReadedInnerMsgListFragment.class, null);
+				 
+				//reloadTabs();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				contextHelper.alert(e, Toast.LENGTH_LONG);
@@ -61,13 +63,15 @@ public class RemindActivity extends BaseFragmentActivity {
 		            mTabHost.setCurrentTabByTag(arg0.getString("tab"));
 		        }
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		menu.add("帮助")
-		.setIcon(R.drawable.ic_search)
-        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		//menu.add("帮助")
+		//.setIcon(R.drawable.ic_search)
+       // .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
     menu.add("刷新")
         .setIcon( R.drawable.ic_refresh_inverse)
@@ -81,8 +85,8 @@ public class RemindActivity extends BaseFragmentActivity {
 	    if("刷新".equals(item.getTitle())){
 	    	//RemindListFragment list=new RemindListFragment();
 			//this.getSupportFragmentManager().beginTransaction().replace(android.R.id.content,list).commit();
-		   RemindListFragment remindListFragment=(RemindListFragment)mTabsAdapter.getItem(mTabHost.getCurrentTab());
-	       remindListFragment.loadList(this);
+	    	InnerMsgListFragment innerMsgListFragment=(InnerMsgListFragment)mTabsAdapter.getItem(mTabHost.getCurrentTab());
+	    	innerMsgListFragment.loadList(this);
 	    }else if("帮助".equals(item.getTitle())){
 	    	HelpFragment list=new HelpFragment();
 	    	list.context="待办帮助";

@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
+import org.pccpa.api.InnerMsg;
 import org.pccpa.api.LoginLog;
 import org.pccpa.api.SiteSynRunnable;
 
@@ -30,8 +32,9 @@ public enum DB {
 		try{
 			sqLiteOrmHelper.select(Contact.class,0,1);
 			sqLiteOrmHelper.select(LoginLog.class,0,1);
+			sqLiteOrmHelper.select(InnerMsg.class, 0, 1);
 		}catch(Exception ex){
-			sqLiteOrmHelper.replaceTable(Contact.class,LoginLog.class);
+			sqLiteOrmHelper.replaceTable(Contact.class,LoginLog.class,InnerMsg.class);
 			//SiteSynRunnable siteSynRunnable=new SiteSynRunnable(context);
 			//new Thread(siteSynRunnable).start();
 			return true;
@@ -39,6 +42,58 @@ public enum DB {
 		return false;
 		
 		
+	}
+	
+	
+	public List<Contact> selectAreaContacts(Context context,String areaid) throws Exception{
+		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		 //sqLiteOrmHelper.createTable(Contact.class);
+		List<Contact> contacts=new ArrayList<Contact>();
+		
+			contacts=sqLiteOrmHelper.select(Contact.class,
+					   new String[]{"*"}
+			           ,"areaid = ?"
+			           ,new String[]{areaid}
+			         ,""
+	                 ,""
+	                 ,"dorderno asc,eorderno asc"
+					   );
+		
+		return contacts;
+	}
+	
+	public List<Contact> selectAreaRankContacts(Context context,String areaid,String rankid) throws Exception{
+		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		 //sqLiteOrmHelper.createTable(Contact.class);
+		List<Contact> contacts=new ArrayList<Contact>();
+		
+			contacts=sqLiteOrmHelper.select(Contact.class,
+					   new String[]{"*"}
+			           ,"areaid = ? and rankid=?"
+			           ,new String[]{areaid,rankid}
+			         ,""
+	                 ,""
+	                 ,"dorderno asc,eorderno asc"
+					   );
+		
+		return contacts;
+	}
+	
+	public List<Contact> selectDeptContacts(Context context,String deptid) throws Exception{
+		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		 //sqLiteOrmHelper.createTable(Contact.class);
+		List<Contact> contacts=new ArrayList<Contact>();
+		   
+			contacts=sqLiteOrmHelper.select(Contact.class,
+					   new String[]{"*"}
+			           ,"departid = ?"
+			           ,new String[]{deptid}
+			           ,""
+			           ,""
+			           ,"eorderno asc"
+					   );
+		
+		return contacts;
 	}
 	
 	public SortedMap<String,Area> selectArea(Context context) throws Exception{
@@ -50,7 +105,7 @@ public enum DB {
 		        ,new String[]{}
 		        ,"departid"
 		        ,""
-		        ,"areaid asc,departid asc"
+		        ,"aorderno asc,dorderno asc"
 				);
 		for(Contact dept :depts){
 			if(!areas.containsKey(dept.getAreaID())){
@@ -63,6 +118,7 @@ public enum DB {
 			Dept d=new Dept();
 			d.deptId=dept.getDepartID();
 			d.deptName=dept.getDepartName();
+			d.areaName=dept.getAreaName();
 			area.depts.put(d.deptId, d);
 		}
 		return areas;
@@ -87,7 +143,7 @@ public enum DB {
 	
 	public class Dept{
 		private Dept(){}
-		private String deptId,deptName;
+		private String deptId,deptName,areaName;
 
 		public String getDeptId() {
 			return deptId;
@@ -95,6 +151,10 @@ public enum DB {
 
 		public String getDeptName() {
 			return deptName;
+		}
+
+		public String getAreaName() {
+			return areaName;
 		}
 		
 		

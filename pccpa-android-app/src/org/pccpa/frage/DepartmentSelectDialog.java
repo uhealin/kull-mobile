@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.pccpa.ContactActivity;
 import org.pccpa.DB.Area;
 import org.pccpa.DB;
 import org.pccpa.DB.Dept;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.GridLayout.LayoutParams;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -27,6 +29,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.kull.android.ContextHelper;
 import com.kull.android.widget.ContextAdapter;
 import com.kull.android.widget.ListItemAdapter;
 
@@ -69,7 +72,7 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
 		LinearLayout layout=(LinearLayout)scrollView.findViewById(R.id.layArea);//.findViewById(R.id.layArea);
 		
       //  ArrayList<View> children=new ArrayList<View>();
-        for(Area area: CACHE_AREAS.values()){
+        for(final Area area: CACHE_AREAS.values()){
         	Button areaButton=new Button(getActivity());
         	//areaButton.setWidth(200);
         	areaButton.setText(area.getAreaName());
@@ -80,13 +83,69 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
 					// TODO Auto-generated method stub
 					 try {
 						 
-					     List<Contact> cs=DB.local.createSqLiteOrmHelper(getActivity()).select(Contact.class,
-					    		 new String[]{"*"},
-					    		 "AreaID=?"
-					    		 ,new String[]{areaid});
+					     parent.loadAreaContacts(area.getAreaName(), areaid);
+					     dismiss();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+			});
+        	//children.add(areaButton);
+        	layout.addView(areaButton);
+        	
+        	GridView gridDepts=new GridView(getActivity());
+        	gridDepts.setNumColumns(3);
+        	gridDepts.setColumnWidth(80);
+        	int dsize=area.getDepts().size();
+        	if(dsize>3){
+        	  int h=((dsize/3)+ (dsize%3==0?0:1) )*48;
+        	  LayoutParams layoutParams=new LayoutParams();
+        	  layoutParams.height=h;
+        	   gridDepts.setLayoutParams(layoutParams);
+        	}
+        	//gridDepts.setLayoutParams(layparam);
+        	DeptItemAdapter deptItemAdapter=new DeptItemAdapter(getActivity());
+        	deptItemAdapter.items=new ArrayList<DB.Dept>(area.getDepts().values());
+        	gridDepts.setAdapter(deptItemAdapter);
+        	layout.addView(gridDepts);
+        }
+        //view.addTouchables(children);
+		return scrollView;
+	}
+	
+	
+	//@Override
+	public View onCreateViewx(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		if(CACHE_AREAS.isEmpty()){
+			try {
+			   CACHE_AREAS=DB.local.selectArea(this.getActivity());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		View view=inflater.inflate(R.layout.dialog_department_select2, container,false);
+		
+		ScrollView scrollView=(ScrollView)view;
+		GridLayout layout=(GridLayout)scrollView.findViewById(R.id.layArea);//.findViewById(R.id.layArea);
+		
+      //  ArrayList<View> children=new ArrayList<View>();
+        for(final Area area: CACHE_AREAS.values()){
+        	Button areaButton=new Button(getActivity());
+        	//areaButton.setWidth(200);
+        	areaButton.setText(area.getAreaName());
+            
+        	final String areaid=area.getAreaId();
+        	areaButton.setOnClickListener(new OnClickListener() {
+            
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					 try {
+						 
 					     
-					     parent.loadItems(cs);
-					     Toast.makeText(getActivity(), "共查出"+cs.size()+"条记录", 3000).show();
 					     dismiss();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -148,13 +207,9 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
 					// TODO Auto-generated method stub
 					 try {
 						 
-					     List<Contact> cs=DB.local.createSqLiteOrmHelper(getActivity()).select(Contact.class,
-					    		 new String[]{"*"},
-					    		 "DepartID=?"
-					    		 ,new String[]{dept.getDeptId()});
 					     
-					     parent.loadItems(cs);
-					     Toast.makeText(getActivity(), "共查出"+cs.size()+"条记录", 3000).show();
+					     ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(_context, dept.getDeptId());
+					     parent.loadDeptContacts(dept.getAreaName(), dept.getDeptName(), dept.getDeptId());
 					     dismiss();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block

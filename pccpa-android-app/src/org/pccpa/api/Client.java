@@ -57,9 +57,10 @@ public class Client {
 		
 	}
 	
+	private static String[] path_bases=new String[]{"http://oanet.pccpa.cn","http://172.19.7.89:82"};
 
 	
-    private static String path_base="http://oanet.pccpa.cn",
+    private static String path_base=path_bases[0],
     path_remind_pattern=path_base+"/SYS/D_Menu/reminds/{0}"
     ,path_grid_pattern=path_base+"/{0}/{1}/grid",
     url_home_dologin=path_base+"/SYS/Home/doLogin"
@@ -95,16 +96,22 @@ public class Client {
     }
     
     
-    public List<RemindItem> getReminds() throws Exception{
+    public RemindsAdapter getReminds() throws Exception{
     	
     	String url=MessageFormat.format(path_remind_pattern,eid);
     	String context=NetworkHelper.doGet(url, null,null);
     	
     	RemindsAdapter remindsAdapter= GSON.fromJson(context, RemindsAdapter.class);
-    	List<RemindItem> reminds=new ArrayList<RemindItem>();
-    	reminds.addAll(remindsAdapter.applyList);
-    	reminds.addAll(remindsAdapter.remindList);
-    	return reminds;
+    	return remindsAdapter;
+    }
+    
+    public static RemindsAdapter  getReminds(String eid) throws Exception{
+    	
+    	String url=MessageFormat.format(path_remind_pattern,eid);
+    	String context=NetworkHelper.doGet(url, null,null);
+    	
+    	RemindsAdapter remindsAdapter= GSON.fromJson(context, RemindsAdapter.class);
+    	return remindsAdapter;
     }
     
     public EMGrid getEms(int start,int limit) throws Exception{
@@ -125,6 +132,10 @@ public class Client {
     
     public static ContactGrid  getContacts(String query,int start,int limit) throws Exception{
     	return getGrid(ContactGrid.class, "FS", "V_Contacts",query,start, limit);
+    }
+    
+    public static InnerMsgGrid  getInnerMsgGrid(String query,int start,int limit) throws Exception{
+    	return getGrid(InnerMsgGrid.class, "FS", "V_MessageRemind",query,start, limit);
     }
     
     public static Drawable getContactPhoto(Context context,String eid,boolean overwrite) throws Exception{
@@ -217,6 +228,7 @@ public class Client {
     	
     }
     
+    public class InnerMsgGrid extends Grid<InnerMsg>{}
     public class ContactGrid extends Grid<Contact>{}
     public class EMGrid extends Grid<EmployeeItem>{}
     
@@ -241,7 +253,7 @@ public class Client {
     }
     
     
-    private class RemindsAdapter{
+    public class RemindsAdapter{
     	private List<RemindItem> remindList,applyList;
 
 		public List<RemindItem> getRemindList() {

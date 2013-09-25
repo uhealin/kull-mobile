@@ -3,7 +3,9 @@
     <string-array name="menus">
         <item>通讯录</item>
         <item>待办提醒</item>
+        <item>站内短信</item>
         <item>系统设置</item>        
         <item>关于</item>
+        <item>退出</item>
     </string-array>
 </resources>

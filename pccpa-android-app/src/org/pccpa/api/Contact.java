@@ -11,27 +11,21 @@ public class Contact {
 	 protected String AreaID;
 	 protected String DFatherID;
 	 protected String DOrderNO;
-	 protected Integer ID;
+	
 	 protected String EID;
 	 protected String ELoginID;
-	 protected String EPassword;
 	 protected Integer EStyle;
 	 protected String EUserName;
 	 protected Integer ESex;
-	 protected String EBirthday;
-	 protected String EIdentityCard;
 	 protected String DepartID;
 	 protected String EOrderNO;
 	 protected String RankID;
-	 protected String EBankCard;
 	 protected String EMail;
 	 protected String ETelWork;
 	 protected String ETelWorkShort;
 	 protected String EMobile;
 	 protected String EMobileShort;
-	 protected String RoleIDString;
-	 protected String MenuIDString;
-	 protected Integer EIsPartner;
+
 	 protected String RankName;
 	 protected String ROrderNO;
 
@@ -54,8 +48,7 @@ public class Contact {
 	 public String getDOrderNO () { 	 return this.DOrderNO;  	} 
  	 public void setDOrderNO (String DOrderNO){  	 this.DOrderNO=DOrderNO ;  	} 
 
-	 public Integer getID () { 	 return this.ID;  	} 
- 	 public void setID (Integer ID){  	 this.ID=ID ;  	} 
+
 
 	 public String getEID () { 	 return this.EID;  	} 
  	 public void setEID (String EID){  	 this.EID=EID ;  	} 
@@ -63,8 +56,7 @@ public class Contact {
 	 public String getELoginID () { 	 return this.ELoginID;  	} 
  	 public void setELoginID (String ELoginID){  	 this.ELoginID=ELoginID ;  	} 
 
-	 public String getEPassword () { 	 return this.EPassword;  	} 
- 	 public void setEPassword (String EPassword){  	 this.EPassword=EPassword ;  	} 
+	 
 
 	 public Integer getEStyle () { 	 return this.EStyle;  	} 
  	 public void setEStyle (Integer EStyle){  	 this.EStyle=EStyle ;  	} 
@@ -75,11 +67,7 @@ public class Contact {
 	 public Integer getESex () { 	 return this.ESex;  	} 
  	 public void setESex (Integer ESex){  	 this.ESex=ESex ;  	} 
 
-	 public String getEBirthday () { 	 return this.EBirthday;  	} 
- 	 public void setEBirthday (String EBirthday){  	 this.EBirthday=EBirthday ;  	} 
-
-	 public String getEIdentityCard () { 	 return this.EIdentityCard;  	} 
- 	 public void setEIdentityCard (String EIdentityCard){  	 this.EIdentityCard=EIdentityCard ;  	} 
+	
 
 	 public String getDepartID () { 	 return this.DepartID;  	} 
  	 public void setDepartID (String DepartID){  	 this.DepartID=DepartID ;  	} 
@@ -90,8 +78,7 @@ public class Contact {
 	 public String getRankID () { 	 return this.RankID;  	} 
  	 public void setRankID (String RankID){  	 this.RankID=RankID ;  	} 
 
-	 public String getEBankCard () { 	 return this.EBankCard;  	} 
- 	 public void setEBankCard (String EBankCard){  	 this.EBankCard=EBankCard ;  	} 
+	 
 
 	 public String getEMail () { 	 return this.EMail;  	} 
  	 public void setEMail (String EMail){  	 this.EMail=EMail ;  	} 
@@ -108,14 +95,7 @@ public class Contact {
 	 public String getEMobileShort () { 	 return this.EMobileShort;  	} 
  	 public void setEMobileShort (String EMobileShort){  	 this.EMobileShort=EMobileShort ;  	} 
 
-	 public String getRoleIDString () { 	 return this.RoleIDString;  	} 
- 	 public void setRoleIDString (String RoleIDString){  	 this.RoleIDString=RoleIDString ;  	} 
-
-	 public String getMenuIDString () { 	 return this.MenuIDString;  	} 
- 	 public void setMenuIDString (String MenuIDString){  	 this.MenuIDString=MenuIDString ;  	} 
-
-	 public Integer getEIsPartner () { 	 return this.EIsPartner;  	} 
- 	 public void setEIsPartner (Integer EIsPartner){  	 this.EIsPartner=EIsPartner ;  	} 
+	 
 
 	 public String getRankName () { 	 return this.RankName;  	} 
  	 public void setRankName (String RankName){  	 this.RankName=RankName ;  	} 

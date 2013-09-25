@@ -20,9 +20,13 @@ import greendroid.widget.AsyncImageView;
 import android.R.string;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
+import android.os.StrictMode.VmPolicy;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -30,6 +34,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +47,9 @@ import com.actionbarsherlock.internal.widget.IcsAdapterView;
 
 
 import com.kull.StringHelper;
+import com.kull.android.ContextHelper;
 import com.kull.android.SQLiteOrmHelper;
+import com.kull.android.image.AsyncImageLoader;
 import com.kull.android.widget.ListItemAdapter;
 
 public class ContactListFragment extends SherlockListFragment 
@@ -53,20 +60,20 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 	
 
 	SQLiteOrmHelper sqLiteOrmHelper;
-
+	private final static int CWJ_HEAP_SIZE = 6* 1024* 1024 ;
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-	   adapter=new ContactListAdapter(getActivity());
+	   adapter=new ContactListAdapter(getActivity(),this);
 	   adapter.items=ContactActivity.CONTACT_ALL;
 	   this.setListAdapter(adapter);
 	   sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(getActivity());
 	   getListView().setOnScrollListener(this);
        //getListView().setOnItemSelectedListener(this);
        //getListView().setOnItemClickListener(this);
-       
+	   
 	}
 
    public void loadItems(List<Contact> items){
@@ -148,10 +155,26 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 
 		
 		private ImageProcessor _imageProcessor;
-		
-		public ContactListAdapter(Context context) {
+		private AsyncImageLoader asyncImageLoader;
+		private Options options;
+		private ContactListFragment contactListFragment;
+		public ContactListAdapter(Context context,ContactListFragment contactListFragment) {
 			super(context);
+			this.contactListFragment=contactListFragment;
 			// TODO Auto-generated constructor stub
+			//_imageProcessor= new im
+			asyncImageLoader=new AsyncImageLoader(_context);
+			asyncImageLoader.setCache2File(true);
+			options=new Options();
+		     //options.inJustDecodeBounds = true;
+		     options.inSampleSize = 4;   //width，hight设为原来的十分一
+		     options.inPreferredConfig = Bitmap.Config.RGB_565;   
+		     //options.inPurgeable = true;  
+		     //options.inInputShareable = true;  
+		     options.inDither = true;
+		     options.inScaled = true;
+		     options.inDensity = DisplayMetrics.DENSITY_MEDIUM;
+		     options.inTargetDensity = context.getResources().getDisplayMetrics().densityDpi;
 		}
 
 		@Override
@@ -171,20 +194,31 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// TODO Auto-generated method stub
 			final Contact m=getItem(position);
-			ViewHolder holder;
+		   final ViewHolder holder;
 			
 			//if(convertView==null){
 				convertView=_inflater.inflate(R.layout.listitem_contact, parent,false);
-				holder=new ViewHolder();
+			 holder=new ViewHolder();
 				holder.imageView=(AsyncImageView)convertView.findViewById(R.id.async_image);
-				holder.imageView.setImageProcessor(_imageProcessor);
+				//holder.imageView.setImageProcessor(_imageProcessor);
 			    holder.txvEmName=(TextView)convertView.findViewById(R.id.txvEmName);
 			    holder.txvEmMobile=(TextView)convertView.findViewById(R.id.txvMobile);
 			    //holder.btnTel=(Button)convertView.findViewById(R.id.btnTel);
 			    
 			    String url=Client.urlEmployeePhoto(m.getEID());
+			    //asyncImageLoader.downloadImage(url,options,false,new AsyncImageLoader.ImageCallback() {
+					 
+				//	@Override
+				//	public void onImageLoaded(Bitmap bitmap, String imageUrl) {
+				//		// TODO Auto-generated method stub
+				//		holder.imageView.setImageBitmap(bitmap);
+				//	}
+				//});
 			    final String num=StringHelper.concat(m.getEMobile(),",",m.getEMobileShort(),",",m.getETelWork(),",",m.getETelWorkShort());
+			    Runtime.getRuntime().freeMemory();
+			    holder.imageView.setOptions(options);
 			    holder.imageView.setUrl(url);
+			    
 				holder.txvEmName.setText(MessageFormat.format("{0} {1} {2}", m.getAreaName(),m.getDepartName(),m.getEUserName()));
 				holder.txvEmMobile.setText(StringHelper.concat(num));
 				//holder.btnTel.setText("拨打");
@@ -203,6 +237,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 				
 						ContactInfoCardDialog dialog=new ContactInfoCardDialog();
 						dialog.set_contact(m);
+						dialog.setParent(contactListFragment);
 						//dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.sty);
 						
 						dialog.show(getFragmentManager(), "详细信息");
@@ -213,7 +248,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			//}else{
 			//	holder=(ViewHolder)convertView.getTag();
 			//}
-			
+			 
 			return convertView;
 		}
 
@@ -274,5 +309,54 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 		 isSearching=false;
 		;
 	}
+	
+	public void loadAreaContacts(String areaname,String areaid){
+		try {
+			ContactActivity.CONTACT_ALL=DB.local.selectAreaContacts(getActivity(), areaid);
+			loadItems(ContactActivity.CONTACT_ALL);
+		     //Toast.makeText(getActivity(),area.getAreaName()+ "共有"+ContactActivity.CONTACT_ALL.size()+"条记录", 3000).show();
+		     ContextHelper.makeText(getActivity(),3000,"{0} 共有 {1} 条记录", 
+		    		 areaname,ContactActivity.CONTACT_ALL.size()
+		    		 ).show();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ContextHelper.makeText(getActivity(),3000,e).show();
+		}
+	     
+	}
+	
+	
+	public void loadAreaRankContacts(String areaname,String rname,String areaid,String rid){
+		try {
+			ContactActivity.CONTACT_ALL=DB.local.selectAreaRankContacts(getActivity(), areaid,rid);
+			loadItems(ContactActivity.CONTACT_ALL);
+		     //Toast.makeText(getActivity(),area.getAreaName()+ "共有"+ContactActivity.CONTACT_ALL.size()+"条记录", 3000).show();
+		     ContextHelper.makeText(getActivity(),3000,"{0} {1} 共有 {2} 条记录", 
+		    		 areaname,rname,ContactActivity.CONTACT_ALL.size()
+		    		 ).show();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ContextHelper.makeText(getActivity(),3000,e).show();
+		}
+	     
+	}
+	
+	
+	public void loadDeptContacts(String aname,String dname,String id){
+		try {
+			ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(getActivity(), id);
+			loadItems(ContactActivity.CONTACT_ALL);
+		     //Toast.makeText(getActivity(),area.getAreaName()+ "共有"+ContactActivity.CONTACT_ALL.size()+"条记录", 3000).show();
+		     ContextHelper.makeText(getActivity(),3000,"{0} {1} 共有 {2} 条记录", 
+		    		 aname,dname,ContactActivity.CONTACT_ALL.size()
+		    		 ).show();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ContextHelper.makeText(getActivity(),3000,e).show();
+		}
+	     
+	}
+	
+	
 	
 }

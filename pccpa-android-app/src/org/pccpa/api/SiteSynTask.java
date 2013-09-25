@@ -11,7 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Message;
 
-public class SiteSynTask extends AsyncTask<Void, Void, Boolean> {
+public class SiteSynTask extends AsyncTask<Void, Integer, Boolean> {
 
 	protected Context _context;
 	
@@ -44,6 +44,7 @@ public class SiteSynTask extends AsyncTask<Void, Void, Boolean> {
 			SQLiteOrmHelper ormHelper=DB.local.createSqLiteOrmHelper(_context);
 			ormHelper.replaceTable(Contact.class);
 			ormHelper.insertBatch(ems);
+			
 			//for(Contact em:ems){
 			//	ormHelper.insert(em);
 				//progressBar.setProgress(i++);

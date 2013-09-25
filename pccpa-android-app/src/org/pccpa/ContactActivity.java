@@ -107,9 +107,7 @@ public class ContactActivity extends BaseFragmentActivity {
        */
        
 
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
-        }
+       
 	}
 
 	
@@ -195,6 +193,13 @@ public class ContactActivity extends BaseFragmentActivity {
 	    }
 
 	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		return ;
+	}
+
+
 	public static class TabsAdapter extends FragmentPagerAdapter
     implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 private final Context mContext;

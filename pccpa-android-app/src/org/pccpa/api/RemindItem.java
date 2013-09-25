@@ -1,6 +1,9 @@
 package org.pccpa.api;
 
-public class RemindItem {
+import java.io.Serializable;
+
+
+public class RemindItem  implements Serializable{
 
 	protected String menuID,title,text;
 	protected int total;

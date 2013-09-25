@@ -56,11 +56,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".RemindActivity"></activity>
+        <activity android:name=".InnerMsgActivity"></activity>
          <activity android:name=".SettingActivity"></activity>
         <activity android:name=".remind.RemindListActivity"></activity>
         <activity android:name=".contact.EmployeeListActivity"></activity>
     </application>
 
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />

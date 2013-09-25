@@ -4,6 +4,8 @@ import greendroid.widget.AsyncImageView;
 
 import java.text.MessageFormat;
 
+import org.pccpa.ContactActivity;
+import org.pccpa.DB;
 import org.pccpa.R;
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
@@ -16,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +54,13 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
 	}
 
 
+private ContactListFragment parent;
+	
+	
 
+	public void setParent(ContactListFragment parent) {
+		this.parent = parent;
+	}
 
 
 	@Override
@@ -71,16 +80,17 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		final ContextHelper contextHelper=new ContextHelper(getActivity());
-		View view=inflater.inflate(R.layout.dialog_contact_info_card, container,false);
+		View view=inflater.inflate(R.layout.dialog_contact_info_card2, container,false);
 		TextView txvEmName=(TextView)view.findViewById(R.id.txvEmName)
 		 ,txvDepName=(TextView)view.findViewById(R.id.txvDepName)
+				 ,btnDep=(TextView)view.findViewById(R.id.btnDep)
 		 ,txvTel=(TextView)view.findViewById(R.id.txvTelInfor)
 		 
 	     ,txvRankName=(TextView)view.findViewById(R.id.txvRankName)
 		 ;
-		Button imbCallMobile=(Button)view.findViewById(R.id.btnCallMobile)
-				,imbCallMobileShort=(Button)view.findViewById(R.id.btnCallMobileShort)
-			    ,imbSendEmail=(Button)view.findViewById(R.id.btnSendMail)
+		TextView imbCallMobile=(TextView)view.findViewById(R.id.btnCallMobile)
+				,imbCallMobileShort=(TextView)view.findViewById(R.id.btnCallMobileShort)
+			    ,imbSendEmail=(TextView)view.findViewById(R.id.btnSendMail)
 			   
 		;
 		Button btnSaveToPhone=(Button)view.findViewById(R.id.btnSaveToPhone)
@@ -88,13 +98,45 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
 			,btnShareByMail=(Button)view.findViewById(R.id.btnShareByMail);
 				;
         txvEmName.setText(_contact.getEUserName());
-        txvDepName.setText(StringHelper.concat(_contact.getAreaName()," ",_contact.getDepartName()));
+        txvDepName.setText(Html.fromHtml("<u>"+ _contact.getAreaName()+"</u>"));
+        txvDepName.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			    parent.loadAreaContacts(_contact.getAreaName(), _contact.getAreaID());
+			    dismiss();
+			}
+		});
+        
+        btnDep.setText(Html.fromHtml("<u>"+_contact.getDepartName()+"</u>"));
+        btnDep.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				  parent.loadDeptContacts(_contact.getAreaName(),_contact.getDepartName(), _contact.getDepartID());
+				  dismiss();
+			}
+		});
         //txvMobile.setText(_contact.getEMobile());
         txvTel.setText(_contact.getETelWork());
         //txvMobileShort.setText(_contact.getEMobileShort());
         //txvTelShort.setText(_contact.getETelWorkShort());
         //txvEmail.setText(_contact.getEMail());
-        txvRankName.setText(_contact.getRankName());
+        
+        txvRankName.setText(Html.fromHtml("<u>"+_contact.getRankName()+"</u>"));
+        
+        txvRankName.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				parent.loadAreaRankContacts(_contact.getAreaName(), _contact.getRankName(),  _contact.getAreaID(),_contact.getRankID());
+			    dismiss();	
+			}
+		});
+        
         AsyncImageView imvPhoto=(AsyncImageView)view.findViewById(R.id.imvPhoto);
         try{
           //Bitmap bitmap=Client.getContactPhoto(this.getActivity(),_contact.getEID(),false);
@@ -105,6 +147,9 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
         	//imvPhoto.setBackgroundColor(R.color.abs__primary_text_holo_light);
         	ex.printStackTrace();
         }
+        
+       
+        
         Contact curContact=Client.CURR_CLIENT.getContact();
         final String shareContent=MessageFormat.format("你的好友或同事  {0} {1} {2} 向你推荐  天健综合管理系统 android 客户端, 下载地址：{3}",
         		curContact.getAreaName(),
@@ -116,7 +161,7 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
            imbCallMobile.setVisibility(View.INVISIBLE);
            btnShareBySMS.setVisibility(View.INVISIBLE);
         }else{
-        	imbCallMobile.setText(_contact.getEMobile());
+        	imbCallMobile.setText(Html.fromHtml("<u>"+_contact.getEMobile()+"</u>"));
         imbCallMobile.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -145,7 +190,7 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
         if(StringHelper.isBlank(_contact.getEMobileShort() ) ){
             imbCallMobileShort.setVisibility(View.INVISIBLE);
          }else{
-            imbCallMobileShort.setText(_contact.getEMobileShort());
+            imbCallMobileShort.setText(Html.fromHtml("<u>"+_contact.getEMobileShort()+"</u>"));
            imbCallMobileShort.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -161,7 +206,7 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
         if(StringHelper.isBlank(_contact.getEMail() ) ){
         	imbSendEmail.setVisibility(View.INVISIBLE);
          }else{
-        	 imbSendEmail.setText(_contact.getEMail());
+        	 imbSendEmail.setText(Html.fromHtml("<u>"+_contact.getEMail()+"</u>"));
         	 imbSendEmail.setOnClickListener(new OnClickListener() {
 			
 			@Override

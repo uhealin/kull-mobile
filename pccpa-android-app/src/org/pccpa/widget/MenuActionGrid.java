@@ -8,11 +8,12 @@ import java.util.List;
 import org.pccpa.AboutActivity;
 import org.pccpa.DB;
 import org.pccpa.LoginActivity;
-import org.pccpa.PccpaApplication;
+import org.pccpa.RemindActivity;
+
 import org.pccpa.api.Client;
 import org.pccpa.api.EmployeeItem;
 import org.pccpa.contact.EmployeeListActivity;
-import org.pccpa.remind.RemindListActivity;
+
 
 import com.cyrilmottier.android.greendroid.R;
 import com.kull.android.ContextHelper;
@@ -64,7 +65,7 @@ public class MenuActionGrid extends QuickActionGrid{
 	        	Intent intent=null;
 	           switch (position) {
 			case 0:
-				_contextHelper.to(RemindListActivity.class);
+				_contextHelper.to(RemindActivity.class);
 				break;
 			case 1:
 				_contextHelper.to(EmployeeListActivity.class);

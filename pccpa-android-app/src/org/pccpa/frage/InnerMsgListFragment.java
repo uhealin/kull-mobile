@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.pccpa.api.Client;
+import org.pccpa.api.InnerMsg;
+import org.pccpa.api.InnerMsgSynTask;
 import org.pccpa.api.RemindItem;
-import org.pccpa.api.Client.RemindsAdapter;
 import org.pccpa.api.RemindSynTask;
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,13 +22,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.kull.android.ContextHelper;
 
-public abstract class RemindListFragment extends SherlockListFragment {
+public abstract class InnerMsgListFragment extends SherlockListFragment {
 
-	public abstract String getRtype();
 	
-	ListSynTask remindListSynTask;
+   ListSynTask listSynTask;
+	
+	public abstract String getIsRead();
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -41,15 +43,15 @@ public abstract class RemindListFragment extends SherlockListFragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		
+		//loadList();
 		
 	}
 
 
 	public void loadList(Context context){
-		remindListSynTask=new ListSynTask(context);
-		
-		remindListSynTask.execute(Client.CURR_CLIENT.getContact().getEID(),getRtype());	
+		if(listSynTask==null)listSynTask=new ListSynTask(context);
+		//listSynTask.cancel(true);
+	listSynTask.execute(Client.CURR_CLIENT.getContact().getEID(),getIsRead());
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public abstract class RemindListFragment extends SherlockListFragment {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-		loadList(getActivity());
+		loadList(this.getActivity());
 		
 	}
 
@@ -86,14 +88,14 @@ public abstract class RemindListFragment extends SherlockListFragment {
 	}
 
 	
-	private class ListSynTask extends RemindSynTask{
+	private class ListSynTask extends InnerMsgSynTask{
 
-private Context context;
+		
+		private Context context;
 		
 		public ListSynTask(Context context){
 			this.context=context;
 		}
-		
 		
 		@Override
 		protected void onPreExecute() {
@@ -103,16 +105,17 @@ private Context context;
 		}
 
 		@Override
-		protected void onPostExecute(List<RemindItem> result) {
+		protected void onPostExecute(List<InnerMsg> result) {
 			// TODO Auto-generated method stub
-			if(result.isEmpty()){
-				Toast.makeText(context, "当前没有待办事项", 3000).show();
-			}
 			List<Item> items=new ArrayList<Item>();
 			super.onPostExecute(result);
-			for(RemindItem remind : result){
-				items.add(new SeparatorItem(remind.getTitle()));
-				items.add(new DescriptionItem(remind.getText()));
+			if(result.size()==0){
+				Toast.makeText(context, "当前没有  内部短信", 5000).show();
+			}
+			for(InnerMsg remind : result){
+				SeparatorItem siTitle=new SeparatorItem(remind.getMRTitle());
+				items.add(siTitle);
+				items.add(new DescriptionItem(remind.getMRContent()));
 			}
 			ItemAdapter adapter = new ItemAdapter(getActivity(),items);
 			setListAdapter(adapter);
@@ -122,11 +125,4 @@ private Context context;
 		
 		
 	}
-	
-	
-	
-	
-	
-
-	
 }

@@ -4,20 +4,20 @@
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txvInitInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="196dp"
-        android:text="系统初始化中。请稍候" />
+        android:text="系统初始化中,初次登录可能需要若干分钟。请耐心等候" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_marginBottom="62dp" />
+        android:layout_above="@+id/txvInitInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
 
 </RelativeLayout>

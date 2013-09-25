@@ -1,10 +1,16 @@
 package org.pccpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 
 import android.R.string;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -23,6 +29,7 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
+		CloseActivityClass.activityList.add(this);
 		IS_POSTBACK=false;
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_PROGRESS|Window.FEATURE_CONTEXT_MENU);
@@ -81,17 +88,29 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 			contextHelper.to(RemindActivity.class);
 			break; 
 		case 2:
-			contextHelper.to(SettingActivity.class);
+			contextHelper.to(InnerMsgActivity.class);
 			break;
 		case 3:
-			contextHelper.to(AboutActivity.class);
+			contextHelper.to(SettingActivity.class);
 			break;
 		case 4:
+			contextHelper.to(AboutActivity.class);
+			break;
+		case 5:
 			Client.CURR_CLIENT=null;
 			contextHelper.to(LoginActivity.class);
 			break;
-		case 5:
+		case 6:
 			contextHelper.to(AboutActivity.class);
+			break;
+		case 7:
+			 //CloseActivityClass.exitClient(this);
+			//android.os.Process.killProcess(android.os.Process.myPid());
+			Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+            System.exit(0);//退出程序
 			break;
 		default:
 			break;
@@ -99,4 +118,31 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 		IS_POSTBACK=true;
 		return true;
 	}
+	
+	
+	public static class CloseActivityClass{
+
+
+		public static List<Activity> activityList = new ArrayList<Activity>();
+		/* 
+		     * @param context 上下文
+		     */
+		    public static void exitClient(Context context){
+
+		       
+		        // 关闭所有Activity
+		        for (int i = 0; i < activityList.size(); i++) {
+
+		            if (null != activityList.get(i)){
+
+		                activityList.get(i).finish();
+		            }
+		        }   
+
+		        ActivityManager activityMgr= (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE );
+		        activityMgr.restartPackage(context.getPackageName()); 
+
+		        System.exit(0);
+		    }
+		}
 }
