@@ -1,5 +1,6 @@
 package com.kull.android;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import android.content.ContentProviderOperation;
@@ -164,6 +165,15 @@ public class ContextHelper {
         return res;
 	}
 	
+	public Toast makeText(int duration, String pattern,Object...vals){
+		return makeText(_context, duration, pattern, vals);
+	}
 	
+	public static Toast makeText(Context context,int duration,Exception ex){
+		return Toast.makeText(context, MessageFormat.format("≥Ã–Ú“Ï≥£:{0}\n{1}",ex.getClass().getName(), ex.getLocalizedMessage()), duration);
+	}
 	
+	public static Toast makeText(Context context,int duration, String pattern,Object...vals){
+		return Toast.makeText(context, MessageFormat.format(pattern, vals), duration);
+	}
 }

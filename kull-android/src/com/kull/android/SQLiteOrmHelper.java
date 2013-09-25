@@ -276,17 +276,17 @@ public <M> int  insertBatch(List<M> list) throws Exception{
 		
 		
 	    	
-	        int j=0;
+	        
 	        List<Object> ivals=new ArrayList<Object>();
 			for(Field field:fields){
-				if( ObjectHelper.isIn(field.getName(),table.ingoreColumnNames())||
+				if((table.ingoreColumnNames().length>0&& ObjectHelper.isIn(field.getName(),table.ingoreColumnNames()) )||
 				   (!table.insertPk()&& field.getName().equalsIgnoreCase(table.pk()) )
 				)continue;	
 				//String getterName="get"+field.getName().substring(0,1).toUpperCase()+field.getName().substring(1);
 				Method m=ObjectHelper.getGetter(obj.getClass(), field);
 				Object value=m.invoke(obj);
 				ivals.add(value);
-				j++;
+				
 			}
 			 wdatabase.execSQL(sql, ivals.toArray());
 			eff++;

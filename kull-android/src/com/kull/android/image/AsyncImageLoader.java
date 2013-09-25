@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
   
 import android.content.Context;  
 import android.graphics.Bitmap;  
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.Handler;  
 import android.util.Log;  
 
@@ -25,7 +27,7 @@ public class AsyncImageLoader {
       
     //通知UI线程图片获取ok时使用  
     private Handler handler;   
-      
+   
       
     /** 
      * 异步加载图片完毕的回调接口 
@@ -51,6 +53,8 @@ public class AsyncImageLoader {
           
         String defaultDir = context.getCacheDir().getAbsolutePath();  
         setCachedDir(defaultDir);  
+       
+        
     }  
       
     /** 
@@ -81,8 +85,8 @@ public class AsyncImageLoader {
      * @param url    
      * @param callback  see ImageCallback interface 
      */  
-    public void downloadImage(final String url, final ImageCallback callback){  
-        downloadImage(url, true, callback);  
+    public void downloadImage(final String url,final Options options, final ImageCallback callback){  
+        downloadImage(url,options, true, callback);  
     }  
       
     /** 
@@ -91,13 +95,13 @@ public class AsyncImageLoader {
      * @param cache2Memory 是否缓存至memory中 
      * @param callback 
      */  
-    public void downloadImage(final String url, final boolean cache2Memory, final ImageCallback callback){  
+    public void downloadImage(final String url,final Options options, final boolean cache2Memory, final ImageCallback callback){  
         if(sDownloadingSet.contains(url)){  
             Log.i("AsyncImageLoader", "###该图片正在下载，不能重复下载！");  
             return;  
         }  
           
-        Bitmap bitmap = impl.getBitmapFromMemory(url);  
+        Bitmap bitmap = impl.getBitmapFromMemory(url,options);  
         if(bitmap != null){  
             if(callback != null){  
                 callback.onImageLoaded(bitmap, url);  
@@ -108,7 +112,7 @@ public class AsyncImageLoader {
             sExecutorService.submit(new Runnable(){  
                 @Override  
                 public void run() {  
-                    final Bitmap bitmap = impl.getBitmapFromUrl(url, cache2Memory);  
+                    final Bitmap bitmap = impl.getBitmapFromUrl(url, cache2Memory,options);  
                     handler.post(new Runnable(){  
                         @Override  
                         public void run(){  
@@ -126,9 +130,9 @@ public class AsyncImageLoader {
      * 预加载下一张图片，缓存至memory中 
      * @param url  
      */  
-    public void preLoadNextImage(final String url){  
+    public void preLoadNextImage(final String url,final Options options){  
         //将callback置为空，只将bitmap缓存到memory即可。  
-        downloadImage(url, null);  
+        downloadImage(url,options, null);  
     }  
     
     

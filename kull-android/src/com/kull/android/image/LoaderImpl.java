@@ -15,8 +15,9 @@ import java.util.Map;
   
 import android.graphics.Bitmap;  
 import android.graphics.BitmapFactory;  
+import android.graphics.BitmapFactory.Options;
   
-
+    
 
 	public class LoaderImpl {  
 	    //内存中的软应用缓存  
@@ -55,13 +56,13 @@ import android.graphics.BitmapFactory;
 	     * @return bitmap 图片bitmap结构 
 	     *  
 	     */  
-	    public Bitmap getBitmapFromUrl(String url, boolean cache2Memory){  
+	    public Bitmap getBitmapFromUrl(String url, boolean cache2Memory,Options options){  
 	        Bitmap bitmap = null;  
 	        try{  
 	            URL u = new URL(url);  
 	            HttpURLConnection conn = (HttpURLConnection)u.openConnection();    
 	            InputStream is = conn.getInputStream();  
-	            bitmap = BitmapFactory.decodeStream(is);  
+	            bitmap = BitmapFactory.decodeStream(is,null,options);  
 	              
 	            if(cache2Memory){  
 	                //1.缓存bitmap至内存软引用中  
@@ -90,7 +91,7 @@ import android.graphics.BitmapFactory;
 	     * @param url 
 	     * @return bitmap or null. 
 	     */  
-	    public Bitmap getBitmapFromMemory(String url){  
+	    public Bitmap getBitmapFromMemory(String url,Options options){  
 	        Bitmap bitmap = null;  
 	        if(imageCache.containsKey(url)){  
 	            synchronized(imageCache){  
@@ -103,7 +104,7 @@ import android.graphics.BitmapFactory;
 	        }  
 	        //从外部缓存文件读取  
 	        if(cache2FileFlag){  
-	            bitmap = getBitmapFromFile(url);  
+	            bitmap = getBitmapFromFile(url,options);  
 	            if(bitmap != null)  
 	                imageCache.put(url, new SoftReference<Bitmap>(bitmap));  
 	        }  
@@ -116,7 +117,7 @@ import android.graphics.BitmapFactory;
 	     * @param url 
 	     * @return 
 	     */  
-	    private Bitmap getBitmapFromFile(String url){  
+	    private Bitmap getBitmapFromFile(String url,Options options){  
 	        Bitmap bitmap = null;  
 	        String fileName = getMD5Str(url);  
 	        if(fileName == null)  
@@ -126,7 +127,7 @@ import android.graphics.BitmapFactory;
 	          
 	        try {  
 	            FileInputStream fis = new FileInputStream(filePath);  
-	            bitmap = BitmapFactory.decodeStream(fis);  
+	            bitmap = BitmapFactory.decodeStream(fis,null,options);  
 	        } catch (FileNotFoundException e) {  
 	            e.printStackTrace();  
 	            bitmap = null;  
