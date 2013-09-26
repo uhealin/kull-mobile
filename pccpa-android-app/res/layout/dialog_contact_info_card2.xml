@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:greendroid="http://schemas.android.com/apk/res/com.cyrilmottier.android.gdcatalog"
+    
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -95,9 +95,10 @@
         android:text="邮箱"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <greendroid.widget.AsyncImageView
+    <com.kull.android.widget.AsyncImageView
         android:id="@+id/imvPhoto"
-        android:layout_width="100dp"
+        
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/txvRankName"
         android:layout_toRightOf="@+id/btnDep"

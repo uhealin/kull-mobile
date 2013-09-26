@@ -1,6 +1,6 @@
 package org.pccpa.api;
 
-import greendroid.util.GDUtils;
+
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -26,8 +26,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.pccpa.DB;
-import org.pccpa.R;
-import org.pccpa.R.string;
+
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 

@@ -7,19 +7,119 @@
 package com.kull.android;
 
 public final class R {
+	public static final class attr {
+		public static final int defaultSrc = 0x7f01007a;
+		public static final int drawable = 0x7f010080;
+		public static final int enabled = 0x7f01007d;
+		public static final int gdDescriptionItemViewStyle = 0x7f010077;
+		public static final int gdDrawableItemViewStyle = 0x7f010073;
+		public static final int gdDrawableItemViewStyleDrawable = 0x7f010075;
+		public static final int gdDrawableItemViewStyleText = 0x7f010074;
+		public static final int gdItemViewPreferredHalfHeight = 0x7f010069;
+		public static final int gdItemViewPreferredHeight = 0x7f010068;
+		public static final int gdItemViewPreferredPaddingLeft = 0x7f01006a;
+		public static final int gdLongTextItemViewStyle = 0x7f010076;
+		public static final int gdProgressItemViewStyle = 0x7f010070;
+		public static final int gdProgressItemViewStyleProgressBar = 0x7f010072;
+		public static final int gdProgressItemViewStyleText = 0x7f010071;
+		public static final int gdSeparatorItemViewPreferredHeight = 0x7f010079;
+		public static final int gdSeparatorItemViewStyle = 0x7f010078;
+		public static final int gdSubtextItemViewStyle = 0x7f010065;
+		public static final int gdSubtextItemViewStyleSubtext = 0x7f010067;
+		public static final int gdSubtextItemViewStyleText = 0x7f010066;
+		public static final int gdSubtitleItemViewStyle = 0x7f010062;
+		public static final int gdSubtitleItemViewStyleSubtitle = 0x7f010064;
+		public static final int gdSubtitleItemViewStyleText = 0x7f010063;
+		public static final int gdTextAppearanceSeparator = 0x7f010084;
+		public static final int gdTextItemViewStyle = 0x7f01006b;
+		public static final int gdThumbnailItemViewStyle = 0x7f01006c;
+		public static final int gdThumbnailItemViewStyleSubtitle = 0x7f01006e;
+		public static final int gdThumbnailItemViewStyleText = 0x7f01006d;
+		public static final int gdThumbnailItemViewStyleThumbnail = 0x7f01006f;
+		public static final int inDensity = 0x7f01007c;
+		public static final int isInProgress = 0x7f01007f;
+		public static final int subtext = 0x7f010081;
+		public static final int text = 0x7f01007e;
+		public static final int thumbnail = 0x7f010082;
+		public static final int thumbnailURL = 0x7f010083;
+		public static final int url = 0x7f01007b;
+	}
+	public static final class color {
+		public static final int blue_light0 = 0x7f060007;
+		public static final int blue_light1 = 0x7f060006;
+	}
+	public static final class dimen {
+		public static final int gd_action_bar_height = 0x7f07001a;
+		public static final int gd_arrow_offset = 0x7f07001b;
+		public static final int gd_drawable_height = 0x7f070015;
+		public static final int gd_drawable_margin = 0x7f070016;
+		public static final int gd_drawable_width = 0x7f070014;
+		public static final int gd_item_view_half_height = 0x7f070012;
+		public static final int gd_item_view_height = 0x7f070011;
+		public static final int gd_item_view_padding_left = 0x7f070013;
+		public static final int gd_progress_bar_height = 0x7f070018;
+		public static final int gd_progress_bar_margin = 0x7f070019;
+		public static final int gd_progress_bar_width = 0x7f070017;
+		public static final int gd_separator_item_view_height = 0x7f07000f;
+		public static final int gd_separator_item_view_padding_left = 0x7f070010;
+	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f0200c6;
+		public static final int ic_launcher = 0x7f02007d;
 	}
 	public static final class id {
-		public static final int text = 0x7f050098;
+		public static final int gd_drawable = 0x7f040074;
+		public static final int gd_progress_bar = 0x7f040076;
+		public static final int gd_subtext = 0x7f040077;
+		public static final int gd_subtitle = 0x7f040078;
+		public static final int gd_text = 0x7f040075;
+		public static final int gd_thumbnail = 0x7f040079;
+		public static final int hdpi = 0x7f040012;
+		public static final int ldpi = 0x7f040010;
+		public static final int mdpi = 0x7f040011;
+		public static final int text = 0x7f04007a;
+		public static final int xhdpi = 0x7f040013;
 	}
 	public static final class layout {
-		public static final int text = 0x7f030050;
+		public static final int gd_description_item_view = 0x7f03002b;
+		public static final int gd_drawable_item_view = 0x7f03002c;
+		public static final int gd_long_text_item_view = 0x7f03002d;
+		public static final int gd_progress_item_view = 0x7f03002e;
+		public static final int gd_separator_item_view = 0x7f03002f;
+		public static final int gd_subtext_item_view = 0x7f030030;
+		public static final int gd_subtitle_item_view = 0x7f030031;
+		public static final int gd_text_item_view = 0x7f030032;
+		public static final int gd_thumbnail_item_view = 0x7f030033;
+		public static final int text = 0x7f03003a;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f080029;
+		public static final int app_name = 0x7f09000d;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f090092;
+		public static final int AppBaseTheme = 0x7f0a005b;
+		public static final int KullSeparatorItemView = 0x7f0a0059;
+		public static final int KullTextAppearanceLarge = 0x7f0a005a;
+	}
+	public static final class styleable {
+		public static final int[] AsyncImageView = { 0x7f01007a, 0x7f01007b, 0x7f01007c };
+		public static final int AsyncImageView_defaultSrc = 0;
+		public static final int AsyncImageView_inDensity = 2;
+		public static final int AsyncImageView_url = 1;
+		public static final int[] DescriptionItem = { };
+		public static final int[] DrawableItem = { 0x7f010080 };
+		public static final int DrawableItem_drawable = 0;
+		public static final int[] Item = { 0x7f01007d };
+		public static final int Item_enabled = 0;
+		public static final int[] LongTextItem = { };
+		public static final int[] ProgressItem = { 0x7f01007f };
+		public static final int ProgressItem_isInProgress = 0;
+		public static final int[] SeparatorItem = { };
+		public static final int[] SubtextItem = { 0x7f010081 };
+		public static final int SubtextItem_subtext = 0;
+		public static final int[] SubtitleItem = { };
+		public static final int[] TextItem = { 0x7f01007e };
+		public static final int TextItem_text = 0;
+		public static final int[] ThumbnailItem = { 0x7f010082, 0x7f010083 };
+		public static final int ThumbnailItem_thumbnail = 0;
+		public static final int ThumbnailItem_thumbnailURL = 1;
 	}
 }

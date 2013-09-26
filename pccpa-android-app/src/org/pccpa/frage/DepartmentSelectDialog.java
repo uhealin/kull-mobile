@@ -161,7 +161,7 @@ public class DepartmentSelectDialog extends SherlockDialogFragment {
         	gridDepts.setColumnWidth(80);
         	int dsize=area.getDepts().size();
         	if(dsize>3){
-        	  int h=((dsize/3)+ (dsize%3==0?0:1) )*48;
+        	  int h=((dsize/3)+ (dsize%3==0?0:1) )*50;
         	  LayoutParams layoutParams=new LayoutParams();
         	  layoutParams.height=h;
         	   gridDepts.setLayoutParams(layoutParams);

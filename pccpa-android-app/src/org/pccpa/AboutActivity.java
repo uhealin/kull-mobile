@@ -1,6 +1,6 @@
 package org.pccpa;
 
-import org.pccpa.widget.MenuActionGrid;
+
 
 import android.os.Bundle;
 import android.text.Html;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 
-import greendroid.app.GDActivity;
+
 
 public class AboutActivity extends BaseFragmentActivity {
 

@@ -16,7 +16,8 @@ public class InnerMsgSynTask extends AsyncTask<String, Double, List<InnerMsg>>{
 		String isRead=params[1];
 		List<InnerMsg> ims=new ArrayList<InnerMsg>();
 		try {
-			InnerMsgGrid grid=Client.getInnerMsgGrid("eid="+eid+"&qn_eq_MRIsRead="+isRead, 0, 200);
+			
+			InnerMsgGrid grid=Client.getInnerMsgGrid("eid="+eid+"&mode="+isRead+"u007C", 0, 200);
 			ims=grid.getRows();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

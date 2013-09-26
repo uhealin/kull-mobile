@@ -17,6 +17,10 @@
             backward-compatibility can go here.
         -->
         <item name="android:textSize">8dp</item>
+        <item name="gdItemViewPreferredHeight">45dp</item>
+        <item name="gdSeparatorItemViewStyle">@style/SeparatorItemView</item> 
+        <item name="gdSeparatorItemViewPreferredHeight">@dimen/gd_separator_item_view_height</item>
+        <item name="gdItemViewPreferredPaddingLeft">@dimen/gd_item_view_padding_left</item>   
     </style>
 
     <!-- Application theme. -->
@@ -29,13 +33,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
     </style>
-
+ 
     
-     <style name="SeparatorItemView" parent="GreenDroid.Widget.ItemView.SeparatorItemView">
+     <style name="SeparatorItemView" parent="KullSeparatorItemView">
         <item name="android:background">@drawable/separator_bg</item>
     </style>
     
-    <style name="TextAppearanceLarge" parent="@style/TextAppearance.Large">
+    <style name="TextAppearanceLarge" parent="@style/KullTextAppearanceLarge">
         <item name="android:textSize">12sp</item>
     </style>
 </resources>

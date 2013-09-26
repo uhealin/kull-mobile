@@ -1,9 +1,6 @@
 package org.pccpa.frage;
 
-import greendroid.widget.ItemAdapter;
-import greendroid.widget.item.DescriptionItem;
-import greendroid.widget.item.Item;
-import greendroid.widget.item.SeparatorItem;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +19,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.kull.android.widget.ItemAdapter;
+import com.kull.android.widget.item.DescriptionItem;
+import com.kull.android.widget.item.Item;
+import com.kull.android.widget.item.SeparatorItem;
 
 public abstract class InnerMsgListFragment extends SherlockListFragment {
 

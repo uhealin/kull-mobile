@@ -1,6 +1,6 @@
 package org.pccpa.frage;
 
-import greendroid.widget.AsyncImageView;
+
 
 import java.text.MessageFormat;
 
@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.kull.StringHelper;
 import com.kull.android.ContextHelper;
+import com.kull.android.widget.AsyncImageView;
 
 public class ContactInfoCardDialog extends SherlockDialogFragment {
 

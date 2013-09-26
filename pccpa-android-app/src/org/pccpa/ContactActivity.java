@@ -1,11 +1,11 @@
 package org.pccpa;
 
-import greendroid.widget.AsyncImageView;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pccpa.adapter.EmployeeItemAdapter;
+
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 import org.pccpa.api.EmployeeItem;

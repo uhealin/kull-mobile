@@ -17,27 +17,37 @@
 */
 -->
 
-<greendroid.widget.SegmentedHost
+<com.kull.android.widget.itemview.SubtitleItemView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/segmented_host"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	style="?attr/gdSubtitleItemViewStyle"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
 
-	<FrameLayout
-		android:id="@id/gd_segmented_content_view"
+	android:orientation="vertical">
+
+	<TextView
+		style="?attr/gdSubtitleItemViewStyleText"
+		android:id="@+id/gd_text"
 		android:layout_width="fill_parent"
-		android:layout_height="30dp"
-		android:layout_weight="1.0"
-		android:foreground="@drawable/gd_shadow_bottom" >
-	    
-	   
-	    
-	</FrameLayout>
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
 
-	<greendroid.widget.SegmentedBar
-		android:id="@id/gd_segmented_bar"
+		android:gravity="bottom|left"
+
+		android:singleLine="true"
+		android:ellipsize="end" />
+
+	<TextView
+		style="?attr/gdSubtitleItemViewStyleSubtitle"
+		android:id="@+id/gd_subtitle"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
+		
+		android:gravity="top|left"
 
-</greendroid.widget.SegmentedHost>
+		android:singleLine="true"
+		android:ellipsize="end" />
 
+</com.kull.android.widget.itemview.SubtitleItemView>

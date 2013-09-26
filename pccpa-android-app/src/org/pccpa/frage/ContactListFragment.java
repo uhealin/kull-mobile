@@ -9,14 +9,13 @@ import org.pccpa.ContactActivity;
 import org.pccpa.DB;
 import org.pccpa.R;
 
-import org.pccpa.adapter.EmployeeItemAdapter;
+
 
 import org.pccpa.api.Client;
 import org.pccpa.api.Contact;
 import org.pccpa.api.EmployeeItem;
 
-import greendroid.image.ImageProcessor;
-import greendroid.widget.AsyncImageView;
+
 import android.R.string;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -25,6 +24,7 @@ import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.StrictMode.VmPolicy;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -49,7 +49,9 @@ import com.actionbarsherlock.internal.widget.IcsAdapterView;
 import com.kull.StringHelper;
 import com.kull.android.ContextHelper;
 import com.kull.android.SQLiteOrmHelper;
-import com.kull.android.image.AsyncImageLoader;
+
+import com.kull.android.image.ImageProcessor;
+import com.kull.android.widget.AsyncImageView;
 import com.kull.android.widget.ListItemAdapter;
 
 public class ContactListFragment extends SherlockListFragment 
@@ -155,7 +157,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 
 		
 		private ImageProcessor _imageProcessor;
-		private AsyncImageLoader asyncImageLoader;
+		//private AsyncImageLoader asyncImageLoader;
 		private Options options;
 		private ContactListFragment contactListFragment;
 		public ContactListAdapter(Context context,ContactListFragment contactListFragment) {
@@ -163,11 +165,11 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			this.contactListFragment=contactListFragment;
 			// TODO Auto-generated constructor stub
 			//_imageProcessor= new im
-			asyncImageLoader=new AsyncImageLoader(_context);
-			asyncImageLoader.setCache2File(true);
+			//asyncImageLoader=new AsyncImageLoader(_context);
+			//asyncImageLoader.setCache2File(true);
 			options=new Options();
 		     //options.inJustDecodeBounds = true;
-		     options.inSampleSize = 4;   //width，hight设为原来的十分一
+		    // options.inSampleSize = 4;   //width，hight设为原来的十分一
 		     options.inPreferredConfig = Bitmap.Config.RGB_565;   
 		     //options.inPurgeable = true;  
 		     //options.inInputShareable = true;  
@@ -217,9 +219,14 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			    final String num=StringHelper.concat(m.getEMobile(),",",m.getEMobileShort(),",",m.getETelWork(),",",m.getETelWorkShort());
 			    Runtime.getRuntime().freeMemory();
 			    holder.imageView.setOptions(options);
+			    holder.imageView.setCache2File(true);
 			    holder.imageView.setUrl(url);
 			    
-				holder.txvEmName.setText(MessageFormat.format("{0} {1} {2}", m.getAreaName(),m.getDepartName(),m.getEUserName()));
+				holder.txvEmName.setText(
+						Html.fromHtml(
+						MessageFormat.format("{2} <span style='font-size=0.8em'>{0} {1}</span> ", m.getAreaName(),m.getDepartName(),m.getEUserName())
+						)
+								);
 				holder.txvEmMobile.setText(StringHelper.concat(num));
 				//holder.btnTel.setText("拨打");
 				//holder.btnTel.setOnClickListener(new View.OnClickListener() {

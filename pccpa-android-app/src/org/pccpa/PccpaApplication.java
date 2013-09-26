@@ -1,8 +1,10 @@
 package org.pccpa;
 
-import greendroid.app.GDApplication;
+import com.kull.android.app.KullApplication;
 
-public class PccpaApplication extends GDApplication {
+
+
+public class PccpaApplication extends KullApplication {
 
 	@Override
 	public Class<?> getHomeActivityClass() {
@@ -10,7 +12,7 @@ public class PccpaApplication extends GDApplication {
 		return ContactActivity.class;
 	}
 
-	@Override
+	
 	public void onLowMemory() {
 		// TODO Auto-generated method stub
 		super.onLowMemory();
