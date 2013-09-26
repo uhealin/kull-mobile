@@ -3,6 +3,7 @@ package com.kull.android;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +65,18 @@ public class NetworkHelper{
 	    return str;
 	}
 	
-	
+	public static String doGet(String url) throws Exception{
+		
+		   
+		   InputStream is= new URL(url).openStream();
+	       String context= streamToString(is);
+	     
+	       is.close();
+	       is=null;
+	      
+	       System.gc();
+	       return context; 
+	}
 	
 	public static String doGet(String url,HttpGet httpGet,HttpResponse httpResponse) throws Exception{
 		

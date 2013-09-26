@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="KullSeparatorItemView">
+		<item name="android:background">#CDCDC1</item>
+		
+		<!--  
+		<item name="android:textAppearance">?attr/gdTextAppearanceSeparator</item>
+		-->
+		<item name="android:paddingLeft">20dp</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+	
+    <style name="KullTextAppearanceLarge">
+		<item name="android:textSize">22sp</item>
+	</style>
+</resources>

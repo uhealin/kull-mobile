@@ -9,18 +9,271 @@ package com.kull.android;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int defaultSrc=0x7f010018;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int drawable=0x7f01001e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int enabled=0x7f01001b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdDescriptionItemViewStyle=0x7f010015;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdDrawableItemViewStyle=0x7f010011;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdDrawableItemViewStyleDrawable=0x7f010013;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdDrawableItemViewStyleText=0x7f010012;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdItemViewPreferredHalfHeight=0x7f010007;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdItemViewPreferredHeight=0x7f010006;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdItemViewPreferredPaddingLeft=0x7f010008;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdLongTextItemViewStyle=0x7f010014;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdProgressItemViewStyle=0x7f01000e;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdProgressItemViewStyleProgressBar=0x7f010010;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdProgressItemViewStyleText=0x7f01000f;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int gdSeparatorItemViewPreferredHeight=0x7f010017;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSeparatorItemViewStyle=0x7f010016;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtextItemViewStyle=0x7f010003;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtextItemViewStyleSubtext=0x7f010005;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtextItemViewStyleText=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtitleItemViewStyle=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtitleItemViewStyleSubtitle=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdSubtitleItemViewStyleText=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdTextAppearanceSeparator=0x7f010022;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdTextItemViewStyle=0x7f010009;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdThumbnailItemViewStyle=0x7f01000a;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdThumbnailItemViewStyleSubtitle=0x7f01000c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdThumbnailItemViewStyleText=0x7f01000b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int gdThumbnailItemViewStyleThumbnail=0x7f01000d;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ldpi</code></td><td>120</td><td></td></tr>
+<tr><td><code>mdpi</code></td><td>160</td><td></td></tr>
+<tr><td><code>hdpi</code></td><td>240</td><td></td></tr>
+<tr><td><code>xhdpi</code></td><td>320</td><td></td></tr>
+</table>
+         */
+        public static int inDensity=0x7f01001a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int isInProgress=0x7f01001d;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int subtext=0x7f01001f;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int text=0x7f01001c;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static int thumbnail=0x7f010020;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int thumbnailURL=0x7f010021;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static int url=0x7f010019;
+    }
+    public static final class color {
+        public static int blue_light0=0x7f050001;
+        public static int blue_light1=0x7f050000;
+    }
+    public static final class dimen {
+        public static int gd_action_bar_height=0x7f06000b;
+        public static int gd_arrow_offset=0x7f06000c;
+        public static int gd_drawable_height=0x7f060006;
+        public static int gd_drawable_margin=0x7f060007;
+        public static int gd_drawable_width=0x7f060005;
+        public static int gd_item_view_half_height=0x7f060003;
+        public static int gd_item_view_height=0x7f060002;
+        public static int gd_item_view_padding_left=0x7f060004;
+        public static int gd_progress_bar_height=0x7f060009;
+        public static int gd_progress_bar_margin=0x7f06000a;
+        public static int gd_progress_bar_width=0x7f060008;
+        public static int gd_separator_item_view_height=0x7f060000;
+        public static int gd_separator_item_view_padding_left=0x7f060001;
     }
     public static final class drawable {
         public static int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static int text=0x7f060000;
+        public static int gd_drawable=0x7f040004;
+        public static int gd_progress_bar=0x7f040006;
+        public static int gd_subtext=0x7f040007;
+        public static int gd_subtitle=0x7f040008;
+        public static int gd_text=0x7f040005;
+        public static int gd_thumbnail=0x7f040009;
+        public static int hdpi=0x7f040002;
+        public static int ldpi=0x7f040000;
+        public static int mdpi=0x7f040001;
+        public static int text=0x7f04000a;
+        public static int xhdpi=0x7f040003;
     }
     public static final class layout {
-        public static int text=0x7f030000;
+        public static int gd_description_item_view=0x7f030000;
+        public static int gd_drawable_item_view=0x7f030001;
+        public static int gd_long_text_item_view=0x7f030002;
+        public static int gd_progress_item_view=0x7f030003;
+        public static int gd_separator_item_view=0x7f030004;
+        public static int gd_subtext_item_view=0x7f030005;
+        public static int gd_subtitle_item_view=0x7f030006;
+        public static int gd_text_item_view=0x7f030007;
+        public static int gd_thumbnail_item_view=0x7f030008;
+        public static int text=0x7f030009;
     }
     public static final class string {
-        public static int app_name=0x7f040000;
+        public static int app_name=0x7f080000;
     }
     public static final class style {
         /** 
@@ -35,6 +288,262 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static int AppBaseTheme=0x7f050000;
+        public static int AppBaseTheme=0x7f070002;
+        public static int KullSeparatorItemView=0x7f070000;
+        public static int KullTextAppearanceLarge=0x7f070001;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a AsyncImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AsyncImageView_defaultSrc com.kull.android:defaultSrc}</code></td><td></td></tr>
+           <tr><td><code>{@link #AsyncImageView_inDensity com.kull.android:inDensity}</code></td><td></td></tr>
+           <tr><td><code>{@link #AsyncImageView_url com.kull.android:url}</code></td><td></td></tr>
+           </table>
+           @see #AsyncImageView_defaultSrc
+           @see #AsyncImageView_inDensity
+           @see #AsyncImageView_url
+         */
+        public static final int[] AsyncImageView = {
+            0x7f010018, 0x7f010019, 0x7f01001a
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#defaultSrc}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kull.android:defaultSrc
+        */
+        public static final int AsyncImageView_defaultSrc = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#inDensity}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ldpi</code></td><td>120</td><td></td></tr>
+<tr><td><code>mdpi</code></td><td>160</td><td></td></tr>
+<tr><td><code>hdpi</code></td><td>240</td><td></td></tr>
+<tr><td><code>xhdpi</code></td><td>320</td><td></td></tr>
+</table>
+          @attr name com.kull.android:inDensity
+        */
+        public static final int AsyncImageView_inDensity = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#url}
+          attribute's value can be found in the {@link #AsyncImageView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:url
+        */
+        public static final int AsyncImageView_url = 1;
+        /** Attributes that can be used with a DescriptionItem.
+         */
+        public static final int[] DescriptionItem = {
+            
+        };
+        /** Attributes that can be used with a DrawableItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #DrawableItem_drawable com.kull.android:drawable}</code></td><td></td></tr>
+           </table>
+           @see #DrawableItem_drawable
+         */
+        public static final int[] DrawableItem = {
+            0x7f01001e
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#drawable}
+          attribute's value can be found in the {@link #DrawableItem} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kull.android:drawable
+        */
+        public static final int DrawableItem_drawable = 0;
+        /** Attributes that can be used with a Item.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Item_enabled com.kull.android:enabled}</code></td><td></td></tr>
+           </table>
+           @see #Item_enabled
+         */
+        public static final int[] Item = {
+            0x7f01001b
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#enabled}
+          attribute's value can be found in the {@link #Item} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:enabled
+        */
+        public static final int Item_enabled = 0;
+        /** Attributes that can be used with a LongTextItem.
+         */
+        public static final int[] LongTextItem = {
+            
+        };
+        /** Attributes that can be used with a ProgressItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ProgressItem_isInProgress com.kull.android:isInProgress}</code></td><td></td></tr>
+           </table>
+           @see #ProgressItem_isInProgress
+         */
+        public static final int[] ProgressItem = {
+            0x7f01001d
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#isInProgress}
+          attribute's value can be found in the {@link #ProgressItem} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:isInProgress
+        */
+        public static final int ProgressItem_isInProgress = 0;
+        /** Attributes that can be used with a SeparatorItem.
+         */
+        public static final int[] SeparatorItem = {
+            
+        };
+        /** Attributes that can be used with a SubtextItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #SubtextItem_subtext com.kull.android:subtext}</code></td><td></td></tr>
+           </table>
+           @see #SubtextItem_subtext
+         */
+        public static final int[] SubtextItem = {
+            0x7f01001f
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#subtext}
+          attribute's value can be found in the {@link #SubtextItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:subtext
+        */
+        public static final int SubtextItem_subtext = 0;
+        /**  
+		<attr name="subtitle" format="string" />
+		
+         */
+        public static final int[] SubtitleItem = {
+            
+        };
+        /** Attributes that can be used with a TextItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TextItem_text com.kull.android:text}</code></td><td></td></tr>
+           </table>
+           @see #TextItem_text
+         */
+        public static final int[] TextItem = {
+            0x7f01001c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#text}
+          attribute's value can be found in the {@link #TextItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:text
+        */
+        public static final int TextItem_text = 0;
+        /** Attributes that can be used with a ThumbnailItem.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ThumbnailItem_thumbnail com.kull.android:thumbnail}</code></td><td></td></tr>
+           <tr><td><code>{@link #ThumbnailItem_thumbnailURL com.kull.android:thumbnailURL}</code></td><td></td></tr>
+           </table>
+           @see #ThumbnailItem_thumbnail
+           @see #ThumbnailItem_thumbnailURL
+         */
+        public static final int[] ThumbnailItem = {
+            0x7f010020, 0x7f010021
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#thumbnail}
+          attribute's value can be found in the {@link #ThumbnailItem} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.kull.android:thumbnail
+        */
+        public static final int ThumbnailItem_thumbnail = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.kull.android.R.attr#thumbnailURL}
+          attribute's value can be found in the {@link #ThumbnailItem} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.kull.android:thumbnailURL
+        */
+        public static final int ThumbnailItem_thumbnailURL = 1;
+    };
 }
