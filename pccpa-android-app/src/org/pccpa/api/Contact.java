@@ -1,6 +1,20 @@
 package org.pccpa.api;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import org.pccpa.DB;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+
 import com.kull.android.OrmTable;
+import com.kull.android.SQLiteOrmHelper;
+import com.kull.android.widget.AsyncImageView;
+import com.kull.bean.JdbcBean.Database;
 
 @OrmTable(name="contact",pk="EID")
 public class Contact {
@@ -28,7 +42,10 @@ public class Contact {
 
 	 protected String RankName;
 	 protected String ROrderNO;
-
+	 
+	 protected byte[] photo;
+     protected Long photo_update_time=new Long(-1);
+	 
 
 	 public String getAOrderNO () { 	 return this.AOrderNO;  	} 
  	 public void setAOrderNO (String AOrderNO){  	 this.AOrderNO=AOrderNO ;  	} 
@@ -101,6 +118,64 @@ public class Contact {
  	 public void setRankName (String RankName){  	 this.RankName=RankName ;  	} 
 
 	 public String getROrderNO () { 	 return this.ROrderNO;  	} 
- 	 public void setROrderNO (String ROrderNO){  	 this.ROrderNO=ROrderNO ;  	} 
+ 	 public void setROrderNO (String ROrderNO){  	 this.ROrderNO=ROrderNO ;  	}
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	public Long getPhoto_update_time() {
+		return photo_update_time;
+	}
+	public void setPhoto_update_time(Long photo_update_time) {
+		this.photo_update_time = photo_update_time;
+	} 
 
+	
+	public static void setupImageView(final Context context,final Contact m,AsyncImageView imageView,Options options){
+		if(m==null)return;
+		if(m.getPhoto_update_time()<0||m.getPhoto()==null){
+			  String url=Client.urlEmployeePhoto(m.getEID());
+		      imageView.setUrl(url);
+		      imageView.setOnImageViewLoadListener(new AsyncImageView.OnImageViewLoadListener() {
+				
+				@Override
+				public void onLoadingStarted(AsyncImageView imageView) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingFailed(AsyncImageView imageView, Throwable throwable) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingEnded( AsyncImageView imageView, Bitmap image) {
+					// TODO Auto-generated method stub
+					
+				    	m.setPhoto_update_time(new Date().getTime());
+				    	ByteArrayOutputStream bos=new ByteArrayOutputStream();
+				    	image.compress(Bitmap.CompressFormat.PNG, 100, bos);
+				    	m.setPhoto(bos.toByteArray());
+				        SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+				        
+				    	try {
+				    		sqLiteOrmHelper.update(m);
+							bos.close();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				}
+			});
+		    }else{
+		      Bitmap bitmap=BitmapFactory.decodeByteArray(m.getPhoto(),0, m.getPhoto().length,options);
+		      imageView.setImageBitmap(bitmap);	
+		    }
+	}
+ 	 
+ 	 
 }

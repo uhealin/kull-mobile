@@ -1,7 +1,10 @@
 package org.pccpa.frage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +23,7 @@ import android.R.string;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.StrictMode.VmPolicy;
@@ -207,20 +211,11 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 			    holder.txvEmMobile=(TextView)convertView.findViewById(R.id.txvMobile);
 			    //holder.btnTel=(Button)convertView.findViewById(R.id.btnTel);
 			    
-			    String url=Client.urlEmployeePhoto(m.getEID());
-			    //asyncImageLoader.downloadImage(url,options,false,new AsyncImageLoader.ImageCallback() {
-					 
-				//	@Override
-				//	public void onImageLoaded(Bitmap bitmap, String imageUrl) {
-				//		// TODO Auto-generated method stub
-				//		holder.imageView.setImageBitmap(bitmap);
-				//	}
-				//});
+			    Contact.setupImageView(parent.getContext(),m,holder.imageView, options);
+			    
+			    
 			    final String num=StringHelper.concat(m.getEMobile(),",",m.getEMobileShort(),",",m.getETelWork(),",",m.getETelWorkShort());
-			    Runtime.getRuntime().freeMemory();
-			    holder.imageView.setOptions(options);
-			    holder.imageView.setCache2File(true);
-			    holder.imageView.setUrl(url);
+			   
 			    
 				holder.txvEmName.setText(
 						Html.fromHtml(
@@ -243,6 +238,7 @@ implements OnScrollListener,OnItemSelectedListener,OnItemClickListener,TextWatch
 						// TODO Auto-generated method stub
 				
 						ContactInfoCardDialog dialog=new ContactInfoCardDialog();
+						dialog.setOptions(options);
 						dialog.set_contact(m);
 						dialog.setParent(contactListFragment);
 						//dialog.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.sty);

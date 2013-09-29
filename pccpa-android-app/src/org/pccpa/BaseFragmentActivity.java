@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -120,6 +121,14 @@ public class BaseFragmentActivity extends SherlockFragmentActivity implements On
 	}
 	
 	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		SQLiteDatabase.releaseMemory();
+	}
+
+
 	public static class CloseActivityClass{
 
 

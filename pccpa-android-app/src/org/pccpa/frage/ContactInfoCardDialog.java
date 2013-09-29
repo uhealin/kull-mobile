@@ -12,9 +12,11 @@ import org.pccpa.api.Contact;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -38,10 +40,32 @@ public class ContactInfoCardDialog extends SherlockDialogFragment {
 
 	private Contact _contact;
 	
+	private Options options;
 	
 	
 	
 	
+
+
+
+
+
+	public Options getOptions() {
+		return options;
+	}
+
+
+
+
+
+	public void setOptions(Options options) {
+		this.options = options;
+	}
+
+
+
+
+
 	public Contact get_contact() {
 		return _contact;
 	}
@@ -142,7 +166,8 @@ private ContactListFragment parent;
         try{
           //Bitmap bitmap=Client.getContactPhoto(this.getActivity(),_contact.getEID(),false);
           //Drawable drPhoto=Client.getContactPhoto(this.getActivity(),_contact.getEID(),false);
-          imvPhoto.setUrl(Client.urlEmployeePhoto(_contact.getEID()));
+          //imvPhoto.setUrl(Client.urlEmployeePhoto(_contact.getEID()));
+            Contact.setupImageView(getActivity(),_contact,imvPhoto, options);
           //imvPhoto.setImageDrawable(drPhoto);
         }catch(Exception ex){
         	//imvPhoto.setBackgroundColor(R.color.abs__primary_text_holo_light);

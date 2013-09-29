@@ -30,9 +30,9 @@ public enum DB {
 	public boolean initDB(Context context) {
 		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
 		try{
-			sqLiteOrmHelper.select(Contact.class,0,1);
-			sqLiteOrmHelper.select(LoginLog.class,0,1);
-			sqLiteOrmHelper.select(InnerMsg.class, 0, 1);
+			sqLiteOrmHelper.count(Contact.class);
+			sqLiteOrmHelper.count(LoginLog.class);
+			sqLiteOrmHelper.count(InnerMsg.class);
 		}catch(Exception ex){
 			sqLiteOrmHelper.replaceTable(Contact.class,LoginLog.class,InnerMsg.class);
 			//SiteSynRunnable siteSynRunnable=new SiteSynRunnable(context);
@@ -46,7 +46,7 @@ public enum DB {
 	
 	
 	public List<Contact> selectAreaContacts(Context context,String areaid) throws Exception{
-		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
 		 //sqLiteOrmHelper.createTable(Contact.class);
 		List<Contact> contacts=new ArrayList<Contact>();
 		
@@ -63,7 +63,7 @@ public enum DB {
 	}
 	
 	public List<Contact> selectAreaRankContacts(Context context,String areaid,String rankid) throws Exception{
-		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
 		 //sqLiteOrmHelper.createTable(Contact.class);
 		List<Contact> contacts=new ArrayList<Contact>();
 		
@@ -80,7 +80,7 @@ public enum DB {
 	}
 	
 	public List<Contact> selectDeptContacts(Context context,String deptid) throws Exception{
-		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(context);
+		SQLiteOrmHelper sqLiteOrmHelper=createSqLiteOrmHelper(context);
 		 //sqLiteOrmHelper.createTable(Contact.class);
 		List<Contact> contacts=new ArrayList<Contact>();
 		   

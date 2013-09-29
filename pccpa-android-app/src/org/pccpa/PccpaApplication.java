@@ -9,7 +9,7 @@ public class PccpaApplication extends KullApplication {
 	@Override
 	public Class<?> getHomeActivityClass() {
 		// TODO Auto-generated method stub
-		return ContactActivity.class;
+		return LoginActivity.class;
 	}
 
 	
