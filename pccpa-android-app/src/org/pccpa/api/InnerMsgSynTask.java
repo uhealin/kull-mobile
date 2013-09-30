@@ -1,5 +1,6 @@
 package org.pccpa.api;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class InnerMsgSynTask extends AsyncTask<String, Double, List<InnerMsg>>{
 		List<InnerMsg> ims=new ArrayList<InnerMsg>();
 		try {
 			
-			InnerMsgGrid grid=Client.getInnerMsgGrid("eid="+eid+"&mode="+isRead+"u007C", 0, 200);
+			InnerMsgGrid grid=Client.getInnerMsgGrid("eid="+eid+"&mode="+isRead+URLEncoder.encode("|", "UTF-8"), 0, 200);
 			ims=grid.getRows();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

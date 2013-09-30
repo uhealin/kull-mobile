@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -124,6 +126,7 @@ public class Client {
     private static <G extends Grid> G getGrid(Class<G> cls, String namespace,String controler,String query,int start,int limit) throws Exception{
     	String url=MessageFormat.format(path_grid_pattern,namespace,controler);
     	url+=MessageFormat.format("?"+query+"&start={0}&limit={1}",start+"",limit+"");
+    	//url= URLEncoder.encode(url, "UTF-8");
     	String context=NetworkHelper.doGet(url, null,null);
     	G grid=GSON.fromJson(context, cls);
         return grid;

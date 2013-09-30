@@ -71,27 +71,11 @@ public class LoginActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
         
 		
-		SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
-		NetworkHelper.enableNetwrokOnMainThread();
-		try {
-			List<LoginLog> loginlogs=sqLiteOrmHelper.select(LoginLog.class, new String[]{"*"}, "", new String[]{},"","","last_login_mis desc",0,1);
-		    if(loginlogs.size()>0){
-		    	LoginLog loginlog=loginlogs.get(0);
-		        Long diff=new Date().getTime()-loginlog.getLast_login_mis();
-		        if(diff<1000*60*60*24*7){
-		        	Client.CURR_CLIENT=new Client(loginlog.getEid());
-		      	   Client.CURR_CLIENT.setContact(sqLiteOrmHelper.load(Contact.class, loginlog.getEid()));
-		      	 ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(this, Client.CURR_CLIENT.getContact().getDepartID());
-			Intent intent=new Intent(this,ContactActivity.class);
-		    startActivity(intent);
-			
-		        }
-		    }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		
+		if(savedInstanceState==null||!"quit".equals(savedInstanceState.getString("action"))){
+		    checkLogin();
+		}
 		
 		setContentView(R.layout.activity_login);
 
@@ -146,6 +130,28 @@ public class LoginActivity extends SherlockActivity {
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
+	
+	private void checkLogin(){
+		try {
+			SQLiteOrmHelper sqLiteOrmHelper=DB.local.createSqLiteOrmHelper(this);
+			List<LoginLog> loginlogs=sqLiteOrmHelper.select(LoginLog.class, new String[]{"*"}, "", new String[]{},"","","last_login_mis desc",0,1);
+		    if(loginlogs.size()>0){
+		    	LoginLog loginlog=loginlogs.get(0);
+		        Long diff=new Date().getTime()-loginlog.getLast_login_mis();
+		        if(diff<1000*60*60*24*7){
+		        	Client.CURR_CLIENT=new Client(loginlog.getEid());
+		      	   Client.CURR_CLIENT.setContact(sqLiteOrmHelper.load(Contact.class, loginlog.getEid()));
+		      	 ContactActivity.CONTACT_ALL=DB.local.selectDeptContacts(this, Client.CURR_CLIENT.getContact().getDepartID());
+			Intent intent=new Intent(this,ContactActivity.class);
+		    startActivity(intent);
+			
+		        }
+		    }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Toast.makeText(this, e.getLocalizedMessage(), 5000).show();
+		}
+	}
 	
 	private boolean doLogin() throws Exception{
 		mEmail = mEmailView.getText().toString();

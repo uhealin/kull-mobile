@@ -193,11 +193,7 @@ public class ContactActivity extends BaseFragmentActivity {
 	    }
 
 	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		return ;
-	}
+	
 
 
 	public static class TabsAdapter extends FragmentPagerAdapter
